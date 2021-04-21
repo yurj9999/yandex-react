@@ -1,14 +1,24 @@
 import React from 'react';
 
-import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
+import {Tab, CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
 
 import ingredientsStyle from './BurgerIngredients.module.css';
 
 const Product = ({ ingredients, ingredientType }) => {
     return ingredients.map(item => item.type === ingredientType && 
         (
-            <div key={item._id} className={ingredientsStyle.ingredient}>
-                {item.name}
+            <div key={item._id} className={ingredientsStyle.ingredientWrapper}>
+                <div className={ingredientsStyle.ingredient}>
+                    <img className="mb-1" src={item.image}/>
+                    <div className={ingredientsStyle.costWrapper}>
+                        <p className="text text_type_digits-default mr-1 mb-1">{item.price}</p>
+                        <CurrencyIcon type="primary"/>
+                    </div>
+                    <p className={`text text_type_main-default ${ingredientsStyle.nameIngredient}`}>{item.name}</p>
+                </div>
+
+                {/*судя по всему Counter будет выставляться по условию, пока отображаю на всех*/}
+                <Counter count={1} size="default"/>
             </div>
         )
     );
@@ -16,7 +26,6 @@ const Product = ({ ingredients, ingredientType }) => {
 
 export default class BurgerIngredients extends React.Component {
     render() {
-
         const {ingredients} = this.props;
 
         console.log(ingredients);

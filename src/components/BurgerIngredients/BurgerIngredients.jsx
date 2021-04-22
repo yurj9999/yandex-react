@@ -1,34 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import {Tab, CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
+import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
+import Product from '../Product/Product';
 
 import ingredientsStyle from './BurgerIngredients.module.css';
-
-const Product = ({ ingredients, ingredientType }) => {
-    return ingredients.map(item => item.type === ingredientType && 
-        (
-            <div key={item._id} className={ingredientsStyle.ingredientWrapper}>
-                <div className={ingredientsStyle.ingredient}>
-                    <img className="mb-1" src={item.image}/>
-                    <div className={ingredientsStyle.costWrapper}>
-                        <p className="text text_type_digits-default mr-1 mb-1">{item.price}</p>
-                        <CurrencyIcon type="primary"/>
-                    </div>
-                    <p className={`text text_type_main-default ${ingredientsStyle.nameIngredient}`}>{item.name}</p>
-                </div>
-
-                {/*судя по всему Counter будет выставляться по условию, пока отображаю на всех*/}
-                <Counter count={1} size="default"/>
-            </div>
-        )
-    );
-}
 
 export default class BurgerIngredients extends React.Component {
     render() {
         const {ingredients} = this.props;
-
-        console.log(ingredients);
 
         return (
             <section className={ingredientsStyle.wrapper}>
@@ -41,33 +21,24 @@ export default class BurgerIngredients extends React.Component {
                 </div>
 
                 <div className={ingredientsStyle.menuWrapper}>
-                    
                     <div className={ingredientsStyle.block}>
                         <p className="text text_type_main-medium">Булки</p>
-                        <div className={`pt-3 pb-3 pr-1 pl-2 ${ingredientsStyle.info}`}>
-                            <Product ingredients={ingredients} ingredientType="bun"/>
-                        </div>
+                        <Product ingredients={ingredients} ingredientType="bun"/>
                     </div>
-
                     <div className={ingredientsStyle.block}>
                         <p className="text text_type_main-medium">Соусы</p>
-                        <div className={`pt-3 pb-3 pr-1 pl-2 ${ingredientsStyle.info}`}>
-                            <Product ingredients={ingredients} ingredientType="sauce"/>
-                        </div>
+                        <Product ingredients={ingredients} ingredientType="sauce"/>
                     </div>
-
                     <div className={ingredientsStyle.block}>
                         <p className="text text_type_main-medium">Начинки</p>
-                        <div className={`pt-3 pb-3 pr-1 pl-2 ${ingredientsStyle.info}`}>
-                            <Product ingredients={ingredients} ingredientType="main"/>
-                        </div>
+                        <Product ingredients={ingredients} ingredientType="main"/>
                     </div>
-
                 </div>
-
-
             </section>
-            
         );
     }
 }
+
+BurgerIngredients.propTypes = {
+    ingredients: PropTypes.arrayOf(PropTypes.object).isRequired
+};

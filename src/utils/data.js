@@ -1,5 +1,6 @@
 export const DATA = [
     {
+       "count": 2,
        "_id":"60666c42cc7b410027a1a9b1",
        "name":"Краторная булка N-200i",
        "type":"bun",
@@ -42,6 +43,7 @@ export const DATA = [
        "__v":0
     },
     {
+      "count": 1,
        "_id":"60666c42cc7b410027a1a9b7",
        "name":"Соус Spicy-X",
        "type":"sauce",
@@ -98,6 +100,7 @@ export const DATA = [
        "__v":0
     },
     {
+      "count": 1,
        "_id":"60666c42cc7b410027a1a9bc",
        "name":"Плоды Фалленианского дерева",
        "type":"main",

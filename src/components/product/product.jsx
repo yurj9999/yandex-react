@@ -11,7 +11,7 @@ const Product = ({ ingredients, ingredientType }) => {
                     (
                         <li key={item._id} className={productStyle.ingredientWrapper}>
                             <div className={productStyle.ingredient}>
-                                <img className="mb-1" src={item.image}/>
+                                <img alt="ingredient" className="mb-1" src={item.image}/>
                                 <div className={productStyle.costWrapper}>
                                     <p className="text text_type_digits-default mr-1 mb-1">{item.price}</p>
                                     <CurrencyIcon type="primary"/>

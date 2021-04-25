@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
-import Product from '../Product/Product';
+import Product from '../product/product';
 
-import ingredientsStyle from './BurgerIngredients.module.css';
+import ingredientsStyle from './ingredients.module.css';
 
 export default class BurgerIngredients extends React.Component {
     render() {

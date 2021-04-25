@@ -1,22 +1,12 @@
 @media screen and (max-height: 480px) {
-    .itemWrapper {
+    .mainIngredientsWrapper {
         height: 200px;
-    }
-
-    ::-webkit-scrollbar-track {
-        margin-top: 20px;
-        margin-bottom: 20px;
     }
 }
 
 @media (min-height: 481px) {
-    .itemWrapper {
-        height: 650px;
-    }
-
-    ::-webkit-scrollbar-track {
-        margin-top: 100px;
-        margin-bottom: 100px;
+    .mainIngredientsWrapper {
+        height: 450px;
     }
 }
 
@@ -34,8 +24,11 @@
 }
 
 .itemWrapper {
-    overflow: auto;
     margin-bottom: 40px;
+}
+
+.mainIngredientsWrapper {
+    overflow: auto;
 }
 
 .itemWrapper .ingredient:last-child {
@@ -58,18 +51,4 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-}
-
-::-webkit-scrollbar {
-    width: 8px;
-}
-  
-::-webkit-scrollbar-track {
-    border-radius: 0;
-    background: #2f2f37;
-}
-  
-::-webkit-scrollbar-thumb {
-    border-radius: 0;
-    background: #8585ad;
 }

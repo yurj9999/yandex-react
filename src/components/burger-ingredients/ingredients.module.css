@@ -2,19 +2,11 @@
     .menuWrapper {
         height: 200px;
     }
-
-    ::-webkit-scrollbar-track {
-        margin-bottom: 20px;
-    }
 }
 
 @media (min-height: 481px) {
     .menuWrapper {
         height: 650px;
-    }
-
-    ::-webkit-scrollbar-track {
-        margin-bottom: 40px;
     }
 }
 
@@ -41,18 +33,4 @@
 
 .menuWrapper .block:last-child {
     margin-bottom: 0;
-}
-
-::-webkit-scrollbar {
-    width: 8px;
-}
-  
-::-webkit-scrollbar-track {
-    border-radius: 0;
-    background: #2f2f37;
-}
-  
-::-webkit-scrollbar-thumb {
-    border-radius: 0;
-    background: #8585ad;
 }

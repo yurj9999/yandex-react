@@ -1,6 +1,7 @@
 .ingredientWrapper {
     position: relative;
     margin-bottom: 32px;
+    list-style-type: none;
 }
 
 .ingredient {

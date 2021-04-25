@@ -1,21 +1,31 @@
 import React from 'react';
 
-import AppHeader from '../AppHeader/AppHeader';
-import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
-import BurgerContructor from '../BurgerConstructor/BurgerConstructor';
+import AppHeader from '../app-header/header';
+import BurgerIngredients from '../burger-ingredients/ingredients';
+import BurgerContructor from '../burger-constructor/constructor';
 
 // временные данные по ингридиентам
 import {DATA} from '../../utils/data';
 
-import appStyle from './App.module.css';
+import appStyle from './app.module.css';
 
 function App() {
+  const [data, setData] = React.useState([]);
+
+  React.useEffect(() => setData([...DATA]), []);
+
   return (
     <div>
       <AppHeader/>
       <main className={appStyle.mainWrapper}>
-        <BurgerIngredients ingredients={DATA}/>
-        <BurgerContructor constructorElements={DATA}/>
+        {
+          data.length && (
+            <>
+              <BurgerIngredients ingredients={data}/>
+              <BurgerContructor constructorElements={data}/>
+            </>
+          )
+        }
       </main>
     </div>
   );

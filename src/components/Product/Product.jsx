@@ -1,15 +1,15 @@
-import productStyle from './Product.module.css';
+import productStyle from './product.module.css';
 import PropTypes from 'prop-types';
 
 import {CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
 
 const Product = ({ ingredients, ingredientType }) => {
     return (
-        <div className={`pt-3 pb-3 pr-1 pl-2 ${productStyle.info}`}>
+        <ul className={`pt-3 pb-3 pr-1 pl-2 ${productStyle.info}`}>
             {
                 ingredients.map(item => item.type === ingredientType && 
                     (
-                        <div key={item._id} className={productStyle.ingredientWrapper}>
+                        <li key={item._id} className={productStyle.ingredientWrapper}>
                             <div className={productStyle.ingredient}>
                                 <img className="mb-1" src={item.image}/>
                                 <div className={productStyle.costWrapper}>
@@ -22,11 +22,11 @@ const Product = ({ ingredients, ingredientType }) => {
                                 // сам записал в файл с данными поля, по которым определяю отображение счетчика
                                 item.count && <Counter count={item.count} size="default"/>
                             }
-                        </div>
+                        </li>
                     )
                 )
             }
-        </div>
+        </ul>
     );
 }
 

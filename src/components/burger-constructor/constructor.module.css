@@ -1,0 +1,54 @@
+@media screen and (max-height: 480px) {
+    .mainIngredientsWrapper {
+        height: 200px;
+    }
+}
+
+@media (min-height: 481px) {
+    .mainIngredientsWrapper {
+        height: 450px;
+    }
+}
+
+.summWrapper {
+    display: flex;
+    width: 120px;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 40px;
+}
+
+.wrapper {
+    padding: 100px 0 50px;
+    width: 600px;
+}
+
+.itemWrapper {
+    margin-bottom: 40px;
+}
+
+.mainIngredientsWrapper {
+    overflow: auto;
+}
+
+.itemWrapper .ingredient:last-child {
+    margin-bottom: 0;
+}
+
+.ingredient {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+
+.summText {
+    font-size: 48px;
+    margin-right: 8px;
+}
+
+.footerWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}

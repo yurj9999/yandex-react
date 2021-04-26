@@ -1,0 +1,30 @@
+.headerWrapper {
+    position: relative;
+    height: 88px;
+    background: #1c1c21;
+}
+
+.wrapperMenu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16%;
+}
+
+.flex {
+    display: flex;
+}
+
+.darkTextColor {
+    color: #8585ad;
+}
+
+.logoWrapper {
+    position: absolute;
+    top: 0;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+}

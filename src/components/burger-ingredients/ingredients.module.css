@@ -1,0 +1,36 @@
+@media screen and (max-height: 480px) {
+    .menuWrapper {
+        height: 200px;
+    }
+}
+
+@media (min-height: 481px) {
+    .menuWrapper {
+        height: 650px;
+    }
+}
+
+.wrapper {
+    width: 600px;
+}
+
+.menuWrapper {
+    overflow: auto;
+}
+
+.title {
+    margin: 40px 0 20px;
+}
+
+.tabs {
+    display: flex;
+    margin-bottom: 40px;
+}
+
+.menuWrapper .block {
+    margin-bottom: 24px;
+}
+
+.menuWrapper .block:last-child {
+    margin-bottom: 0;
+}

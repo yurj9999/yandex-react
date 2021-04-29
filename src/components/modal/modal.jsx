@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import modalStyle from './window.module.css';
+import modalStyle from './modal.module.css';
 import close from '../../images/close.png';
 
 const Modal = ({mainTemplate, onModalClick}) => {

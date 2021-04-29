@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 
-import Product from '../product/element';
+import Product from '../product/product';
 
-import productGroup from './wrapper.module.css';
+import productGroup from './product-group.module.css';
 
 const ProductGroup = ({ ingredients, ingredientType, onProductClick }) => {  
     return (

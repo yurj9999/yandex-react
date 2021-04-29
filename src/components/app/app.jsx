@@ -1,11 +1,11 @@
 import {useState, useEffect} from 'react';
 
-import AppHeader from '../app-header/header';
-import BurgerIngredients from '../burger-ingredients/ingredients';
-import BurgerContructor from '../burger-constructor/constructor';
-import ModalOverlay from '../overlay-modal/overlay';
-import IngredientDetails from '../ingredient-details/details';
-import OrderDetails from '../order-details/order';
+import AppHeader from '../app-header/app-header';
+import BurgerIngredients from '../burger-ingredients/burger-ingredients';
+import BurgerContructor from '../burger-constructor/burger-constructor';
+import ModalOverlay from '../overlay-modal/modal-overlay';
+import IngredientDetails from '../ingredient-details/ingredient-details';
+import OrderDetails from '../order-details/order-details';
 
 import appStyle from './app.module.css';
 
@@ -66,6 +66,11 @@ function App() {
     const getData = async () => {
       try {
         const result = await fetch(URL_DATA);
+
+        if (!result.ok) {
+          throw new Error('Answer error !!!');
+        }
+
         const {data} = await result.json();
 
         // создаю копию данных с добавлением поля для счетчика - count

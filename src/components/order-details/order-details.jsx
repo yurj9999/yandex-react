@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import orderStyle from './order.module.css';
+import orderStyle from './order-details.module.css';
 
 const OrderDetails = ({data}) => {
     const {orderNumber, title, status, details} = data;

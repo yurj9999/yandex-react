@@ -2,9 +2,9 @@ import {useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
-import Modal from '../modal/window';
+import Modal from '../modal/modal';
 
-import overlayStyle from './overlay.module.css';
+import overlayStyle from './modal-overlay.module.css';
 
 const overlayRoot = document.getElementById('overlay');
 

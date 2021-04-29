@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 import {CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
 
-import productStyle from './element.module.css';
+import productStyle from './product.module.css';
 
 const Product = ({ data, onElementClick }) => {
     return (

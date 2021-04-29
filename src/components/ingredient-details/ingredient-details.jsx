@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import detailsStyle from './details.module.css';
+import detailsStyle from './ingredient-details.module.css';
 
 const IngredientDetails = ({data}) => {
     const {image_large, name, calories, proteins, fat, carbohydrates} = data;

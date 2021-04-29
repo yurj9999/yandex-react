@@ -4,7 +4,7 @@ import { ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktiku
 // временные данные для модалки заказа
 import {DATA} from '../../utils/temporary-data';
 
-import constructorStyle from './constructor.module.css';
+import constructorStyle from './burger-constructor.module.css';
 
 const BurgerConstructor = ({ constructorElements, onCostClick }) => {
     return (

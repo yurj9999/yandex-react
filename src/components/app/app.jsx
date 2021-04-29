@@ -1,42 +1,106 @@
-import React from 'react';
+import {useState, useEffect} from 'react';
 
-import AppHeader from '../app-header/header';
-import BurgerIngredients from '../burger-ingredients/ingredients';
-import BurgerContructor from '../burger-constructor/constructor';
-
-// временные данные по ингридиентам
-import {DATA} from '../../utils/data';
+import AppHeader from '../app-header/app-header';
+import BurgerIngredients from '../burger-ingredients/burger-ingredients';
+import BurgerContructor from '../burger-constructor/burger-constructor';
+import ModalOverlay from '../overlay-modal/modal-overlay';
+import IngredientDetails from '../ingredient-details/ingredient-details';
+import OrderDetails from '../order-details/order-details';
 
 import appStyle from './app.module.css';
 
-/*
-  комментарии по замечаниям:
-
-  по замечанию №2:
-  проконсультировался с наставником по поводу сохранения картинок из захардкоженных данных - идею не поддержал, нет смысла
-  это делать на данном этапе
-  по поводу сохранения папок fonts, images - так как на текущем этапе в папках ничего нет, то гит не может их отслеживать, 
-  следовательно, пустые папки не могут быть залиты на github
- */
+const URL_DATA = 'https://norma.nomoreparties.space/api/ingredients';
+const MAX_BUNS = 2;
 
 function App() {
-  const [data, setData] = React.useState([]);
+  const [ingredients, setIngredients] = useState([]);
+  const [bunsCount, setBuns] = useState(0);
+  const [isOverlayOpen, setOpen] = useState(false);
+  const [template, setTemplate] = useState(null);
 
-  React.useEffect(() => setData([...DATA]), []);
+  const countUpdater = (id) => {
+    setIngredients([...ingredients.map(item => {
+      if (item._id === id) {
+        item.count = item.count + 1;
+      }
+      return item;
+    })]);
+  }
+
+  const closeModal = () => {
+    setOpen(false);
+  }
+
+  const openCostModal = (costData) => {
+    setOpen(true);
+    setTemplate(<OrderDetails data={costData}/>);
+  }
+
+  const openIngredientModal = (ingredient) => {
+    setOpen(true);
+    setTemplate(<IngredientDetails data={ingredient}/>);
+
+    // ниже описана ф-я увеличения счетчика возле изображения ингредиента по клику, решил сделать для тренировки + в будущих спринтах
+    // планирую ее модернизировать для использования совместно с drag-n-drop
+    switch(ingredient.type) {
+      case 'bun':
+        if (bunsCount !== MAX_BUNS) {
+          setBuns(bunsCount + 1);
+          countUpdater(ingredient._id);
+        } else {
+          console.log('buns is add');
+        }
+        break;
+      
+      default:
+        if (bunsCount !== MAX_BUNS) {
+          console.log('choose buns first');
+        } else {
+          countUpdater(ingredient._id);
+        }
+        break;
+    }
+  };
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const result = await fetch(URL_DATA);
+
+        if (!result.ok) {
+          throw new Error('Answer error !!!');
+        }
+
+        const {data} = await result.json();
+
+        // создаю копию данных с добавлением поля для счетчика - count
+        const updateData = data.map(item => {
+          item.count = 0;
+          return item;
+        });
+
+        setIngredients([...updateData]);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getData();
+  }, []);
 
   return (
     <div>
       <AppHeader/>
       <main className={appStyle.mainWrapper}>
         {
-          data.length && (
+          ingredients.length ? (
             <>
-              <BurgerIngredients ingredients={data}/>
-              <BurgerContructor constructorElements={data}/>
+              <BurgerIngredients ingredients={ingredients} onIngredientClick={openIngredientModal}/>
+              <BurgerContructor constructorElements={ingredients} onCostClick={openCostModal}/>
             </>
-          )
+          ) : null
         }
       </main>
+      {isOverlayOpen && (<ModalOverlay onOverlayClick={closeModal}>{template || null}</ModalOverlay>)}
     </div>
   );
 }

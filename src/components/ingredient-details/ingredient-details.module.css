@@ -1,0 +1,38 @@
+.wrapper {
+    width: 580px;
+}
+
+.title {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.image {
+    height: 240px;
+}
+
+.main {
+    padding-left: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.details {
+    margin-bottom: 64px;
+    text-align: center;
+}
+
+.infoWrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.infoElement {
+    color: #8585ad;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

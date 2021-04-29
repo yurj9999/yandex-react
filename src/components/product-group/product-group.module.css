@@ -1,0 +1,16 @@
+.info {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.ingredientWrapper {
+    position: relative;
+    margin-bottom: 32px;
+    list-style-type: none;
+}
+
+.ingredientWrapper:hover {
+    cursor: pointer;
+}

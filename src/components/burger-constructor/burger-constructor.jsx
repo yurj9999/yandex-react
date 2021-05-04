@@ -6,6 +6,9 @@ import {DATA} from '../../utils/temporary-data';
 
 import constructorStyle from './burger-constructor.module.css';
 
+// css-костыль - убирает баги в ConstructorElement - согласовано с наставником - ждем правок в UI-либе
+import './burger-constructor.css';
+
 const BurgerConstructor = ({ constructorElements, onCostClick }) => {
     return (
         <section className={constructorStyle.wrapper}>
@@ -56,9 +59,15 @@ const BurgerConstructor = ({ constructorElements, onCostClick }) => {
                     <p className={`text text_type_digits-default ${constructorStyle.summText}`}>{0}</p>
                     <CurrencyIcon type="primary"/>
                 </div>
-                <div onClick={() => onCostClick(DATA)}>
+
+                <Button onClick={() => onCostClick(DATA)} type="primary" size="large">Оформить заказ</Button>
+
+                {/*<div onClick={() => onCostClick(DATA)}>
                     <Button type="primary" size="large">Оформить заказ</Button>
-                </div>
+                </div>*/}
+
+
+
             </div>
         </section>
     );

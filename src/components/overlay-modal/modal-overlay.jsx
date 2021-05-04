@@ -16,7 +16,7 @@ const ModalOverlay = ({children, onOverlayClick}) => {
     useEffect(() => {
         document.addEventListener('keydown', onEscClose);
         return () => document.removeEventListener('keydown', onEscClose);    
-    }, []);
+    });
 
     return ReactDOM.createPortal(
         (

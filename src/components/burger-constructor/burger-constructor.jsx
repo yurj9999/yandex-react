@@ -59,15 +59,7 @@ const BurgerConstructor = ({ constructorElements, onCostClick }) => {
                     <p className={`text text_type_digits-default ${constructorStyle.summText}`}>{0}</p>
                     <CurrencyIcon type="primary"/>
                 </div>
-
                 <Button onClick={() => onCostClick(DATA)} type="primary" size="large">Оформить заказ</Button>
-
-                {/*<div onClick={() => onCostClick(DATA)}>
-                    <Button type="primary" size="large">Оформить заказ</Button>
-                </div>*/}
-
-
-
             </div>
         </section>
     );

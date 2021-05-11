@@ -1,16 +1,18 @@
-import PropTypes from 'prop-types';
+import {useContext} from 'react';
+import {ModalContext} from '../../services/burger-context';
 
 import detailsStyle from './ingredient-details.module.css';
 
-const IngredientDetails = ({data}) => {
-    const {image_large, name, calories, proteins, fat, carbohydrates} = data;
+const IngredientDetails = () => {
+    const ingredients = useContext(ModalContext);
+    const {image_large, name, calories, proteins, fat, carbohydrates} = ingredients;
 
     return (
         <div className={detailsStyle.wrapper}>
             <p className={`text text_type_main-large ${detailsStyle.title}`}>Детали ингредиента</p>    
             <div className={detailsStyle.main}>
                 <img alt="bun" src={image_large} className={`mb-2 ${detailsStyle.image}`}/>
-                <div className="text text_type_main-medium mb-4">{name}</div>
+                <div className={`text text_type_main-medium ${detailsStyle.name}`}>{name}</div>
 
                 {/*захардкоженный текст, так как с бэкенда не приходит детального описания*/}
                 <div className={`text text_type_main-default ${detailsStyle.details}`}>Превосходные котлеты из марсианской Магнолии для фирменных космических бургеров, набирающих популярность по всей вселенной.</div>
@@ -36,9 +38,5 @@ const IngredientDetails = ({data}) => {
         </div>
     );
 }
-
-IngredientDetails.propTypes = {
-    data: PropTypes.object.isRequired
-};
 
 export default IngredientDetails;

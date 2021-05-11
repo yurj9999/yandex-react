@@ -19,7 +19,7 @@ const Modal = ({mainTemplate, onModalClick}) => {
 }
 
 Modal.propTypes = {
-    mainTemplate: PropTypes.node.isRequired,
+    mainTemplate: PropTypes.node,
     onModalClick: PropTypes.func.isRequired
 };
 

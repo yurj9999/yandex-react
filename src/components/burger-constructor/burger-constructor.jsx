@@ -1,4 +1,5 @@
 import {useContext} from 'react';
+import {PropTypes} from 'prop-types';
 import {ConstructorElement, DragIcon, CurrencyIcon, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import {ConstructorContext} from '../../services/burger-context';
 
@@ -7,8 +8,8 @@ import constructorStyle from './burger-constructor.module.css';
 // css-костыль - убирает баги в ConstructorElement - согласовано с наставником - ждем правок в UI-либе
 import './burger-constructor.css';
 
-const BurgerConstructor = () => {
-    const [ingredients, openCostModal] = useContext(ConstructorContext);
+const BurgerConstructor = ({onConstructorClick}) => {
+    const [ingredients] = useContext(ConstructorContext);
 
     const bun = ingredients.find(element => element.type === 'bun');
     const filling = ingredients.filter(element => element.type !== 'bun');
@@ -66,10 +67,14 @@ const BurgerConstructor = () => {
                     <p className={`text text_type_digits-default ${constructorStyle.summText}`}>{totalCost}</p>
                     <CurrencyIcon type="primary"/>
                 </div>
-                <Button onClick={() => openCostModal(ingredientsIds)} type="primary" size="large">Оформить заказ</Button>
+                <Button onClick={() => onConstructorClick(ingredientsIds)} type="primary" size="large">Оформить заказ</Button>
             </div>
         </section>
     );
 }
+
+BurgerConstructor.propTypes = {
+    onConstructorClick: PropTypes.func.isRequired
+};
 
 export default BurgerConstructor;

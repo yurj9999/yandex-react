@@ -126,9 +126,9 @@ function App() {
         {
           ingredients.length ? (
             <>
-              <BurgerIngredients ingredients={ingredients} onIngredientClick={openIngredientModal}/>
-              <ConstructorContext.Provider value={[ingredients, openCostModal]}>
-                <BurgerContructor/>
+              <ConstructorContext.Provider value={[ingredients]}>
+                <BurgerIngredients onIngredientClick={openIngredientModal}/>
+                <BurgerContructor onConstructorClick={openCostModal}/>
               </ConstructorContext.Provider>
             </>
           ) : null

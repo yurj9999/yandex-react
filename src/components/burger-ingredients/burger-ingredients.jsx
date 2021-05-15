@@ -1,17 +1,19 @@
-import React from 'react';
+import {useState, useContext, createRef} from 'react';
 import PropTypes from 'prop-types';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 
 import ProductGroup from '../product-group/product-group';
+import {ConstructorContext} from '../../services/burger-context';
 
 import ingredientsStyle from './burger-ingredients.module.css';
 
-const BurgerIngredients = ({ ingredients, onIngredientClick }) => {
-    const [tab, setTab] = React.useState('breads');
+const BurgerIngredients = ({onIngredientClick}) => {
+    const [ingredients] = useContext(ConstructorContext);
+    const [tab, setTab] = useState('breads');
 
-    const breadsGroup = React.createRef(null);
-    const saucesGroup = React.createRef(null);
-    const fillingsGroup = React.createRef(null);
+    const breadsGroup = createRef(null);
+    const saucesGroup = createRef(null);
+    const fillingsGroup = createRef(null);
 
     const onTabClick = (currentTab) => {
         const scrollParameter = {
@@ -59,7 +61,6 @@ const BurgerIngredients = ({ ingredients, onIngredientClick }) => {
 }
 
 BurgerIngredients.propTypes = {
-    ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
     onIngredientClick: PropTypes.func.isRequired
 };
 

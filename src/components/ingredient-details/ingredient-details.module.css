@@ -17,6 +17,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 60px;
 }
 
 .details {
@@ -35,4 +36,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.name {
+    margin-bottom: 32px;
 }

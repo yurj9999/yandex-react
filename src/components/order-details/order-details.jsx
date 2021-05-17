@@ -1,14 +1,20 @@
-import PropTypes from 'prop-types';
+import {useContext} from 'react';
+import {ModalContext} from '../../services/burger-context';
 
 import orderStyle from './order-details.module.css';
 
-const OrderDetails = ({data}) => {
-    const {orderNumber, title, status, details} = data;
+const OrderDetails = () => {
+    const data = useContext(ModalContext);
+    const {name, order} = data;
+
+    // захардкож данные
+    const status = 'Ваш заказ начали готовить';
+    const details = 'Дождитесь готовности на орбитальной станции';
 
     return (
         <div className={orderStyle.wrapper}>
-            <p className={`text text_type_digits-large mb-4 ${orderStyle.number}`}>{orderNumber}</p>
-            <p className={`text text_type_main-medium ${orderStyle.title}`}>{title}</p>
+            <p className={`text text_type_digits-large mb-4 ${orderStyle.number}`}>{order.number}</p>
+            <p className={`text text_type_main-medium ${orderStyle.title}`}>{name}</p>
             <div className={orderStyle.image}>
                 <div className={orderStyle.vektorSecond}>
                     <svg width="107" height="100" viewBox="0 0 107 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -54,9 +60,5 @@ const OrderDetails = ({data}) => {
         </div>
     );
 }
-
-OrderDetails.propTypes = {
-    data: PropTypes.object.isRequired
-};
 
 export default OrderDetails;

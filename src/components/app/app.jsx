@@ -7,9 +7,12 @@ import ModalOverlay from '../overlay-modal/modal-overlay';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
 
+import {ConstructorContext,ModalContext} from '../../services/burger-context';
+
 import appStyle from './app.module.css';
 
 const URL_DATA = 'https://norma.nomoreparties.space/api/ingredients';
+const URL_GET_ORDER = 'https://norma.nomoreparties.space/api/orders';
 const MAX_BUNS = 2;
 
 function App() {
@@ -31,14 +34,43 @@ function App() {
     setOpen(false);
   }
 
-  const openCostModal = (costData) => {
-    setOpen(true);
-    setTemplate(<OrderDetails data={costData}/>);
+  const openCostModal = async (ids) => {
+    try {
+      const result = await fetch(URL_GET_ORDER, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ingredients: ids
+        })
+      });
+
+      if (!result.ok) {
+        throw new Error('Answer error !!!');
+      }
+
+      const data = await result.json();
+      
+      setOpen(true);
+      setTemplate(
+        <ModalContext.Provider value={data}>
+          <OrderDetails/>
+        </ModalContext.Provider>
+      );
+      
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const openIngredientModal = (ingredient) => {
     setOpen(true);
-    setTemplate(<IngredientDetails data={ingredient}/>);
+    setTemplate(
+      <ModalContext.Provider value={ingredient}>
+          <IngredientDetails/>
+      </ModalContext.Provider>
+    );
 
     // ниже описана ф-я увеличения счетчика возле изображения ингредиента по клику, решил сделать для тренировки + в будущих спринтах
     // планирую ее модернизировать для использования совместно с drag-n-drop
@@ -94,13 +126,21 @@ function App() {
         {
           ingredients.length ? (
             <>
-              <BurgerIngredients ingredients={ingredients} onIngredientClick={openIngredientModal}/>
-              <BurgerContructor constructorElements={ingredients} onCostClick={openCostModal}/>
+              <ConstructorContext.Provider value={[ingredients]}>
+                <BurgerIngredients onIngredientClick={openIngredientModal}/>
+                <BurgerContructor onConstructorClick={openCostModal}/>
+              </ConstructorContext.Provider>
             </>
           ) : null
         }
       </main>
-      {isOverlayOpen && (<ModalOverlay onOverlayClick={closeModal}>{template || null}</ModalOverlay>)}
+      {
+        isOverlayOpen && (
+          <ModalOverlay onOverlayClick={closeModal}>
+            {template || null}
+          </ModalOverlay>
+        )
+      }
     </div>
   );
 }

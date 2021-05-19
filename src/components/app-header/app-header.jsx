@@ -1,3 +1,5 @@
+import React from 'react';
+
 import {Logo, BurgerIcon, ListIcon, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import appHeaderStyle from './app-header.module.css';
 
@@ -27,4 +29,4 @@ const AppHeader = () => {
     );
 }
 
-export default AppHeader;
+export default React.memo(AppHeader);

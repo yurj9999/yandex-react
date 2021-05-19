@@ -1,11 +1,9 @@
-import {useContext} from 'react';
-import {ModalContext} from '../../services/burger-context';
+import {useSelector} from 'react-redux';
 
 import orderStyle from './order-details.module.css';
 
 const OrderDetails = () => {
-    const data = useContext(ModalContext);
-    const {name, order} = data;
+    const {name, order} = useSelector(store => store.modal.order);
 
     // захардкож данные
     const status = 'Ваш заказ начали готовить';

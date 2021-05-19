@@ -1,26 +1,36 @@
-import PropTypes from 'prop-types';
+import {useSelector, useDispatch} from 'react-redux';
+
+
+import IngredientDetails from '../ingredient-details/ingredient-details';
+import OrderDetails from '../order-details/order-details';
+
+import {CLEAR_MODAL} from '../../services/constants';
 
 import modalStyle from './modal.module.css';
 import close from '../../images/close.png';
 
-const Modal = ({mainTemplate, onModalClick}) => {
+const Modal = () => {
+    const dispatch = useDispatch();
+    const {modalType} = useSelector(state => state.modal);
+
     const mainModalHandler = (event) => {
         event.stopPropagation();
+    }
+
+    const closeModal = () => {
+        dispatch({
+            type: CLEAR_MODAL
+        });
     }
 
     return (
         <div className={modalStyle.main} onClick={mainModalHandler}>
             <div className={modalStyle.wrapper}>
-                {mainTemplate}
-                <img src={close} className={modalStyle.close} alt="close" onClick={onModalClick}/>
+                {modalType === 'ingredient' ? <IngredientDetails/> : <OrderDetails/>}
+                <img src={close} className={modalStyle.close} alt="close" onClick={closeModal}/>
             </div>
         </div>
     );
 }
-
-Modal.propTypes = {
-    mainTemplate: PropTypes.node,
-    onModalClick: PropTypes.func.isRequired
-};
 
 export default Modal;

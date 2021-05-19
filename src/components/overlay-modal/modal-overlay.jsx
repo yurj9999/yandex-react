@@ -1,16 +1,22 @@
 import {useEffect} from 'react'; 
+import {useDispatch} from 'react-redux';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
 
 import Modal from '../modal/modal';
+
+import {CLEAR_MODAL} from '../../services/constants';
 
 import overlayStyle from './modal-overlay.module.css';
 
 const overlayRoot = document.getElementById('overlay');
 
-const ModalOverlay = ({children, onOverlayClick}) => {
+const ModalOverlay = () => {
+    const dispatch = useDispatch();
+
     const onEscClose = () => {
-        onOverlayClick();
+        dispatch({
+            type: CLEAR_MODAL
+        });
     }
 
     useEffect(() => {
@@ -20,16 +26,10 @@ const ModalOverlay = ({children, onOverlayClick}) => {
 
     return ReactDOM.createPortal(
         (
-            <div className={overlayStyle.main} onClick={onOverlayClick}>
-                <Modal mainTemplate={children} onModalClick={onOverlayClick}/>
+            <div className={overlayStyle.main} onClick={onEscClose}>
+                <Modal/>
             </div>
-        ), 
-    overlayRoot);
+        ), overlayRoot);
 }
-
-ModalOverlay.propTypes = {
-    children: PropTypes.node,
-    onOverlayClick: PropTypes.func.isRequired
-};
 
 export default ModalOverlay;

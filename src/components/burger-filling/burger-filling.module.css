@@ -1,0 +1,19 @@
+.fillingIngredient {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+
+.fillingIngredient:nth-last-of-type(1) {
+    margin-bottom: 0;
+}
+
+.fillingIngredient:hover {
+    cursor: pointer;
+}
+
+.target {
+    border: 2px solid #f3fffc;
+    border-radius: 29px;
+}

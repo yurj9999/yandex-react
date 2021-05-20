@@ -1,11 +1,9 @@
-import {useContext} from 'react';
-import {ModalContext} from '../../services/burger-context';
+import {useSelector} from 'react-redux';
 
 import detailsStyle from './ingredient-details.module.css';
 
 const IngredientDetails = () => {
-    const ingredients = useContext(ModalContext);
-    const {image_large, name, calories, proteins, fat, carbohydrates} = ingredients;
+    const {image_large, name, calories, proteins, fat, carbohydrates} = useSelector(state => state.modal.ingredient);
 
     return (
         <div className={detailsStyle.wrapper}>

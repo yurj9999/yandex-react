@@ -1,4 +1,4 @@
-import {useRef} from 'react';
+import {useRef, useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useDrag, useDrop} from 'react-dnd';
 
@@ -11,19 +11,20 @@ import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger
 import fillingStyle from './burger-filling.module.css';
 
 const BurgerFilling = ({index, element}) => {
-
-    const ref = useRef(null);
     const dispatch = useDispatch();
-    const {fillings} = useSelector(store => store.constructorIngredients);
 
-    const deleteIngedient = (index) => {
+    const {fillings} = useSelector(store => store.constructorIngredients);
+    
+    const ref = useRef(null);
+
+    const deleteIngedient = useCallback((index) => {
         dispatch({
             type: DELETE_INGREDIENT,
             elements: fillings.filter((item, number) => number !== index)
         });
-    }
+    }, [dispatch, fillings]);
 
-    const moveCard = ({indexDrag}, {indexDrop}) => {
+    const moveCard = useCallback(({indexDrag}, {indexDrop}) => {
         const temp = [...fillings];
 
         temp[indexDrag] = fillings.find((item, index) => index === indexDrop);
@@ -33,7 +34,7 @@ const BurgerFilling = ({index, element}) => {
             type: UPDATE_FILLINGS,
             data: temp
         });
-    };
+    }, [dispatch, fillings]);
 
     const [, dragRef] = useDrag({
         type: 'fillings',

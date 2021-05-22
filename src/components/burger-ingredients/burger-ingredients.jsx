@@ -13,6 +13,7 @@ const HIGH_PARENT_TOP = 100;
 
 const BurgerIngredients = () => {
     const dispatch = useDispatch();
+    
     const {error, blockedAll} = useSelector(store => store.ingredients);
 
     const [tab, setTab] = useState('breads');

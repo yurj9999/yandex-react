@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, useCallback} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {useDrop} from 'react-dnd';
 
@@ -35,11 +35,11 @@ const BurgerConstructor = () => {
         return result.reduce((prev, curr) => prev + curr, 0);
     }, [bun, fillings]);
 
-    const openModal = () => {
+    const openModal = useCallback(() => {
         if (Object.keys(bun).length) {
             dispatch(getOrderDetails([bun._id, ...fillings.map(item => item._id), bun._id]));
         }  
-    }
+    }, [dispatch, bun, fillings]);
 
     const [, dropRef] = useDrop({
         accept: ['bun', 'main', 'sauce'],

@@ -1,4 +1,4 @@
-import {useMemo} from 'react';
+import {useMemo, useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useDrag} from 'react-dnd';
 
@@ -12,6 +12,7 @@ import productStyle from './product.module.css';
 
 const Product = ({data}) => {
     const dispatch = useDispatch();
+
     const {blockedClick} = useSelector(store => store.modal);
     const {bun, fillings} = useSelector(store => store.constructorIngredients);
     
@@ -29,12 +30,12 @@ const Product = ({data}) => {
         }
     });
 
-    const setIngredientInfo = () => {
+    const setIngredientInfo = useCallback(() => {
         dispatch({
             type: SET_MODAL_INGREDIENT,
             ingredient: data
         });
-    };
+    }, [data, dispatch]);
 
     return (
         <>

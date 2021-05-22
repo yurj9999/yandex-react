@@ -3,7 +3,7 @@ import {combineReducers} from 'redux';
 import {
     ingredientsReducer,
     modalReducer,
-    constructorIngedientsReducer
+    constructorIngedientsReducer,
 } from './reducers';
 
 export const rootReducer = combineReducers({

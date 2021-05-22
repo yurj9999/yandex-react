@@ -1,3 +1,5 @@
+import {createReducer} from '@reduxjs/toolkit';
+
 import {
     GET_ALL_INGREDIENTS_REQUEST,
     GET_ALL_INGREDIENTS_ERROR,
@@ -32,113 +34,63 @@ const constructorIngedientsInitialState = {
     fillings: []
 };
 
-export const constructorIngedientsReducer = (state = constructorIngedientsInitialState, action) => {
-    switch(action.type) {
-        case SET_BUNS:
-            return {
-                ...state,
-                bun: {...action.item}
-            };
+export const constructorIngedientsReducer = createReducer(constructorIngedientsInitialState, builder => {
+    builder
+        .addCase(SET_BUNS, (state, action) => {
+            state.bun = action.item;
+        })
+        .addCase(SET_FILLINGS, (state, action) => {
+            state.fillings.push(action.item);
+        })
+        .addCase(UPDATE_FILLINGS, (state, action) => {
+            state.fillings = action.data;
+        })
+        .addCase(DELETE_INGREDIENT, (state, action) => {
+            state.fillings = action.elements;
+        })
+});
 
-        case SET_FILLINGS:
-            return {
-                ...state,
-                fillings: [...state.fillings, action.item]
-            };
+export const ingredientsReducer = createReducer(ingredientsInitialState, builder => {
+    builder
+        .addCase(GET_ALL_INGREDIENTS_REQUEST, (state) => {
+            state.blockedAll = true;
+        })
+        .addCase(GET_ALL_INGREDIENTS_ERROR, (state, action) => {
+            state.ingredients = [];
+            state.error = action.error;
+        })
+        .addCase(GET_ALL_INGREDIENTS_SUCCESS, (state, action) => {
+            state.blockedAll = false;
+            state.ingredients = action.ingredients;
+        })
+});
 
-        case UPDATE_FILLINGS:
-            return {
-                ...state,
-                fillings: [...action.data]
-            };
-
-        case DELETE_INGREDIENT:
-            return {
-                ...state,
-                fillings: [...action.elements]
-            };
-
-        default:
-            return state;
-    }
-}
-
-export const ingredientsReducer = (state = ingredientsInitialState, action) => {
-    switch(action.type) {
-        case GET_ALL_INGREDIENTS_REQUEST:
-            return {
-                ...state,
-                blockedAll: true,
-                error: ''
-            };
-
-        case GET_ALL_INGREDIENTS_ERROR:
-            return {
-                ingredients: [],
-                error: action.error,
-                blockedAll: false
-            };
-
-        case GET_ALL_INGREDIENTS_SUCCESS:
-            return {
-                blockedAll: false,
-                ingredients: action.ingredients,
-                error: ''
-            };
-
-        default:
-            return state;
-    }
-}
-
-export const modalReducer = (state = modalInitialState, action) => {
-    switch(action.type) {
-        case SET_MODAL_INGREDIENT:
-            return {
-                order: {},
-                ingredient: action.ingredient,
-                modalType: 'ingredient',
-                error: '',
-                blockedClick: false
-            };
-
-        case CLEAR_MODAL:
-            return {
-                ingredient: {},
-                order: {},
-                modalType: '',
-                error: '',
-                blockedClick: false
-            };
-
-        case GET_ORDER_ERROR:
-            return {
-                ingredient: {},
-                order: {},
-                modalType: '',
-                error: action.error,
-                blockedClick: false
-            };
-
-        case GET_ORDER_REQUEST:
-            return {
-                blockedClick: true,
-                error: '',
-                ingredient: {},
-                order: {},
-                modalType: '',
-            };
-
-        case GET_ORDER_SUCCESS:
-            return {
-                blockedClick: false,
-                error: '',
-                ingredient: {},
-                order: action.order,
-                modalType: 'order',
-            };
-
-        default:
-            return state;
-    }
-}
+export const modalReducer = createReducer(modalInitialState, builder => {
+    builder
+        .addCase(SET_MODAL_INGREDIENT, (state, action) => {
+            state.ingredient = action.ingredient;
+            state.modalType = 'ingredient';
+            state.error = '';
+        })
+        .addCase(CLEAR_MODAL, (state) => {
+            state.ingredient = {};
+            state.order = {};
+            state.modalType = '';
+        })
+        .addCase(GET_ORDER_ERROR, (state, action) => {
+            state.ingredient = {};
+            state.order = {};
+            state.modalType = '';
+            state.error = action.error;
+            state.blockedClick = false;
+        })
+        .addCase(GET_ORDER_REQUEST, (state) => {
+            state.error = '';
+            state.blockedClick = true;
+        })
+        .addCase(GET_ORDER_SUCCESS, (state, action) => {
+            state.order = action.order;
+            state.modalType = 'order';
+            state.blockedClick = false;
+        })
+});

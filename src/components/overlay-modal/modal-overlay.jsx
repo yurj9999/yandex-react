@@ -2,7 +2,7 @@ import {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
 import ReactDOM from 'react-dom';
 
-import Modal from '../modal/modal';
+import Modal from './modal/modal';
 
 import {CLEAR_MODAL} from '../../services/constants';
 

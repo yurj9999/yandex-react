@@ -1,12 +1,12 @@
 import {useSelector, useDispatch} from 'react-redux';
 
-import IngredientDetails from '../ingredient-details/ingredient-details';
-import OrderDetails from '../order-details/order-details';
+import IngredientDetails from './ingredient-details/ingredient-details';
+import OrderDetails from './order-details/order-details';
 
-import {CLEAR_MODAL} from '../../services/constants';
+import {CLEAR_MODAL} from '../../../services/constants';
 
 import modalStyle from './modal.module.css';
-import close from '../../images/close.png';
+import close from '../../../images/close.png';
 
 const Modal = () => {
     const dispatch = useDispatch();

@@ -4,7 +4,7 @@ import {useDrag, useDrop} from 'react-dnd';
 
 import PropTypes from 'prop-types';
 
-import {DELETE_INGREDIENT, UPDATE_FILLINGS} from '../../services/constants';
+import {DELETE_INGREDIENT, UPDATE_FILLINGS} from '../../../services/constants';
 
 import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 

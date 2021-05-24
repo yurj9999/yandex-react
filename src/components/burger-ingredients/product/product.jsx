@@ -4,7 +4,7 @@ import {useDrag} from 'react-dnd';
 
 import PropTypes from 'prop-types';
 
-import {MAX_BUNS_COUNT, SET_MODAL_INGREDIENT} from '../../services/constants';
+import {MAX_BUNS_COUNT, SET_MODAL_INGREDIENT} from '../../../services/constants';
 
 import {CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
 

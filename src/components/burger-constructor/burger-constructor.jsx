@@ -9,7 +9,7 @@ import {getOrderDetails} from '../../services/actions';
 
 import {SET_BUNS, SET_FILLINGS, MAX_BUNS_COUNT} from '../../services/constants';
 
-import BurgerFilling from '../burger-filling/burger-filling';
+import BurgerFilling from './burger-filling/burger-filling';
 
 import {ConstructorElement, DragIcon, CurrencyIcon, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 

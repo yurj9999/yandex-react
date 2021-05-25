@@ -7,7 +7,9 @@ import {HTML5Backend} from 'react-dnd-html5-backend';
 
 import {getOrderDetails} from '../../services/actions';
 
-import {SET_BUNS, SET_FILLINGS, MAX_BUNS_COUNT} from '../../services/constants';
+import {MAX_BUNS_COUNT} from '../../services/constants';
+
+import {actions as constructorActions} from '../../services/slices/constructor';
 
 import BurgerFilling from './burger-filling/burger-filling';
 
@@ -19,6 +21,8 @@ import constructorStyle from './burger-constructor.module.css';
 import './burger-constructor.css';
 
 const BurgerConstructor = () => {
+    const {setBuns, setFillings} = constructorActions;
+
     const {blockedClick} = useSelector(store => store.modal);
     const {blockedAll} = useSelector(store => store.ingredients);
     const {bun, fillings} = useSelector(store => store.constructorIngredients);
@@ -46,24 +50,15 @@ const BurgerConstructor = () => {
         drop(item) {
             switch(item.type) {
                 case 'bun':
-                    dispatch({
-                        type: SET_BUNS,
-                        item: ingredients.find(ingredient => ingredient._id === item.id)
-                    });
+                    dispatch(setBuns(ingredients.find(ingredient => ingredient._id === item.id)));
                     break;
 
                 case 'main':
-                    dispatch({
-                        type: SET_FILLINGS,
-                        item: ingredients.find(ingredient => ingredient._id === item.id)
-                    });
+                    dispatch(setFillings(ingredients.find(ingredient => ingredient._id === item.id)));
                     break;
 
                 case 'sauce':
-                    dispatch({
-                        type: SET_FILLINGS,
-                        item: ingredients.find(ingredient => ingredient._id === item.id)
-                    });
+                    dispatch(setFillings(ingredients.find(ingredient => ingredient._id === item.id)));
                     break;
 
                 default:

@@ -4,7 +4,9 @@ import {useDrag} from 'react-dnd';
 
 import PropTypes from 'prop-types';
 
-import {MAX_BUNS_COUNT, SET_MODAL_INGREDIENT} from '../../../services/constants';
+import {MAX_BUNS_COUNT} from '../../../services/constants';
+
+import {actions as modalActions} from '../../../services/slices/modal';
 
 import {CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -30,12 +32,7 @@ const Product = ({data}) => {
         }
     });
 
-    const setIngredientInfo = useCallback(() => {
-        dispatch({
-            type: SET_MODAL_INGREDIENT,
-            ingredient: data
-        });
-    }, [data, dispatch]);
+    const setIngredientInfo = useCallback(() => dispatch(modalActions.setModalIngredient(data)), [data, dispatch]);
 
     return (
         <>

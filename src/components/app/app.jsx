@@ -19,7 +19,7 @@ function App() {
       <main className={appStyle.mainWrapper}>
         <DndProvider backend={HTML5Backend}>
           <BurgerIngredients/>
-          <BurgerContructor/> 
+          <BurgerContructor/>
         </DndProvider>
       </main>
       {

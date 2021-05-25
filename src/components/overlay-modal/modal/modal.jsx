@@ -3,7 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import IngredientDetails from './ingredient-details/ingredient-details';
 import OrderDetails from './order-details/order-details';
 
-import {CLEAR_MODAL} from '../../../services/constants';
+import {actions as modalActions} from '../../../services/slices/modal';
 
 import modalStyle from './modal.module.css';
 import close from '../../../images/close.png';
@@ -17,9 +17,7 @@ const Modal = () => {
     }
 
     const closeModal = () => {
-        dispatch({
-            type: CLEAR_MODAL
-        });
+        dispatch(modalActions.clearModal());
     }
 
     return (

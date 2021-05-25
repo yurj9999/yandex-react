@@ -1,46 +1,34 @@
 import {
     URL_DATA,
-    URL_ORDER,
-    GET_ALL_INGREDIENTS_REQUEST,
-    GET_ALL_INGREDIENTS_ERROR,
-    GET_ALL_INGREDIENTS_SUCCESS,
-    GET_ORDER_REQUEST,
-    GET_ORDER_SUCCESS,
-    GET_ORDER_ERROR
+    URL_ORDER
 } from '../constants';
 
-export const getIngredients = () => {
-    return async dispatch => {
-        dispatch({
-            type: GET_ALL_INGREDIENTS_REQUEST
-        });
+import {actions as ingredientsActions} from '../slices/ingredients';
+import {actions as modalActions} from '../slices/modal';
 
+export const getIngredients = () => {
+    const {setAllIngredientsError, setAllIngredientsRequest, setAllIngredientsSuccess} = ingredientsActions;
+
+    return async dispatch => {
+        dispatch(setAllIngredientsRequest());
         try {
             const request = await fetch(URL_DATA);
             if (!request.ok) {
                 throw new Error('Ошибка при запросе.');
             }
-
             const {data} = await request.json();
-            dispatch({
-                type: GET_ALL_INGREDIENTS_SUCCESS,
-                ingredients: data
-            });
+            dispatch(setAllIngredientsSuccess(data));
         } catch (error) {
-            dispatch({
-                type: GET_ALL_INGREDIENTS_ERROR,
-                error: error.message
-            });
+            dispatch(setAllIngredientsError(error.message))
         }
     };
 }
 
 export const getOrderDetails = (ids) => {
-    return async (dispatch) => {
-        dispatch({
-            type: GET_ORDER_REQUEST
-        });
+    const {setOrderRequest, setOrderError, setOrderSuccess} = modalActions;
 
+    return async (dispatch) => {
+        dispatch(setOrderRequest());
         try {
             const request = await fetch(URL_ORDER, {
                 method: 'POST',
@@ -57,15 +45,9 @@ export const getOrderDetails = (ids) => {
             }
         
             const data = await request.json();
-            dispatch({
-                type: GET_ORDER_SUCCESS,
-                order: data
-            });
+            dispatch(setOrderSuccess(data));
         } catch (error) {
-            dispatch({
-                type: GET_ORDER_ERROR,
-                error: error.message
-            });  
+            dispatch(setOrderError(error.message));  
         }
     }
 }

@@ -1,0 +1,80 @@
+.wrapper {
+    width: auto;
+    background: #1c1c21;    
+    border-radius: 40px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(0, 0, 0, 0.06), 0px 0px 1px rgba(0, 0, 0, 0.04);
+    padding: 24px;
+}
+
+.titleWrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.titleTime {
+    color: #8585ad;
+}
+
+.textWrapper {
+    margin-bottom: 24px;
+}
+
+.captionBurger {
+    margin-bottom: 8px;
+}
+
+.cancelled {
+    color: #e52b1a;
+}
+
+.inWork {
+    color: #00cccc;
+}
+
+.burgerWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.img {
+    border-radius: 100px;
+    border: 2px solid #4c4cff;
+    width: 56px;
+    height: 56px;
+    background: #131316;
+    position: relative;
+}
+
+.costWrapper {
+    display: flex;
+}
+
+.cost {
+    margin-right: 8px;
+}
+
+.ingredientsWrapper {
+    display: flex;
+}
+
+.ingredientCount {
+    border-radius: 100px;
+    width: 60px;
+    height: 60px;
+    background: #1c1c21;
+    opacity: 0.6;
+    z-index: 1;
+
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imgWrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+}

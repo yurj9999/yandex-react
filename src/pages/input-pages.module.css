@@ -1,0 +1,50 @@
+.mainProfileWrapper {
+    width: 100%;
+}
+
+.profileWrapper {
+    display: flex;
+    margin-top: 120px;
+}
+
+.wrapper {
+    margin-top: 120px;
+}
+
+.logo {
+    margin-bottom: 80px;
+    text-align: center;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.inputWrapper {
+    margin-bottom: 24px;
+}
+
+.button {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footerInfo {
+    color: #8585ad;
+}
+
+.footerEnter {
+    text-decoration: none;
+    color: #4c4cff;
+}
+
+.linksWrapper {
+    margin-right: 60px;
+}

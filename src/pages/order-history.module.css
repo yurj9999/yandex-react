@@ -1,0 +1,27 @@
+.mainWrapper {
+    width: 100%;
+}
+
+.wrapper {
+    margin-top: 44px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.linksWrapper {
+    margin-top: 76px;
+}
+
+.burgers {
+    width: 872px;
+    height: calc(100vh / 1.2);
+    overflow: auto;
+}
+
+.burgers .itemWrapper:last-child {
+    margin-bottom: 0;
+}
+
+.itemWrapper {
+    margin-bottom: 16px;
+}

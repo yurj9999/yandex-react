@@ -1,12 +1,9 @@
 import {useSelector} from 'react-redux';
 
-import {DndProvider} from 'react-dnd';
-import {HTML5Backend} from 'react-dnd-html5-backend';
-
 import AppHeader from '../app-header/app-header';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-import BurgerContructor from '../burger-constructor/burger-constructor';
 import ModalOverlay from '../overlay-modal/modal-overlay';
+
+import {Registration, Autorization, RecoveryPassword, ResetPassword, UserProfile, EmptyPage404, OrderInfo, OrderTape, OrderHistory, IngredientsConstructor} from '../../pages';
 
 import appStyle from './app.module.css';
 
@@ -17,10 +14,17 @@ function App() {
     <div>
       <AppHeader/>
       <main className={appStyle.mainWrapper}>
-        <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients/>
-          <BurgerContructor/>
-        </DndProvider>
+        {/*<Registration/>*/}
+        {/*<Autorization/>*/}
+        {/*<RecoveryPassword/>*/}
+        {/*<ResetPassword/>*/}
+        {/*<UserProfile/>*/}
+        {/*<EmptyPage404/>*/}
+        {/*<OrderInfo/>*/}
+        {/*<OrderTape/>*/}
+        {/*<OrderHistory/>*/}
+        {/*<IngredientsConstructor/>*/}
+
       </main>
       {
         modalType && <ModalOverlay/>

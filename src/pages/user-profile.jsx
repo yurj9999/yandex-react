@@ -60,84 +60,86 @@ export const UserProfile = () => {
         <div className={styles.mainProfileWrapper}>
             <div className={styles.profileWrapper}>
                 <div className={styles.linksWrapper}>
-                    <ProfileLinks/>
+                    <ProfileLinks type={'profile'}/>
                 </div>
                 
-                <div>
-                    <div className={styles.inputWrapper}>
-                        <Input
-                            ref={nameRef}
-                            onIconClick={nameConfig.disabled
-                                ? () => onNameClick()
-                                : () => null
-                            }
-                            disabled={nameConfig.disabled}
-                            icon={'EditIcon'}
-                            type={'text'}
-                            placeholder={'Имя'}
-                            value={nameConfig.name}
-                            onBlur={() => setNameConfig({
-                                ...nameConfig,
-                                disabled: true
-                            })}
-                            onChange={!nameConfig.disabled
-                                ? event => setNameConfig({
+                <div className={styles.inputsWrapper}>
+                    <div>
+                        <div className={styles.inputWrapper}>
+                            <Input
+                                ref={nameRef}
+                                onIconClick={nameConfig.disabled
+                                    ? () => onNameClick()
+                                    : () => null
+                                }
+                                disabled={nameConfig.disabled}
+                                icon={'EditIcon'}
+                                type={'text'}
+                                placeholder={'Имя'}
+                                value={nameConfig.name}
+                                onBlur={() => setNameConfig({
                                     ...nameConfig,
-                                    name: event.target.value
-                                })
-                                : () => null
-                            }/>
-                    </div>
+                                    disabled: true
+                                })}
+                                onChange={!nameConfig.disabled
+                                    ? event => setNameConfig({
+                                        ...nameConfig,
+                                        name: event.target.value
+                                    })
+                                    : () => null
+                                }/>
+                        </div>
 
-                    <div className={styles.inputWrapper}>
-                        <Input
-                            ref={loginRef}
-                            onIconClick={loginConfig.disabled
-                                ? () => onLoginClick()
-                                : () => null
-                            }
-                            disabled={loginConfig.disabled}
-                            icon={'EditIcon'}
-                            type={'text'}
-                            placeholder={'Логин'}
-                            value={loginConfig.login}
-                            onBlur={() => setLoginConfig({
-                                ...loginConfig,
-                                disabled: true
-                            })}
-                            onChange={!loginConfig.disabled
-                                ? event => setLoginConfig({
+                        <div className={styles.inputWrapper}>
+                            <Input
+                                ref={loginRef}
+                                onIconClick={loginConfig.disabled
+                                    ? () => onLoginClick()
+                                    : () => null
+                                }
+                                disabled={loginConfig.disabled}
+                                icon={'EditIcon'}
+                                type={'text'}
+                                placeholder={'Логин'}
+                                value={loginConfig.login}
+                                onBlur={() => setLoginConfig({
                                     ...loginConfig,
-                                    login: event.target.value
-                                })
-                                : () => null
-                            }/>
-                    </div>
+                                    disabled: true
+                                })}
+                                onChange={!loginConfig.disabled
+                                    ? event => setLoginConfig({
+                                        ...loginConfig,
+                                        login: event.target.value
+                                    })
+                                    : () => null
+                                }/>
+                        </div>
 
-                    <div className={styles.inputWrapper}>
-                        <Input
-                            onIconClick={passConfig.disabled
-                                ? () => onPassClick()
-                                : () => null
-                            }
-                            ref={passRef}
-                            disabled={passConfig.disabled}
-                            icon={'EditIcon'}
-                            type={passConfig.type}
-                            placeholder={'Пароль'}
-                            value={passConfig.pass}
-                            onBlur={() => setPassConfig({
-                                ...passConfig,
-                                type: 'password',
-                                disabled: true
-                            })}
-                            onChange={!passConfig.disabled
-                                ? event => setPassConfig({
+                        <div className={styles.inputWrapper}>
+                            <Input
+                                onIconClick={passConfig.disabled
+                                    ? () => onPassClick()
+                                    : () => null
+                                }
+                                ref={passRef}
+                                disabled={passConfig.disabled}
+                                icon={'EditIcon'}
+                                type={passConfig.type}
+                                placeholder={'Пароль'}
+                                value={passConfig.pass}
+                                onBlur={() => setPassConfig({
                                     ...passConfig,
-                                    pass: event.target.value
-                                })
-                                : () => null
-                            }/>
+                                    type: 'password',
+                                    disabled: true
+                                })}
+                                onChange={!passConfig.disabled
+                                    ? event => setPassConfig({
+                                        ...passConfig,
+                                        pass: event.target.value
+                                    })
+                                    : () => null
+                                }/>
+                        </div>
                     </div>
                 </div>
             </div>

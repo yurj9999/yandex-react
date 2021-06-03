@@ -21,10 +21,15 @@
     overflow: auto;
 }
 
-.burgers .itemWrapper:last-child {
+.burgers .link:last-child {
     margin-bottom: 0;
 }
 
 .itemWrapper {
     margin-bottom: 16px;
+}
+
+.link {
+    text-decoration: none;
+    color: #f2f2f3;
 }

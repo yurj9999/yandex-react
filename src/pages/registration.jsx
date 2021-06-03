@@ -1,4 +1,7 @@
 import {useState, useRef} from 'react';
+import {Link} from 'react-router-dom';
+
+import {regUser} from '../services/utils/reg-user';
 
 import {Logo, Input, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -24,6 +27,14 @@ export const Registration = () => {
             ...passwordConfig,
             type: passwordConfig.type === 'password' ? 'text' : 'password',
             icon: passwordConfig.icon === 'ShowIcon' ? 'HideIcon' : 'ShowIcon'
+        });
+    };
+
+    const registrationStart = () => {
+        regUser({
+            name,
+            email,
+            password: passwordConfig.value
         });
     };
 
@@ -64,12 +75,12 @@ export const Registration = () => {
             </div>
 
             <div className={styles.button}>
-                <Button type="primary" size="large">Зарегистрироваться</Button>
+                <Button type="primary" size="large" onClick={registrationStart}>Зарегистрироваться</Button>
             </div>
             
             <div className={styles.footer}>
                 <p className={`text text_type_main-default ${styles.footerInfo}`}>Уже зарегистрированы?</p>
-                <a href="" className={`text text_type_main-default ml-2 ${styles.footerEnter}`}>Войти</a>
+                <Link to="/login" className={`text text_type_main-default ml-2 ${styles.footerEnter}`}>Войти</Link>
             </div>
         </div>
     );

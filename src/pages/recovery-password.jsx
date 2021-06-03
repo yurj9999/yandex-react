@@ -1,4 +1,7 @@
 import {useState} from 'react';
+import {Link} from 'react-router-dom';
+
+import {recoveryPass} from '../services/utils/recovery-pass';
 
 import {Logo, Input, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -9,6 +12,10 @@ import './input-pages.css';
 
 export const RecoveryPassword = () => {
     const [email, setEmail] = useState('');
+
+    const onRecoveryClick = () => {
+        recoveryPass(email);
+    };
 
     return (
         <div className={styles.wrapper}>
@@ -26,12 +33,12 @@ export const RecoveryPassword = () => {
             </div>
 
             <div className={styles.button}>
-                <Button type="primary" size="large">Восстановить</Button>
+                <Button onClick={onRecoveryClick} type="primary" size="large">Восстановить</Button>
             </div>
             
             <div className={styles.footer}>
                 <p className={`text text_type_main-default ${styles.footerInfo}`}>Вспомнили пароль?</p>
-                <a href="" className={`text text_type_main-default ml-2 ${styles.footerEnter}`}>Войти</a>
+                <Link to="/login" className={`text text_type_main-default ml-2 ${styles.footerEnter}`}>Войти</Link>
             </div>
         </div>
     );

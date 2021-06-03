@@ -1,4 +1,5 @@
 import {useState, useRef} from 'react';
+import {Link} from 'react-router-dom';
 
 import {Logo, Input, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -60,12 +61,12 @@ export const Autorization = () => {
             
             <div className={`mb-4 ${styles.footer}`}>
                 <p className={`text text_type_main-default ${styles.footerInfo}`}>Вы — новый пользователь?</p>
-                <a href="" className={`text text_type_main-default ml-2 ${styles.footerEnter}`}>Зарегистрироваться</a>
+                <Link to="/register" className={`text text_type_main-default ml-2 ${styles.footerEnter}`}>Зарегистрироваться</Link>
             </div>
 
             <div className={styles.footer}>
                 <p className={`text text_type_main-default ${styles.footerInfo}`}>Забыли пароль?</p>
-                <a href="" className={`text text_type_main-default ml-2 ${styles.footerEnter}`}>Восстановить пароль</a>
+                <Link to="/forgot-password" className={`text text_type_main-default ml-2 ${styles.footerEnter}`}>Восстановить пароль</Link>
             </div>
         </div>
     );

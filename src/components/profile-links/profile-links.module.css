@@ -16,3 +16,15 @@
 .lastItemMenu {
     margin-bottom: 80px;
 }
+
+.link {
+    text-decoration: none;
+}
+
+.checked {
+    color: #f2f2f3;
+}
+
+.unchecked {
+    color: #8585ad;
+}

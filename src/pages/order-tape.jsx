@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom';
+
 import {Burger} from '../components/burger/burger';
 import {OrderTotal} from '../components/order-total/order-total';
 
@@ -16,10 +18,12 @@ export const OrderTape = () => {
                 <div className={styles.mainBlock}>
                     <div className={styles.burgers}>
                         {
-                            burgers.map(() => (
-                                <div className={styles.itemWrapper}>
-                                    <Burger/>
-                                </div>
+                            burgers.map((item, index) => (
+                                <Link key={index} className={styles.link} to={`/feed/${index}`}>
+                                    <div className={styles.itemWrapper}>
+                                        <Burger/>
+                                    </div>
+                                </Link>
                             ))
                         }
                     </div>

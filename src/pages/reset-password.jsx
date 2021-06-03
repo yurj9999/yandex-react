@@ -1,4 +1,7 @@
 import {useState, useRef} from 'react';
+import {Link} from 'react-router-dom';
+
+import {resetPass} from '../services/utils/reset-pass';
 
 import {Logo, Input, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -10,7 +13,7 @@ import './input-pages.css';
 export const ResetPassword = () => {
     const passRef = useRef(null);
 
-    const [email, setEmail] = useState('');
+    const [code, setCode] = useState('');
 
     const [passwordConfig, setPasswordConfig] = useState({
         type: 'password',
@@ -25,6 +28,13 @@ export const ResetPassword = () => {
             icon: passwordConfig.icon === 'ShowIcon' ? 'HideIcon' : 'ShowIcon'
         });
     };
+
+    const onSave = () => {
+        resetPass({
+            code,
+            password: passwordConfig.value
+        });
+    }
 
     return (
         <div className={styles.wrapper}>
@@ -49,19 +59,19 @@ export const ResetPassword = () => {
 
             <div className={styles.inputWrapper}>
                 <Input
-                    type={'email'}
+                    type={'text'}
                     placeholder={'Введите код из письма'}
-                    value={email}
-                    onChange={event => setEmail(event.target.value)}/>
+                    value={code}
+                    onChange={event => setCode(event.target.value)}/>
             </div>
 
             <div className={styles.button}>
-                <Button type="primary" size="large">Сохранить</Button>
+                <Button type="primary" size="large" onClick={onSave}>Сохранить</Button>
             </div>
             
             <div className={styles.footer}>
                 <p className={`text text_type_main-default ${styles.footerInfo}`}>Вспомнили пароль?</p>
-                <a href="" className={`text text_type_main-default ml-2 ${styles.footerEnter}`}>Войти</a>
+                <Link to="/login" className={`text text_type_main-default ml-2 ${styles.footerEnter}`}>Войти</Link>
             </div>
         </div>
     );

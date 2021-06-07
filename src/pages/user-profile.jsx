@@ -2,7 +2,7 @@ import {useState, useRef, useEffect} from 'react';
 
 import {ProfileLinks} from '../components/profile-links/profile-links';
 
-import {Input} from '@ya.praktikum/react-developer-burger-ui-components';
+import {Input, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styles from './input-pages.module.css';
 
@@ -52,6 +52,14 @@ export const UserProfile = () => {
         });        
     }
 
+    const onSave = () => {
+
+    }
+
+    const onCancel = () => {
+        
+    }
+
     useEffect(() => nameRef.current.focus(), [nameConfig.disabled]);
     useEffect(() => loginRef.current.focus(), [loginConfig.disabled]);
     useEffect(() => passRef.current.focus(), [passConfig.disabled]);
@@ -63,8 +71,8 @@ export const UserProfile = () => {
                     <ProfileLinks type={'profile'}/>
                 </div>
                 
-                <div className={styles.inputsWrapper}>
-                    <div>
+                <div >
+                    <div className={styles.inputsWrapper}>
                         <div className={styles.inputWrapper}>
                             <Input
                                 ref={nameRef}
@@ -140,8 +148,17 @@ export const UserProfile = () => {
                                     : () => null
                                 }/>
                         </div>
+
+                        <div className={styles.buttonsWrapper}>
+                            <Button type="primary" size="large" onClick={onSave}>Сохранить</Button>
+                            <Button type="primary" size="large" onClick={onCancel}>Отменить</Button>
+                        </div>
+
                     </div>
+                    
                 </div>
+
+                
             </div>
         </div> 
     );

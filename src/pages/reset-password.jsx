@@ -13,7 +13,7 @@ import './input-pages.css';
 export const ResetPassword = () => {
     const passRef = useRef(null);
 
-    const [code, setCode] = useState('');
+    const [token, setToken] = useState('');
 
     const [passwordConfig, setPasswordConfig] = useState({
         type: 'password',
@@ -31,8 +31,8 @@ export const ResetPassword = () => {
 
     const onSave = () => {
         resetPass({
-            code,
-            password: passwordConfig.value
+            password: passwordConfig.value,
+            token
         });
     }
 
@@ -61,8 +61,8 @@ export const ResetPassword = () => {
                 <Input
                     type={'text'}
                     placeholder={'Введите код из письма'}
-                    value={code}
-                    onChange={event => setCode(event.target.value)}/>
+                    value={token}
+                    onChange={event => setToken(event.target.value)}/>
             </div>
 
             <div className={styles.button}>

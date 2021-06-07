@@ -1,7 +1,10 @@
 import {useState, useRef} from 'react';
-import {Link} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import {useHistory} from 'react-router-dom';
 
-import {regUser} from '../services/utils/reg-user';
+import {setUser} from '../services/actions/index';
+
+import {Link} from 'react-router-dom';
 
 import {Logo, Input, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -11,6 +14,9 @@ import styles from './input-pages.module.css';
 import './input-pages.css';
 
 export const Registration = () => {
+    const dispatch = useDispatch();
+    const history = useHistory();
+
     const passRef = useRef(null);
 
     const [name, setName] = useState('');
@@ -31,11 +37,16 @@ export const Registration = () => {
     };
 
     const registrationStart = () => {
-        regUser({
+        dispatch(setUser({
             name,
             email,
             password: passwordConfig.value
-        });
+        }, 'registration'))
+            .then(result => {
+                if (result instanceof Error) throw new Error(); 
+                history.replace({pathname: '/'})
+            })
+            .catch(error => console.log(error));
     };
 
     return (

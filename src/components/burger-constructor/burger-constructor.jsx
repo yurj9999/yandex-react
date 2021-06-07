@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, useCallback} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {useDrop} from 'react-dnd';
 
@@ -7,9 +7,11 @@ import {HTML5Backend} from 'react-dnd-html5-backend';
 
 import {getOrderDetails} from '../../services/actions';
 
-import {SET_BUNS, SET_FILLINGS, MAX_BUNS_COUNT} from '../../services/constants';
+import {MAX_BUNS_COUNT} from '../../services/constants';
 
-import BurgerFilling from '../burger-filling/burger-filling';
+import {actions as constructorActions} from '../../services/slices/constructor';
+
+import BurgerFilling from './burger-filling/burger-filling';
 
 import {ConstructorElement, DragIcon, CurrencyIcon, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -19,6 +21,8 @@ import constructorStyle from './burger-constructor.module.css';
 import './burger-constructor.css';
 
 const BurgerConstructor = () => {
+    const {setBuns, setFillings} = constructorActions;
+
     const {blockedClick} = useSelector(store => store.modal);
     const {blockedAll} = useSelector(store => store.ingredients);
     const {bun, fillings} = useSelector(store => store.constructorIngredients);
@@ -35,35 +39,26 @@ const BurgerConstructor = () => {
         return result.reduce((prev, curr) => prev + curr, 0);
     }, [bun, fillings]);
 
-    const openModal = () => {
+    const openModal = useCallback(() => {
         if (Object.keys(bun).length) {
             dispatch(getOrderDetails([bun._id, ...fillings.map(item => item._id), bun._id]));
         }  
-    }
+    }, [dispatch, bun, fillings]);
 
     const [, dropRef] = useDrop({
         accept: ['bun', 'main', 'sauce'],
         drop(item) {
             switch(item.type) {
                 case 'bun':
-                    dispatch({
-                        type: SET_BUNS,
-                        item: ingredients.find(ingredient => ingredient._id === item.id)
-                    });
+                    dispatch(setBuns(ingredients.find(ingredient => ingredient._id === item.id)));
                     break;
 
                 case 'main':
-                    dispatch({
-                        type: SET_FILLINGS,
-                        item: ingredients.find(ingredient => ingredient._id === item.id)
-                    });
+                    dispatch(setFillings(ingredients.find(ingredient => ingredient._id === item.id)));
                     break;
 
                 case 'sauce':
-                    dispatch({
-                        type: SET_FILLINGS,
-                        item: ingredients.find(ingredient => ingredient._id === item.id)
-                    });
+                    dispatch(setFillings(ingredients.find(ingredient => ingredient._id === item.id)));
                     break;
 
                 default:

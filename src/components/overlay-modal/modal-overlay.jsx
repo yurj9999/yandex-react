@@ -2,9 +2,9 @@ import {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
 import ReactDOM from 'react-dom';
 
-import Modal from '../modal/modal';
+import Modal from './modal/modal';
 
-import {CLEAR_MODAL} from '../../services/constants';
+import {actions as modalActions} from '../../services/slices/modal';
 
 import overlayStyle from './modal-overlay.module.css';
 
@@ -14,9 +14,7 @@ const ModalOverlay = () => {
     const dispatch = useDispatch();
 
     const onEscClose = () => {
-        dispatch({
-            type: CLEAR_MODAL
-        });
+        dispatch(modalActions.clearModal());
     }
 
     useEffect(() => {

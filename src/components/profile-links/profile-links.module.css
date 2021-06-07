@@ -1,0 +1,30 @@
+.menuProfile {
+    width: 320px;
+}
+
+.itemMenu {
+    width: 320px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+}
+
+.footerMenu {
+    color: #8585ad;
+}
+
+.lastItemMenu {
+    margin-bottom: 80px;
+}
+
+.link {
+    text-decoration: none;
+}
+
+.checked {
+    color: #f2f2f3;
+}
+
+.unchecked {
+    color: #8585ad;
+}

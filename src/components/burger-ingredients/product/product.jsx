@@ -1,10 +1,12 @@
-import {useMemo} from 'react';
+import {useMemo, useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useDrag} from 'react-dnd';
 
 import PropTypes from 'prop-types';
 
-import {MAX_BUNS_COUNT, SET_MODAL_INGREDIENT} from '../../services/constants';
+import {MAX_BUNS_COUNT} from '../../../services/constants';
+
+import {actions as modalActions} from '../../../services/slices/modal';
 
 import {CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -12,6 +14,7 @@ import productStyle from './product.module.css';
 
 const Product = ({data}) => {
     const dispatch = useDispatch();
+
     const {blockedClick} = useSelector(store => store.modal);
     const {bun, fillings} = useSelector(store => store.constructorIngredients);
     
@@ -29,12 +32,7 @@ const Product = ({data}) => {
         }
     });
 
-    const setIngredientInfo = () => {
-        dispatch({
-            type: SET_MODAL_INGREDIENT,
-            ingredient: data
-        });
-    };
+    const setIngredientInfo = useCallback(() => dispatch(modalActions.setModalIngredient(data)), [data, dispatch]);
 
     return (
         <>

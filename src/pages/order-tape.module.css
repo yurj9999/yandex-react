@@ -1,0 +1,35 @@
+.mainWrapper {
+    width: 100%;
+}
+
+.wrapper {
+    margin-top: 40px;
+}
+
+.title {
+    margin-bottom: 20px;
+}
+
+.mainBlock {
+    display: flex;
+    justify-content: space-between;
+}
+
+.burgers {
+    width: 584px;
+    height: calc(100vh / 1.25);
+    overflow: auto;
+}
+
+.burgers .link:last-child {
+    margin-bottom: 0;
+}
+
+.itemWrapper {
+    margin-bottom: 16px;
+}
+
+.link {
+    text-decoration: none;
+    color: #f2f2f3;
+}

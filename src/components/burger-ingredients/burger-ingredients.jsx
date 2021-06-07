@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 
 import {getIngredients} from '../../services/actions';
-import ProductGroup from '../product-group/product-group';
+import ProductGroup from './product-group/product-group';
 
 import ingredientsStyle from './burger-ingredients.module.css';
 
@@ -13,6 +13,7 @@ const HIGH_PARENT_TOP = 100;
 
 const BurgerIngredients = () => {
     const dispatch = useDispatch();
+    
     const {error, blockedAll} = useSelector(store => store.ingredients);
 
     const [tab, setTab] = useState('breads');

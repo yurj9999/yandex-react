@@ -1,0 +1,68 @@
+.wrapper {
+    margin-top: 120px;
+}
+
+.title {
+    width: 640px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.status {
+    color: #00cccc;
+    margin-bottom: 60px;
+}
+
+.details {
+    margin-bottom: 28px;
+}
+
+.orderDetailsWrapper {
+    margin-bottom: 40px;
+    height: 366px;
+    overflow: auto;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footerText {
+    color: #8585ad;
+}
+
+.countWrapper {
+    display: flex;
+}
+
+.ingredient {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.ingredient:last-child {
+    margin-bottom: 0;
+}
+
+.cost {
+    margin-right: 9px
+}
+
+.countCostWrapper {
+    display: flex;
+}
+
+.ingredientWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.img {
+    margin-right: 9px;
+}

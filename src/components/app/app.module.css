@@ -1,7 +1,7 @@
 .mainWrapper {
   display: flex;
-  justify-content: space-between;
-  width: 1240px;
+  justify-content: center;
+  width: 1300px;
   margin: 0 auto;
 }
 

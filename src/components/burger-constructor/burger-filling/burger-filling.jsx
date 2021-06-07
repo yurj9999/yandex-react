@@ -1,39 +1,34 @@
-import {useRef} from 'react';
+import {useRef, useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useDrag, useDrop} from 'react-dnd';
 
 import PropTypes from 'prop-types';
 
-import {DELETE_INGREDIENT, UPDATE_FILLINGS} from '../../services/constants';
+import {actions as constructorActions} from '../../../services/slices/constructor';
 
 import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
 import fillingStyle from './burger-filling.module.css';
 
 const BurgerFilling = ({index, element}) => {
-
-    const ref = useRef(null);
     const dispatch = useDispatch();
+
+    const {deleteIngredient, updateFillings} = constructorActions;
+
     const {fillings} = useSelector(store => store.constructorIngredients);
+    
+    const ref = useRef(null);
 
-    const deleteIngedient = (index) => {
-        dispatch({
-            type: DELETE_INGREDIENT,
-            elements: fillings.filter((item, number) => number !== index)
-        });
-    }
+    const del = useCallback((index) => dispatch(deleteIngredient(fillings.filter((item, number) => number !== index))), [dispatch, fillings, deleteIngredient]);
 
-    const moveCard = ({indexDrag}, {indexDrop}) => {
+    const moveCard = useCallback(({indexDrag}, {indexDrop}) => {
         const temp = [...fillings];
 
         temp[indexDrag] = fillings.find((item, index) => index === indexDrop);
         temp[indexDrop] = fillings.find((item, index) => index === indexDrag);
 
-        dispatch({
-            type: UPDATE_FILLINGS,
-            data: temp
-        });
-    };
+        dispatch(updateFillings(temp));
+    }, [dispatch, fillings, updateFillings]);
 
     const [, dragRef] = useDrag({
         type: 'fillings',
@@ -72,7 +67,7 @@ const BurgerFilling = ({index, element}) => {
     return (
         <div ref={ref} className={`mb-2 ${fillingStyle.fillingIngredient} ${isTarget && fillingStyle.target}`}>
             <ConstructorElement 
-                handleClose={() => deleteIngedient(index)}
+                handleClose={() => del(index)}
                 thumbnail={element.image_mobile}
                 text={element.name}
                 price={element.price}

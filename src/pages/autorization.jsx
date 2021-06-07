@@ -1,5 +1,8 @@
 import {useState, useRef} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
+
+import {useDispatch} from 'react-redux';
+import {setUser} from '../services/actions/index';
 
 import {Logo, Input, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -9,6 +12,9 @@ import styles from './input-pages.module.css';
 import './input-pages.css';
 
 export const Autorization = () => {
+    const dispatch = useDispatch();
+    const history = useHistory();
+
     const passRef = useRef(null);
 
     const [email, setEmail] = useState('');
@@ -26,6 +32,18 @@ export const Autorization = () => {
             icon: passwordConfig.icon === 'ShowIcon' ? 'HideIcon' : 'ShowIcon'
         });
     };
+
+    const onEnter = () => {
+        dispatch(setUser({
+            email, 
+            password: passwordConfig.value 
+        }, 'autorization'))
+            .then(result => {
+                if (result instanceof Error) throw new Error(); 
+                history.replace({pathname: '/'})
+            })
+            .catch(error => console.log(error));
+    }
 
     return (
         <div className={styles.wrapper}>
@@ -56,7 +74,7 @@ export const Autorization = () => {
             </div>
 
             <div className={styles.button}>
-                <Button type="primary" size="large">Войти</Button>
+                <Button type="primary" size="large" onClick={onEnter}>Войти</Button>
             </div>
             
             <div className={`mb-4 ${styles.footer}`}>

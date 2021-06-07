@@ -28,3 +28,7 @@
 .unchecked {
     color: #8585ad;
 }
+
+.exitBtn:hover {
+    cursor: pointer;
+}

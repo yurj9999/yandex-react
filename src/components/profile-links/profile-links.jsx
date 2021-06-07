@@ -1,10 +1,30 @@
+import {useCallback} from 'react';
+
 import PropTypes from 'prop-types';
+
+import {useDispatch, useSelector} from 'react-redux';
+import {useHistory} from 'react-router-dom';
+
+import {exitUser} from '../../services/actions/index';
 
 import {Link} from 'react-router-dom';
 
 import styles from './profile-links.module.css';
 
 export const ProfileLinks = ({type}) => {
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    const userData = useSelector(store => store.user);
+    
+    const onExit = useCallback(() => {
+        dispatch(exitUser({
+            token: localStorage.getItem('refreshToken').split(`${userData.user.name}=`)[1]
+        }, userData.user.name))
+            .then(() => history.replace({pathname: '/'}))
+            .catch(error => console.log(error));
+    }, [history, userData.user.name]);
+
     return (
         <div className={styles.menuProfile}>
             <div className={styles.itemMenu}>
@@ -20,12 +40,7 @@ export const ProfileLinks = ({type}) => {
                 </Link>
             </div>
             <div className={`${styles.itemMenu} ${styles.lastItemMenu}`}>
-                
-                {/*позже здесь будет роут выхода*/}
-                <Link to="/ss"
-                    className={`text text_type_main-medium ${styles.link} ${type === 'exit' ? styles.checked : styles.unchecked}`}>
-                        Выход
-                </Link>
+                <div onClick={onExit} className={`text text_type_main-medium ${styles.link} ${styles.exitBtn} ${type === 'exit' ? styles.checked : styles.unchecked}`}>Выход</div>
             </div>
 
             <p className={`text text_type_main-default ${styles.footerMenu}`}>В этом разделе вы можете изменить свои персональные данные</p>

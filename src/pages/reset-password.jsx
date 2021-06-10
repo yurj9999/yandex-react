@@ -1,5 +1,5 @@
 import {useState, useRef} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 
 import {resetPass} from '../services/utils/reset-pass';
 
@@ -12,6 +12,8 @@ import './input-pages.css';
 
 export const ResetPassword = () => {
     const passRef = useRef(null);
+
+    const history = useHistory();
 
     const [token, setToken] = useState('');
 
@@ -33,7 +35,13 @@ export const ResetPassword = () => {
         resetPass({
             password: passwordConfig.value,
             token
-        });
+        })
+            .then(result => {
+                if (result instanceof Error) throw new Error();
+                localStorage.setItem('allowResetPassword', '');
+                history.replace({pathname: '/login'});
+            })
+            .catch(error => console.log(error));
     }
 
     return (

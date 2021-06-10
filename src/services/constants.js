@@ -5,4 +5,6 @@ export const URL_REGISTRATION = 'https://norma.nomoreparties.space/api/auth/regi
 export const URL_RESET_PASSWORD = 'https://norma.nomoreparties.space/api/password-reset/reset';
 export const URL_AUTORIZATION = 'https://norma.nomoreparties.space/api/auth/login';
 export const URL_EXIT = 'https://norma.nomoreparties.space/api/auth/logout';
+export const URL_UPDATE_USER = 'https://norma.nomoreparties.space/api/auth/user';
+export const URL_UPDATE_TOKEN = 'https://norma.nomoreparties.space/api/auth/token';
 export const MAX_BUNS_COUNT = 2;

@@ -1,10 +1,8 @@
 import {useState, useRef} from 'react';
 import {useDispatch} from 'react-redux';
-import {useHistory} from 'react-router-dom';
+import {useHistory, Link} from 'react-router-dom';
 
 import {setUser} from '../services/actions/index';
-
-import {Link} from 'react-router-dom';
 
 import {Logo, Input, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 

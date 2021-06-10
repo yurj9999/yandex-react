@@ -9,7 +9,7 @@ const userInitialState = {
     accessToken: '',
     refreshToken: '',
     error: '',
-    isBlocked: false
+    isBlocked: false,
 };
 
 const slice = createSlice({
@@ -44,6 +44,9 @@ const slice = createSlice({
             state.refreshToken = '';
             state.error = '';
             state.isBlocked = false;
+        },
+        setUpdatedTokens(state, action) {
+            state.accessToken = action.payload.accessToken;
         }
     }
 });

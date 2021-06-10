@@ -13,6 +13,7 @@ import './input-pages.css';
 
 export const Autorization = () => {
     const dispatch = useDispatch();
+
     const history = useHistory();
 
     const passRef = useRef(null);
@@ -37,7 +38,7 @@ export const Autorization = () => {
         dispatch(setUser({
             email, 
             password: passwordConfig.value 
-        }, 'autorization'))
+        }, 'authorization'))
             .then(result => {
                 if (result instanceof Error) throw new Error(); 
                 history.replace({pathname: '/'})

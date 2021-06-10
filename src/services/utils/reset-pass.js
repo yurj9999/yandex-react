@@ -16,12 +16,8 @@ export const resetPass = async ({password, token}) => {
         if (!request.ok) {
             throw new Error('Ошибка при запросе.');
         }
-
-        const data = await request.json();
-
-        // пока просто отображаем в консоли положительный ответ
-        console.log(data);
     } catch (error) {
         console.log(error.message);
+        return error;
     }
 }

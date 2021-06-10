@@ -6,7 +6,6 @@ import {Burger} from '../components/burger/burger';
 import styles from './order-history.module.css';
 
 export const OrderHistory = () => {
-
     // временный массив с бургерами
     const burgers = [1, 2, 3, 4, 5, 6, 7, 8];
 

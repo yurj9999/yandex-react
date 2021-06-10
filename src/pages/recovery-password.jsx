@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 
 import {recoveryPass} from '../services/utils/recovery-pass';
 
@@ -11,10 +11,20 @@ import styles from './input-pages.module.css';
 import './input-pages.css';
 
 export const RecoveryPassword = () => {
+    const history = useHistory();
+
     const [email, setEmail] = useState('');
 
     const onRecoveryClick = () => {
-        recoveryPass(email);
+        if (email) {
+            recoveryPass(email)
+                .then(result => {
+                    if (result instanceof Error) throw new Error();
+                    localStorage.setItem('allowResetPassword', 'allow');
+                    history.replace({pathname: '/reset-password'});
+                })
+                .catch(error => console.log(error));
+        }
     };
 
     return (

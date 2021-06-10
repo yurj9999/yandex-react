@@ -4,11 +4,21 @@ import {Route, Switch, BrowserRouter as Router} from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
 import ModalOverlay from '../overlay-modal/modal-overlay';
 
+import {ProtectedRoute} from '../protected-route/protected-route';
+
 import {Registration, Autorization, RecoveryPassword, ResetPassword, UserProfile, EmptyPage404, OrderInfo, OrderTape, OrderHistory, IngredientsConstructor} from '../../pages';
 
 import appStyle from './app.module.css';
 
 function App() {
+  
+  /*function deleteAllCookies() {
+    var c = document.cookie.split("; ");
+    for (let i in c) 
+     document.cookie =/^[^=]+/.exec(c[i])[0]+"=;expires=Thu, 01 Jan 1970 00:00:00 GMT";    
+   }*/
+  //deleteAllCookies();
+
   const {modalType} = useSelector(store => store.modal);
 
   // попр верстку в шапке + выделение в меню в шапке
@@ -20,24 +30,11 @@ function App() {
   // const isFeed = !!useRouteMatch('/feed');
   // const isProfile = !!useRouteMatch('/profile');
   
-  // профилирование - где нужно исп useMemo, useCallback ?
-  
-  // возможно обновл куки нужно кажд раз при смене роута, т.к. жц куки может закончиться
-  // как сохр куку см раб стол
+  // профилирование - где нужно исп useMemo, useCallback
+  // + см желтые алерты
 
-  // import { Redirect } from 'react-router-dom'; - для переадресации
-  // пример
-  // <Route exact path="/">
-  // {loggedIn ? <Redirect to="/dashboard" /> : <PublicHomePage />}
-  // </Route>
 
-  // Если пользователь заходит на /profile и вложенные роуты, то проверяется наличие токена. Остальные роуты не защищены авторизацией
-  // в конструктор и в ленту заказов можно попасть без авторизации
-
-  // Авторизация нужна для доступа к профилю - данные пользователя и его заказы, отправку бургера тоже нужно бы защитить авторизацией,
-  // но это по видимому не реализовано т.к. иначе не было бы возможности отправлять запрос из конструктора на 1 и 2 спринте
-
-  // в апп проверяем наличие куки
+  // не проваливается в историю заказов + если там обновить стр некорректно работает авторизация и выход
 
   return (
     <>
@@ -48,37 +45,47 @@ function App() {
             <Route path="/" exact>
               <IngredientsConstructor/>
             </Route>
-            <Route path="/login" exact>
+
+
+
+            <ProtectedRoute path="/login" protectType="authorized">
               <Autorization/>
-            </Route>
-            <Route path="/register" exact>
+            </ProtectedRoute>
+            <ProtectedRoute path="/register" protectType="authorized">
               <Registration/>
-            </Route>
-            <Route path="/forgot-password" exact>
+            </ProtectedRoute>
+            <ProtectedRoute path="/forgot-password" protectType="authorized">
               <RecoveryPassword/>
-            </Route>
-            <Route path="/reset-password" exact>
+            </ProtectedRoute>
+            <ProtectedRoute path="/reset-password" protectType="authorized">
               <ResetPassword/>
-            </Route>
+            </ProtectedRoute>
+
+
             <Route path="/feed" exact>
               <OrderTape/>
             </Route>
             <Route path="/feed/:id" exact>
               <OrderInfo/>
             </Route>
-            {/*защищ роут*/}
-            <Route path="/profile" exact>
+
+
+
+            
+            <ProtectedRoute path="/profile" protectType="nonAuthorized">
               <UserProfile/>
-            </Route>
-            {/*защищ роут*/}
-            <Route path="/profile/orders" exact>
+            </ProtectedRoute>
+            <ProtectedRoute path="/profile/orders" protectType="nonAuthorized">
               <OrderHistory/>
-            </Route>
-            <Route path="/profile/orders/:id" exact>
+            </ProtectedRoute>
+            <ProtectedRoute path="/profile/orders/:id" protectType="nonAuthorized">
               <OrderInfo/>
-            </Route>
+            </ProtectedRoute>
+
+
+
+
             <Route path="/ingredients/:id" exact>
-              {/*стр ингредиента - в след*/}
               <></>
             </Route>
 

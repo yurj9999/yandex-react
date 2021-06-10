@@ -18,12 +18,21 @@ export const ProfileLinks = ({type}) => {
     const userData = useSelector(store => store.user);
     
     const onExit = useCallback(() => {
+
+        
+        history.replace({pathname: '/'});
+        
         dispatch(exitUser({
-            token: localStorage.getItem('refreshToken').split(`${userData.user.name}=`)[1]
-        }, userData.user.name))
+            token: localStorage.getItem('burgerRefreshToken')
+        }));
+
+
+        /*dispatch(exitUser({
+            token: localStorage.getItem('burgerRefreshToken')
+        }))
             .then(() => history.replace({pathname: '/'}))
-            .catch(error => console.log(error));
-    }, [history, userData.user.name]);
+            .catch(error => console.log(error));*/
+    }, [history, userData.user.name, dispatch]);
 
     return (
         <div className={styles.menuProfile}>

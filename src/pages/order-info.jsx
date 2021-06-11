@@ -20,7 +20,7 @@ export const OrderInfo = () => {
             <div className={styles.orderDetailsWrapper}>
                 <div className={styles.ingredient}>
                     <div className={styles.ingredientWrapper}>
-                        <img src={ingredientImg} className={styles.img}/>
+                        <img alt="ingredient" src={ingredientImg} className={styles.img}/>
                         <p className="text text_type_main-default">Флюоресцентная булка R2-D3</p>
                     </div>
                     <div className={styles.countCostWrapper}>
@@ -31,7 +31,7 @@ export const OrderInfo = () => {
 
                 <div className={styles.ingredient}>
                     <div className={styles.ingredientWrapper}>
-                        <img src={ingredientImg} className={styles.img}/>
+                        <img alt="ingredient" src={ingredientImg} className={styles.img}/>
                         <p className="text text_type_main-default">Флюоресцентная булка R2-D3</p>
                     </div>
                     <div className={styles.countCostWrapper}>
@@ -42,7 +42,7 @@ export const OrderInfo = () => {
 
                 <div className={styles.ingredient}>
                     <div className={styles.ingredientWrapper}>
-                        <img src={ingredientImg} className={styles.img}/>
+                        <img alt="ingredient" src={ingredientImg} className={styles.img}/>
                         <p className="text text_type_main-default">Флюоресцентная булка R2-D3</p>
                     </div>
                     <div className={styles.countCostWrapper}>
@@ -53,29 +53,7 @@ export const OrderInfo = () => {
 
                 <div className={styles.ingredient}>
                     <div className={styles.ingredientWrapper}>
-                        <img src={ingredientImg} className={styles.img}/>
-                        <p className="text text_type_main-default">Флюоресцентная булка R2-D3</p>
-                    </div>
-                    <div className={styles.countCostWrapper}>
-                        <p className={`text text_type_digits-default ${styles.cost}`}>2 x 20</p>
-                        <CurrencyIcon type="primary"/>
-                    </div>
-                </div>
-
-                <div className={styles.ingredient}>
-                    <div className={styles.ingredientWrapper}>
-                        <img src={ingredientImg} className={styles.img}/>
-                        <p className="text text_type_main-default">Флюоресцентная булка R2-D3</p>
-                    </div>
-                    <div className={styles.countCostWrapper}>
-                        <p className={`text text_type_digits-default ${styles.cost}`}>2 x 20</p>
-                        <CurrencyIcon type="primary"/>
-                    </div>
-                </div>
-
-                <div className={styles.ingredient}>
-                    <div className={styles.ingredientWrapper}>
-                        <img src={ingredientImg} className={styles.img}/>
+                        <img alt="ingredient" src={ingredientImg} className={styles.img}/>
                         <p className="text text_type_main-default">Флюоресцентная булка R2-D3</p>
                     </div>
                     <div className={styles.countCostWrapper}>

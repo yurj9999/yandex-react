@@ -8,14 +8,14 @@ export const ProtectedRoute = ({children, path, protectType}) => {
     switch(protectType) {
         case 'nonAuthorized':
             return (
-                <Route exact {...path} render={
+                <Route path={path} render={
                     () => cookie ? children : <Redirect to="/login"/>
                 }/>
             );
 
         case 'authorized':
             return (
-                <Route exact {...path} render={
+                <Route path={path} render={
                     () => cookie ? <Redirect to="/"/> : children
                 }/>
             );

@@ -41,13 +41,13 @@ export const UserProfile = () => {
                 password: ''
             });
         }
-    }, [dispatch, storeUserData.user.name, setUserFromServer, storeUserData.user.email, storeUserData.exited]);
+    }, [dispatch, storeUserData.user.name, storeUserData.user.email, storeUserData.exited]);
 
     return (
         <div className={styles.mainProfileWrapper}>
             <div className={styles.profileWrapper}>
                 <div className={styles.linksWrapper}>
-                    <ProfileLinks type={'profile'}/>
+                    <ProfileLinks/>
                 </div>
                 <div >
                     <div className={styles.inputsWrapper}>

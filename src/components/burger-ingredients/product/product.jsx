@@ -1,21 +1,15 @@
-import {useMemo, useCallback} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useMemo} from 'react';
+import {useSelector} from 'react-redux';
 import {useDrag} from 'react-dnd';
-
 import PropTypes from 'prop-types';
 
 import {MAX_BUNS_COUNT} from '../../../services/constants';
-
-import {actions as modalActions} from '../../../services/slices/modal';
 
 import {CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
 
 import productStyle from './product.module.css';
 
 const Product = ({data}) => {
-    const dispatch = useDispatch();
-
-    const {blockedClick} = useSelector(store => store.modal);
     const {bun, fillings} = useSelector(store => store.constructorIngredients);
     
     const counter = useMemo(() => {
@@ -32,11 +26,9 @@ const Product = ({data}) => {
         }
     });
 
-    const setIngredientInfo = useCallback(() => dispatch(modalActions.setModalIngredient(data)), [data, dispatch]);
-
     return (
         <>
-            <div ref={dragRef} className={productStyle.ingredient} onClick={blockedClick ? () => {} : setIngredientInfo}>
+            <div ref={dragRef} className={productStyle.ingredient}>
                 <img alt="ingredient" className="mb-1" src={data.image}/>
                 <div className={productStyle.costWrapper}>
                     <p className="text text_type_digits-default mr-1 mb-1">{data.price}</p>

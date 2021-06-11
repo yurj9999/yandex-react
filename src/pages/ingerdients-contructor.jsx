@@ -1,3 +1,5 @@
+import React from 'react';
+
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
 
@@ -6,7 +8,7 @@ import BurgerContructor from '../components/burger-constructor/burger-constructo
 
 import styles from './ingredients-constructor.module.css';
 
-export const IngredientsConstructor = () => {
+const IngredientsConstructor = () => {
     return (
         <div className={styles.wrapper}>
             <DndProvider backend={HTML5Backend}>
@@ -16,3 +18,5 @@ export const IngredientsConstructor = () => {
         </div>
     );
 }
+
+export default React.memo(IngredientsConstructor);

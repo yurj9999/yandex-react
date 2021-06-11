@@ -1,6 +1,5 @@
 import {
     URL_DATA,
-    URL_ORDER,
     URL_REGISTRATION,
     URL_AUTORIZATION,
     URL_EXIT,
@@ -9,10 +8,9 @@ import {
 } from '../constants';
 
 import {actions as ingredientsActions} from '../slices/ingredients';
-import {actions as modalActions} from '../slices/modal';
 import {actions as userActions} from '../slices/user';
 
-import {setCookie, deleteCookie, getCookie} from '../utils/cookie-helper';
+import {setCookie, getCookie} from '../utils/cookie-helper';
 
 const refreshTokenUpdater = async (dispatcher, action) => {
     try {
@@ -29,10 +27,16 @@ const refreshTokenUpdater = async (dispatcher, action) => {
         }
         const data = await request.json();
 
-        dispatcher(action(data));
-
         setCookie('burgerAccessToken', data.accessToken);
         localStorage.setItem('burgerRefreshToken', data.refreshToken);
+
+        dispatcher(action(data));
+
+
+
+
+
+
     } catch (error) {
         console.log(error.message);
     }
@@ -55,7 +59,7 @@ export const updateUserData = (newUserData, token) => {
 
             if (!request.ok) {
                 const error = await request.json();
-                if (error.message = 'jwt expired') {
+                if (error.message === 'jwt expired') {
                     await refreshTokenUpdater(dispatch, setUpdatedTokens);
                 } else {
                     throw new Error('Ошибка');
@@ -91,7 +95,7 @@ export const setUserFromServer = () => {
 
             if (!request.ok) {
                 const error = await request.json();
-                if (error.message = 'jwt expired') {
+                if (error.message === 'jwt expired') {
                     await refreshTokenUpdater(dispatch, setUpdatedTokens);
                 } else {
                     throw new Error('Ошибка');
@@ -133,12 +137,6 @@ export const exitUser = (refreshToken) => {
             const data = await request.json();
 
             dispatch(setUserClear(data));
-
-            localStorage.removeItem('burgerRefreshToken');
-            deleteCookie('burgerAccessToken');
-
-            
-            
         } catch (error) {
             dispatch(setUserError(error.message));
             return error;
@@ -193,32 +191,4 @@ export const getIngredients = () => {
             dispatch(setAllIngredientsError(error.message))
         }
     };
-}
-
-export const getOrderDetails = (ids) => {
-    const {setOrderRequest, setOrderError, setOrderSuccess} = modalActions;
-
-    return async (dispatch) => {
-        dispatch(setOrderRequest());
-        try {
-            const request = await fetch(URL_ORDER, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                  ingredients: ids
-                })
-            });
-        
-            if (!request.ok) {
-                throw new Error('Ошибка при запросе.');
-            }
-        
-            const data = await request.json();
-            dispatch(setOrderSuccess(data));
-        } catch (error) {
-            dispatch(setOrderError(error.message));  
-        }
-    }
 }

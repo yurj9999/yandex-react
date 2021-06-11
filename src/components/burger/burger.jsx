@@ -60,6 +60,8 @@ export const Burger = ({needStatus = false, statusType = 'done'}) => {
                 <div className={styles.ingredientsWrapper}>
                     {
                         ingredients.map((ingredient, index) => {
+                            
+                            
                             if (index < MAX_VISIBLE_INGREDIENTS) {
                                 if (index === LAST_VISIBLE_INGREDIENTS) {
                                     return (
@@ -72,19 +74,22 @@ export const Burger = ({needStatus = false, statusType = 'done'}) => {
                                                     +{ingredients.length - index - 1}
                                                 </p>
                                             </div>
-                                            <img className={styles.img} style={{
+                                            <img alt="ingredient" className={styles.img} style={{
                                                 position: 'absolute'
                                             }} src={img}/>
                                         </div>
                                     )
                                 } else {
                                     return (
-                                        <img key={index} className={styles.img} style={{
+                                        <img alt="ingredient" key={index} className={styles.img} style={{
                                             zIndex: ingredients.length - index,
                                             right: `${index === 0 ? 0 : RIGHT_POSITION * index}px`
                                         }} src={img}/>
                                     );
                                 }
+                            }
+                            else {
+                                return null;
                             }
                         })
                     }

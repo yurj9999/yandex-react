@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 
 import {Burger} from '../components/burger/burger';
 import {OrderTotal} from '../components/order-total/order-total';
@@ -6,6 +6,8 @@ import {OrderTotal} from '../components/order-total/order-total';
 import styles from './order-tape.module.css';
 
 export const OrderTape = () => {
+    const location = useLocation();
+
     // временный массив имитация массива с бургерами
     const burgers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -18,7 +20,12 @@ export const OrderTape = () => {
                     <div className={styles.burgers}>
                         {
                             burgers.map((item, index) => (
-                                <Link key={index} className={styles.link} to={`/feed/${index}`}>
+                                <Link key={index} className={styles.link} to={{
+                                    pathname: `/feed/${index}`,
+                                    state: {
+                                        modal: location
+                                    }
+                                }}>
                                     <div className={styles.itemWrapper}>
                                         <Burger/>
                                     </div>

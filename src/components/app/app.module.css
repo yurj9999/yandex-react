@@ -5,6 +5,10 @@
   margin: 0 auto;
 }
 
+.appWrapper {
+  margin-top: 120px;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }

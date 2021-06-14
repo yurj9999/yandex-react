@@ -31,7 +31,7 @@ export const UserProfile = () => {
     });
 
     useEffect(() => {
-        if (!storeUserData.user.name) {
+        if (!storeUserData.user.name && !storeUserData.user.isExit) {
             dispatch(setUserFromServer());
         } else {
             setUserData({
@@ -40,7 +40,7 @@ export const UserProfile = () => {
                 password: ''
             });
         }
-    }, [dispatch, storeUserData.user.name, storeUserData.user.email]);
+    }, [dispatch, storeUserData.user.name, storeUserData.user.email, storeUserData.user.isExit]);
 
     return (
         <div className={styles.mainProfileWrapper}>

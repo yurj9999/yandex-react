@@ -2,12 +2,15 @@ import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 
 import {exitUser} from '../../services/actions/index';
+import {actions as userActions} from '../../services/slices/user';
 
 import {NavLink} from 'react-router-dom';
 
 import styles from './profile-links.module.css';
 
 export const ProfileLinks = () => {
+    const {setUserClear} = userActions;
+
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -17,6 +20,7 @@ export const ProfileLinks = () => {
         }));
 
         history.replace({pathname: '/login'});
+        dispatch(setUserClear());
     };
 
     return (

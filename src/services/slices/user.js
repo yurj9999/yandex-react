@@ -10,6 +10,7 @@ const userInitialState = {
     refreshToken: '',
     error: '',
     isBlocked: false,
+    isExit: false
 };
 
 const slice = createSlice({
@@ -18,6 +19,7 @@ const slice = createSlice({
     reducers: {
         setUserRequest(state) {
             state.isBlocked = true;
+            state.isExit = false;
         },
         setUserError(state, action) {
             state.success = action.payload.success;
@@ -27,6 +29,7 @@ const slice = createSlice({
             state.accessToken = '';
             state.refreshToken = '';
             state.isBlocked = false;
+            state.isExit = false;
         },
         setUserSuccess(state, action) {
             state.success = action.payload.success;
@@ -35,6 +38,7 @@ const slice = createSlice({
             state.refreshToken = action.payload.refreshToken;
             state.error = '';
             state.isBlocked = false;
+            state.isExit = false;
         },
         setUserClear(state) {
             state.success = true;
@@ -44,6 +48,7 @@ const slice = createSlice({
             state.refreshToken = '';
             state.error = '';
             state.isBlocked = false;
+            state.isExit = true;
         },
         setUpdatedTokens(state, action) {
             state.accessToken = action.payload.accessToken;

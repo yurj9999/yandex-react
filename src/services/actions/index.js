@@ -112,7 +112,7 @@ export const setUserFromServer = () => {
 }
 
 export const exitUser = (refreshToken) => {
-    const {setUserError, setUserRequest, setUserClear} = userActions;
+    const {setUserError, setUserRequest} = userActions;
 
     return async dispatch => {
         dispatch(setUserRequest());
@@ -132,8 +132,6 @@ export const exitUser = (refreshToken) => {
 
             deleteCookie('burgerAccessToken');
             localStorage.removeItem('burgerRefreshToken');
-
-            dispatch(setUserClear());
         } catch (error) {
             dispatch(setUserError(error.message));
             return error;

@@ -1,4 +1,4 @@
-import {useLocation} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 
 import {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
@@ -9,9 +9,7 @@ import detailsStyle from './ingredient-details.module.css';
 
 const IngredientDetails = () => {
     const dispatch = useDispatch();
-    const location = useLocation();
-
-    const ingredientId = location.pathname.split('/')[2];
+    const {id} = useParams();
 
     const {ingredients} = useSelector(store => store.ingredients);
     const [ingredient, setIngredient] = useState({});
@@ -20,9 +18,9 @@ const IngredientDetails = () => {
         if (!ingredients.length) {
             dispatch(getIngredients());
         } else {
-            setIngredient(ingredients.find(item => item._id === ingredientId));
+            setIngredient(ingredients.find(item => item._id === id));
         }
-    }, [ingredients, dispatch, ingredientId]);
+    }, [ingredients, dispatch, id]);
 
     const {image_large, name, calories, proteins, fat, carbohydrates} = ingredient;
 
@@ -30,7 +28,7 @@ const IngredientDetails = () => {
         <div className={detailsStyle.wrapper}>
             <p className={`text text_type_main-large ${detailsStyle.title}`}>Детали ингредиента</p>    
             <div className={detailsStyle.main}>
-                <img alt="bun" src={image_large} className={`mb-2 ${detailsStyle.image}`}/>
+                {image_large && <img alt="bun" src={image_large} className={`mb-2 ${detailsStyle.image}`}/>}
                 <div className={`text text_type_main-medium ${detailsStyle.name}`}>{name}</div>
 
                 <div className={`text text_type_main-default ${detailsStyle.details}`}>Превосходные котлеты из марсианской Магнолии для фирменных космических бургеров, набирающих популярность по всей вселенной.</div>

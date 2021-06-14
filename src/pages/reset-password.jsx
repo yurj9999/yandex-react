@@ -1,4 +1,4 @@
-import {useState, useRef} from 'react';
+import {useState, useRef, useEffect} from 'react';
 import {Link, useHistory, Redirect} from 'react-router-dom';
 
 import {resetPass} from '../services/utils/reset-pass';
@@ -32,17 +32,23 @@ export const ResetPassword = () => {
     };
 
     const onSave = () => {
-        resetPass({
-            password: passwordConfig.value,
-            token
-        })
-            .then(result => {
-                if (result instanceof Error) throw new Error();
-                localStorage.setItem('allowResetPassword', '');
-                history.replace({pathname: '/login'});
+        if (passwordConfig.value && token) {
+            resetPass({
+                password: passwordConfig.value,
+                token
             })
-            .catch(error => console.log(error));
+                .then(result => {
+                    if (result instanceof Error) throw new Error();
+                    localStorage.setItem('allowResetPassword', '');
+                    history.replace({pathname: '/login'});
+                })
+                .catch(error => console.log(error));
+        } 
     }
+
+    useEffect(() => {
+        return () => localStorage.setItem('allowResetPassword', '');
+    }, []);
 
     return (
         localStorage.getItem('allowResetPassword') ?

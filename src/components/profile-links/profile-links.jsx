@@ -2,7 +2,6 @@ import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 
 import {exitUser} from '../../services/actions/index';
-import {deleteCookie} from '../../services/utils/cookie-helper';
 
 import {NavLink} from 'react-router-dom';
 
@@ -17,8 +16,6 @@ export const ProfileLinks = () => {
             token: localStorage.getItem('burgerRefreshToken')
         }));
 
-        localStorage.removeItem('burgerRefreshToken');
-        deleteCookie('burgerAccessToken');       
         history.replace({pathname: '/login'});
     };
 

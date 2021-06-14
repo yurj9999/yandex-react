@@ -36,8 +36,8 @@ const slice = createSlice({
             state.error = '';
             state.isBlocked = false;
         },
-        setUserClear(state, action) {
-            state.success = action.payload.success;
+        setUserClear(state) {
+            state.success = true;
             state.user.email = '';
             state.user.name = '';
             state.accessToken = '';

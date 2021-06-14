@@ -21,7 +21,7 @@ export const OrderTape = () => {
                         {
                             burgers.map((item, index) => (
                                 <Link key={index} className={styles.link} to={{
-                                    pathname: `/feed/${index}`,
+                                    pathname: `/feed/id${index}`,
                                     state: {
                                         modal: location
                                     }

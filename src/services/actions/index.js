@@ -10,7 +10,7 @@ import {
 import {actions as ingredientsActions} from '../slices/ingredients';
 import {actions as userActions} from '../slices/user';
 
-import {setCookie, getCookie} from '../utils/cookie-helper';
+import {setCookie, getCookie, deleteCookie} from '../utils/cookie-helper';
 
 const refreshTokenUpdater = async (dispatcher, action) => {
     try {
@@ -31,12 +31,6 @@ const refreshTokenUpdater = async (dispatcher, action) => {
         localStorage.setItem('burgerRefreshToken', data.refreshToken);
 
         dispatcher(action(data));
-
-
-
-
-
-
     } catch (error) {
         console.log(error.message);
     }
@@ -96,6 +90,7 @@ export const setUserFromServer = () => {
             if (!request.ok) {
                 const error = await request.json();
                 if (error.message === 'jwt expired') {
+                    deleteCookie('burgerAccessToken');
                     await refreshTokenUpdater(dispatch, setUpdatedTokens);
                 } else {
                     throw new Error('Ошибка');
@@ -117,7 +112,7 @@ export const setUserFromServer = () => {
 }
 
 export const exitUser = (refreshToken) => {
-    const {setUserClear, setUserError, setUserRequest} = userActions;
+    const {setUserError, setUserRequest, setUserClear} = userActions;
 
     return async dispatch => {
         dispatch(setUserRequest());
@@ -134,9 +129,11 @@ export const exitUser = (refreshToken) => {
             if (!request.ok) {
                 throw new Error('Ошибка при запросе.');
             }
-            const data = await request.json();
 
-            dispatch(setUserClear(data));
+            deleteCookie('burgerAccessToken');
+            localStorage.removeItem('burgerRefreshToken');
+
+            dispatch(setUserClear());
         } catch (error) {
             dispatch(setUserError(error.message));
             return error;

@@ -14,7 +14,6 @@ import './input-pages.css';
 
 export const UserProfile = () => {
     const dispatch = useDispatch();
-
     const storeUserData = useSelector(store => store.user);
 
     const [userData, setUserData] = useState({
@@ -41,7 +40,7 @@ export const UserProfile = () => {
                 password: ''
             });
         }
-    }, [dispatch, storeUserData.user.name, storeUserData.user.email, storeUserData.exited]);
+    }, [dispatch, storeUserData.user.name, storeUserData.user.email]);
 
     return (
         <div className={styles.mainProfileWrapper}>

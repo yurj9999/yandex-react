@@ -1,4 +1,4 @@
-import {Route, Switch, useLocation} from 'react-router-dom';
+import {Route, Switch, useLocation, useHistory} from 'react-router-dom';
 
 import AppHeader from '../app-header/app-header';
 import ModalOverlay from '../overlay-modal/modal-overlay';
@@ -13,7 +13,11 @@ import appStyle from './app.module.css';
 
 function App() {
   const location = useLocation();
+  const history = useHistory();
+
   const modalBackground = location.state && location.state.modal;
+
+  if (history.action === 'POP') location.state = {};
 
   return (
     <>
@@ -68,23 +72,29 @@ function App() {
             <EmptyPage404/>
           </Route>
         </Switch>
-
-        <Route path="/ingredients/:id" exact>
-          {modalBackground && <ModalOverlay/>}
-        </Route>
-
-        <ProtectedRoute exact path="/start-order" protectType="nonAuthorized">
-          {modalBackground && <ModalOverlay/>}
-        </ProtectedRoute>
-        
-        <Route path="/feed/:id" exact>
-          {modalBackground && <ModalOverlay/>}
-        </Route>
-
-        <ProtectedRoute exact path="/profile/orders/:id" protectType="nonAuthorized">
-          {modalBackground && <ModalOverlay/>}
-        </ProtectedRoute>
       </main>
+      {
+        modalBackground && 
+        (
+          <>
+            <Route path="/ingredients/:id" exact>
+              <ModalOverlay/>
+            </Route>
+
+            <ProtectedRoute exact path="/start-order" protectType="nonAuthorized">
+              <ModalOverlay/>
+            </ProtectedRoute>
+
+            <Route path="/feed/:id" exact>
+              <ModalOverlay/>
+            </Route>
+
+            <ProtectedRoute exact path="/profile/orders/:id" protectType="nonAuthorized">
+              <ModalOverlay/>
+            </ProtectedRoute>
+          </>
+        )
+      }
     </>
   );
 }

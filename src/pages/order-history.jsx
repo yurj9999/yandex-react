@@ -22,13 +22,10 @@ export const OrderHistory = () => {
                     {
                         burgers.map((item, index) => (
 
-                            // to={`/profile/orders/${index}`}
                             /*пока в кач-ве id для Link использую index, потом буду исп данные с бэкенда*/
                             <Link className={styles.link} key={index} to={{
-                                pathname: `/profile/orders/${index}`,
+                                pathname: `/profile/orders/id${index}`,
                                 state: {
-                                    item,
-                                    typeModal: 'feedItem',
                                     modal: location
                                 }
                             }}>

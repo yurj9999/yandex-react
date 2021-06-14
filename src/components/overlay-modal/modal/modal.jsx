@@ -12,16 +12,9 @@ const Modal = () => {
     const history = useHistory();
     const historyPath = history.location.pathname.split('/');
 
-
-
-
-    // и др проверки
-
     const isIngredient = !!historyPath.find(item => item === 'ingredients');
     const isStartOrder = !!historyPath.find(item => item === 'start-order');
     const isFeedItem = !!historyPath.find(item => item === 'feed' || item === 'profile');
-
-
 
     const mainModalHandler = event => event.stopPropagation();
 

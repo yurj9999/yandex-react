@@ -22,6 +22,10 @@
     color: #8585ad;
 }
 
+.lightTextColor {
+    color: #f2f2f3;
+}
+
 .logoWrapper {
     z-index: 1;
     position: absolute;

@@ -1,9 +1,10 @@
-import {useSelector} from 'react-redux';
+import {useLocation} from 'react-router-dom';
 
 import orderStyle from './order-details.module.css';
 
 const OrderDetails = () => {
-    const {name, order} = useSelector(store => store.modal.order);
+    const location = useLocation();
+    const {name, order} = location.state.item;
 
     // захардкож данные
     const status = 'Ваш заказ начали готовить';

@@ -21,10 +21,14 @@
     text-decoration: none;
 }
 
+.unchecked {
+    color: #8585ad;
+}
+
 .checked {
     color: #f2f2f3;
 }
 
-.unchecked {
-    color: #8585ad;
+.exitBtn:hover {
+    cursor: pointer;
 }

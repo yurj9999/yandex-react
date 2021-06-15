@@ -1,21 +1,17 @@
-import {useEffect} from 'react'; 
-import {useDispatch} from 'react-redux';
+import {useEffect} from 'react';
 import ReactDOM from 'react-dom';
+import {useHistory} from 'react-router-dom';
 
 import Modal from './modal/modal';
-
-import {actions as modalActions} from '../../services/slices/modal';
 
 import overlayStyle from './modal-overlay.module.css';
 
 const overlayRoot = document.getElementById('overlay');
 
 const ModalOverlay = () => {
-    const dispatch = useDispatch();
+    const history = useHistory();
 
-    const onEscClose = () => {
-        dispatch(modalActions.clearModal());
-    }
+    const onEscClose = () => history.goBack();
 
     useEffect(() => {
         document.addEventListener('keydown', onEscClose);

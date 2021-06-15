@@ -1,5 +1,5 @@
 import React, {useState, useEffect, createRef} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -13,9 +13,6 @@ const HIGH_PARENT_TOP = 100;
 
 const BurgerIngredients = () => {
     const dispatch = useDispatch();
-    
-    const {error, blockedAll} = useSelector(store => store.ingredients);
-
     const [tab, setTab] = useState('breads');
 
     const breadsGroup = createRef(null);
@@ -59,35 +56,31 @@ const BurgerIngredients = () => {
     
     useEffect(() => dispatch(getIngredients()), [dispatch]);
 
-    error && console.log(error);
-
     return (
         <section className={ingredientsStyle.wrapper}>
             {
-                !blockedAll ? (
-                    <>
-                        <p className={`text text_type_main-large ${ingredientsStyle.title}`}>Соберите бургер</p>
-                        <div className={ingredientsStyle.tabs}>
-                            <Tab value="breads" active={tab === 'breads'} onClick={() => onTabClick('breads')}>Булки</Tab>
-                            <Tab value="sauces" active={tab === 'sauces'} onClick={() => onTabClick('sauces')}>Соусы</Tab>
-                            <Tab value="fillings" active={tab === 'fillings'} onClick={() => onTabClick('fillings')}>Начинки</Tab>
+                <>
+                    <p className={`text text_type_main-large ${ingredientsStyle.title}`}>Соберите бургер</p>
+                    <div className={ingredientsStyle.tabs}>
+                        <Tab value="breads" active={tab === 'breads'} onClick={() => onTabClick('breads')}>Булки</Tab>
+                        <Tab value="sauces" active={tab === 'sauces'} onClick={() => onTabClick('sauces')}>Соусы</Tab>
+                        <Tab value="fillings" active={tab === 'fillings'} onClick={() => onTabClick('fillings')}>Начинки</Tab>
+                    </div>
+                    <div ref={ingredientBlock} onScroll={onScrollTab} className={ingredientsStyle.menuWrapper}>
+                        <div ref={breadsGroup} className={ingredientsStyle.block}>
+                            <p className="text text_type_main-medium">Булки</p>
+                            <ProductGroup ingredientType="bun"/>
                         </div>
-                        <div ref={ingredientBlock} onScroll={onScrollTab} className={ingredientsStyle.menuWrapper}>
-                            <div ref={breadsGroup} className={ingredientsStyle.block}>
-                                <p className="text text_type_main-medium">Булки</p>
-                                <ProductGroup ingredientType="bun"/>
-                            </div>
-                            <div ref={saucesGroup} className={ingredientsStyle.block}>
-                                <p className="text text_type_main-medium">Соусы</p>
-                                <ProductGroup ingredientType="sauce"/>
-                            </div>
-                            <div ref={fillingsGroup} className={ingredientsStyle.block}>
-                                <p className="text text_type_main-medium">Начинки</p>
-                                <ProductGroup ingredientType="main"/>
-                            </div>
+                        <div ref={saucesGroup} className={ingredientsStyle.block}>
+                            <p className="text text_type_main-medium">Соусы</p>
+                            <ProductGroup ingredientType="sauce"/>
                         </div>
-                    </>
-                ) : null
+                        <div ref={fillingsGroup} className={ingredientsStyle.block}>
+                            <p className="text text_type_main-medium">Начинки</p>
+                            <ProductGroup ingredientType="main"/>
+                        </div>
+                    </div>
+                </>
             }
         </section>
     );

@@ -9,7 +9,7 @@ const initialState = {
 describe('ingredients reducer test', () => {
     test('should return the initial state', () => expect(reducer(undefined, {})).toEqual(initialState));
 
-    /*test('should handle ingredients/setAllIngredientsSuccess', () => expect(reducer(initialState, {
+    test('should handle ingredients/setAllIngredientsSuccess', () => expect(reducer(initialState, {
         type: 'ingredients/setAllIngredientsSuccess',
         payload: [
             {name: 'test1'},
@@ -39,5 +39,5 @@ describe('ingredients reducer test', () => {
         blockedAll: true,
         error: 'error',
         ingredients: []
-    }));*/
+    }));
 });

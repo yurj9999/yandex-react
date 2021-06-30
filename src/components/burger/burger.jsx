@@ -60,8 +60,6 @@ export const Burger = ({needStatus = false, statusType = 'done'}) => {
                 <div className={styles.ingredientsWrapper}>
                     {
                         ingredients.map((ingredient, index) => {
-                            
-                            
                             if (index < MAX_VISIBLE_INGREDIENTS) {
                                 if (index === LAST_VISIBLE_INGREDIENTS) {
                                     return (

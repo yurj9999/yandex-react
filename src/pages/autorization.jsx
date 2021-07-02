@@ -13,7 +13,7 @@ import './input-pages.css';
 
 export const Autorization = () => {
     const dispatch = useDispatch();
-
+    
     const history = useHistory();
 
     const passRef = useRef(null);
@@ -41,7 +41,7 @@ export const Autorization = () => {
         }, 'authorization'))
             .then(result => {
                 if (result instanceof Error) throw new Error(); 
-                history.replace({pathname: '/'})
+                history.goBack();
             })
             .catch(error => console.log(error));
     }

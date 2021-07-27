@@ -68,7 +68,7 @@ const BurgerIngredients = () => {
     return (
         <section className={ingredientsStyle.wrapper}>
             <p className={`text text_type_main-large ${ingredientsStyle.title}`}>Соберите бургер</p>
-            <div className={ingredientsStyle.tabs}>
+            <div data-testid="tabs" className={ingredientsStyle.tabs}>
                 <Tab value="breads" active={tab === 'breads'} onClick={() => onTabClick('breads')}>Булки</Tab>
                 <Tab value="sauces" active={tab === 'sauces'} onClick={() => onTabClick('sauces')}>Соусы</Tab>
                 <Tab value="fillings" active={tab === 'fillings'} onClick={() => onTabClick('fillings')}>Начинки</Tab>

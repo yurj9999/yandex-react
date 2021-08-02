@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
 
@@ -19,4 +17,4 @@ const IngredientsConstructor = () => {
     );
 }
 
-export default React.memo(IngredientsConstructor);
+export default IngredientsConstructor;

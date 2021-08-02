@@ -13,9 +13,16 @@ const AppHeader = () => {
                         <BurgerIcon type="primary"/>
                         <NavLink
                             exact to="/"
-                            isActive={(match, location) => match || location.pathname.indexOf('ingredients') !== -1 || location.pathname.indexOf('start-order') !== -1}
+                            isActive={
+                                (match, location) =>
+                                    match
+                                    || location.pathname.indexOf('ingredients') !== -1
+                                    || location.pathname.indexOf('start-order') !== -1
+                            }
                             activeClassName={appHeaderStyle.lightTextColor}
-                            className={`text text_type_main-default ml-1 ${appHeaderStyle.feedLink} ${appHeaderStyle.darkTextColor}`}>Конструктор</NavLink>
+                            className={`text text_type_main-default ml-1 ${appHeaderStyle.feedLink} ${appHeaderStyle.darkTextColor}`}>
+                            Конструктор
+                        </NavLink>
                     </div>
                     <div className={`mt-2 mb-2 p-2 ${appHeaderStyle.flex}`}>
                         <ListIcon type="primary"/>

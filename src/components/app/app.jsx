@@ -17,7 +17,9 @@ function App() {
 
   const modalBackground = location.state && location.state.modal;
 
-  if (history.action === 'POP') location.state = {};
+  if (history.action === 'POP') {
+      location.state = {};
+  }
 
   return (
     <>

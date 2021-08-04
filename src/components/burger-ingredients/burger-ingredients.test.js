@@ -11,7 +11,7 @@ import {
     INGREDIENTS,
     EMPTY_INGREDIENTS,
     BURGER_INGREDIENTS_LOCATION
-} from '../../services/constants';
+} from '../../services/mocks-constants';
 import BurgerIngredients from './burger-ingredients';
 
 describe('Burger-ingredients tests', () => {

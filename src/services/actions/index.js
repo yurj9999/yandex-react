@@ -53,8 +53,10 @@ export const updateUserData = (newUserData, token) => {
 
             if (!request.ok) {
                 const error = await request.json();
+
                 if (error.message === 'jwt expired') {
                     await refreshTokenUpdater(dispatch, setUpdatedTokens);
+                    throw new Error(error.message);
                 } else {
                     throw new Error('Ошибка');
                 }
@@ -66,8 +68,12 @@ export const updateUserData = (newUserData, token) => {
                 accessToken: token,
                 refreshToken: localStorage.getItem('burgerRefreshToken')
             }));
-        } catch (error) {
-            dispatch(setUserError(error.message));
+        } catch(error) {
+            if (error.message === 'jwt expired') {
+                await updateUserData(newUserData, token)(dispatch);
+            } else {
+                dispatch(setUserError(error.message));
+            }
         }
     }
 }
@@ -89,9 +95,11 @@ export const setUserFromServer = () => {
 
             if (!request.ok) {
                 const error = await request.json();
+
                 if (error.message === 'jwt expired') {
                     deleteCookie('burgerAccessToken');
                     await refreshTokenUpdater(dispatch, setUpdatedTokens);
+                    throw new Error(error.message);
                 } else {
                     throw new Error('Ошибка');
                 }
@@ -104,9 +112,13 @@ export const setUserFromServer = () => {
                 accessToken: getCookie('burgerAccessToken'),
                 refreshToken: localStorage.getItem('burgerRefreshToken')
             }));
-        } catch (error) {
-            dispatch(setUserError(error.message));
-            return error;
+        } catch(error) {
+            if (error.message === 'jwt expired') {
+                await setUserFromServer()(dispatch);
+            } else {
+                dispatch(setUserError(error.message));
+                return error;
+            }
         }
     }
 }

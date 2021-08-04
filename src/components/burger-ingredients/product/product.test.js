@@ -10,7 +10,7 @@ import {
     EMPTY_INGREDIENTS,
     BUN_INGREDIENTS,
     FILLING_INGREDIENTS
-} from '../../../services/constants';
+} from '../../../services/mocks-constants';
 import Product from './product';
 
 describe('Test Product component', () => {

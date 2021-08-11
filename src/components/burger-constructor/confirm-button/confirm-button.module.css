@@ -1,0 +1,40 @@
+@keyframes top-cricle {
+    from {
+        transform: rotate(-25deg);
+    }
+    to {
+        transform: rotate(335deg);
+    }
+}
+
+@keyframes bottom-cricle {
+    from {
+        transform: rotate(-15deg);
+    }
+    to {
+        transform: rotate(345deg);
+    }
+}
+
+.spinner {
+    padding-right: 35px;
+}
+
+.spinner > span {
+    display: inline-block;
+    position: absolute;
+    border-radius: 100px;
+    padding: 8px;
+    border: 5px solid transparent;
+}
+
+.spinner > span.top {
+    border-top: 5px solid rgb(255, 255, 255);
+    animation: top-cricle 1s ease-in-out infinite;
+    animation-delay: 0.5s;
+}
+
+.spinner > span.bottom {
+    border-top: 5px solid #24096d;
+    animation: bottom-cricle 1s ease-in-out infinite;
+}

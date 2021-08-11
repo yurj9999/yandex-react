@@ -12,6 +12,11 @@ import {actions as userActions} from '../slices/user';
 
 import {setCookie, getCookie, deleteCookie} from '../utils/cookie-helper';
 
+export const WS_CONNECT_ORDER_TAPE = 'WS_CONNECT_ORDER_TAPE';
+export const WS_DISCONNECT_ORDER_TAPE = 'WS_DISCONNECT_ORDER_TAPE';
+export const WS_CONNECT_USER_ORDERS = 'WS_CONNECT_USER_ORDERS';
+export const WS_DISCONNECT_USER_ORDERS = 'WS_DISCONNECT_USER_ORDERS';
+
 const refreshTokenUpdater = async (dispatcher, action) => {
     try {
         const request = await fetch(URL_UPDATE_TOKEN, {
@@ -25,6 +30,7 @@ const refreshTokenUpdater = async (dispatcher, action) => {
         if (!request.ok) {
             throw new Error('Ошибка при запросе.');
         }
+        
         const data = await request.json();
 
         setCookie('burgerAccessToken', data.accessToken);

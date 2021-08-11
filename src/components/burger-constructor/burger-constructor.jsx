@@ -1,10 +1,7 @@
-import React, {useMemo, useCallback} from 'react';
+import React, {useMemo} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {useDrop, DndProvider} from 'react-dnd';
-import {useLocation, useHistory} from 'react-router-dom';
 import {HTML5Backend} from 'react-dnd-html5-backend';
-
-import {getOrderDetails} from '../../services/utils/get-order-details';
 
 import {MAX_BUNS_COUNT} from '../../services/constants';
 
@@ -12,7 +9,9 @@ import {actions as constructorActions} from '../../services/slices/constructor';
 
 import BurgerFilling from './burger-filling/burger-filling';
 
-import {ConstructorElement, DragIcon, CurrencyIcon, Button} from '@ya.praktikum/react-developer-burger-ui-components';
+import {ConfirmButton} from './confirm-button/confirm-button';
+
+import {ConstructorElement, DragIcon, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
 import constructorStyle from './burger-constructor.module.css';
 
@@ -20,16 +19,13 @@ import constructorStyle from './burger-constructor.module.css';
 import './burger-constructor.css';
 
 const BurgerConstructor = () => {
-    const location = useLocation();
-    const history = useHistory();
+    const dispatch = useDispatch();
 
     const {setBuns, setFillings} = constructorActions;
 
     const {blockedAll} = useSelector(store => store.ingredients);
     const {bun, fillings} = useSelector(store => store.constructorIngredients);
     const {ingredients} = useSelector(store => store.ingredients);
-    
-    const dispatch = useDispatch();
 
     const totalCost = useMemo(() => {
         const result = [];
@@ -39,23 +35,6 @@ const BurgerConstructor = () => {
 
         return result.reduce((prev, curr) => prev + curr, 0);
     }, [bun, fillings]);
-
-    const openModal = useCallback(() => {
-        if (Object.keys(bun).length) {
-            getOrderDetails([bun._id, ...fillings.map(item => item._id), bun._id])
-                .then(item => {
-                    if (item instanceof Error) throw new Error();
-                    history.push({
-                        pathname: '/start-order',
-                        state: {
-                            item,
-                            modal: location
-                        }
-                    });
-                })
-                .catch(error => console.log(error.message));
-        }  
-    }, [bun, fillings, history, location]);
 
     const [, dropRef] = useDrop({
         accept: ['bun', 'main', 'sauce'],
@@ -144,7 +123,7 @@ const BurgerConstructor = () => {
                     <p className={`text text_type_digits-default ${constructorStyle.summText}`}>{totalCost}</p>
                     <CurrencyIcon type="primary"/>
                 </div>
-                <Button onClick={openModal} type="primary" size="large">Оформить заказ</Button>
+                <ConfirmButton/>
             </div>
         </section>)
     );

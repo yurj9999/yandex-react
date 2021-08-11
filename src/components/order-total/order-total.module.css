@@ -1,5 +1,8 @@
 .orderTotal {
     width: 584px;
+    overflow: auto;
+    margin-bottom: 20px;
+    padding-right: 20px;
 }
 
 .numbersWrapper {
@@ -12,22 +15,8 @@
     margin-bottom: 24px;
 }
 
-.itemsWrapper {
-    height: 152px;
-    width: 272px;
-    overflow: auto;
-}
-
 .readyWrapper:last-child {
     margin-bottom: 0;
-}
-
-.item {  
-    margin-bottom: 8px;
-}
-
-.readyColor {
-    color: #00cccc;
 }
 
 .count {

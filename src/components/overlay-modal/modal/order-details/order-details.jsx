@@ -7,8 +7,8 @@ const OrderDetails = () => {
     const {name, order} = location.state.item;
 
     // захардкож данные
-    const status = 'Ваш заказ начали готовить';
-    const details = 'Дождитесь готовности на орбитальной станции';
+    const status = 'Ваш заказ готов';
+    const details = 'Вы можете забрать его';
 
     return (
         <div className={orderStyle.wrapper}>

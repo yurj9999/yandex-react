@@ -3,6 +3,7 @@ import '@4tw/cypress-drag-drop';
 describe('dnd test', () => {
     it('should be dnd in constructor page', () => {
         cy.visit('http://localhost:3000');
+        cy.viewport(1280, 720);
 
         cy.get('[class^=burger-ingredients_menuWrapper__]').as('ingredients');
         cy.get('[class^=burger-constructor_itemWrapper__]').as('constructor');

@@ -11,9 +11,9 @@ const slice = createSlice({
     initialState: initialState,
     reducers: {
         setOrders(state, action) {
-            state.orders = JSON.parse(action.payload).orders;
-            state.total = JSON.parse(action.payload).total;
-            state.totalToday = JSON.parse(action.payload).totalToday;
+            state.orders = action.payload.orders;
+            state.total = action.payload.total;
+            state.totalToday = action.payload.totalToday;
         },
         clearOrders(state) {
             state.orders = [];

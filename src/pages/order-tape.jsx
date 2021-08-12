@@ -11,7 +11,7 @@ export const OrderTape = () => {
     const location = useLocation();
 
     const {orders, total, totalToday} = useSelector(store => store.orderTape);
-    
+
     return (
         <div className={styles.mainWrapper}>
             <div className={styles.wrapper}>
@@ -22,18 +22,20 @@ export const OrderTape = () => {
                             <div className={styles.mainBlock}>
                                 <div className={styles.burgers}>
                                     {
-                                        orders.map((item, index) => (
-                                            <Link key={index} className={styles.link} to={{
-                                                pathname: `/feed/id${item._id}`,
-                                                state: {
-                                                    modal: location
-                                                }
-                                            }}>
-                                                <div className={styles.itemWrapper}>
-                                                    <Burger data={item}/>
-                                                </div>
-                                            </Link>
-                                        ))
+                                        orders.map((item, index) => {
+                                            return (
+                                                <Link key={index} className={styles.link} to={{
+                                                    pathname: `/feed/id${item._id}`,
+                                                    state: {
+                                                        modal: location
+                                                    }
+                                                }}>
+                                                    <div className={styles.itemWrapper}>
+                                                        <Burger data={item}/>
+                                                    </div>
+                                                </Link>
+                                            );
+                                        }) 
                                     }
                                 </div>
                                 <OrderTotal statusNumbers={getOrdersStatuses(orders)} total={total} totalToday={totalToday}/>

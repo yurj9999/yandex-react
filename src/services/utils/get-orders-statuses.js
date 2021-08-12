@@ -3,18 +3,24 @@ export const getOrdersStatuses = (orders) => {
         done: [],
         inWork: []
     };
+    
+    const done = orders.filter(item => item.status === 'done');
+    const inWork = orders.filter(item => item.status === 'pending');
 
-    orders.forEach(item => {
-        switch(item.status) {
-            case 'done':
-                result.done.push(item.number)
-                break;
-
-            case 'pending':
-                result.inWork.push(item.number);
-                break;
+    const setMaxLength = (dataArray, resultArray) => {
+        if (dataArray.length > 10) {
+            for (let i = 0; i < 10; i++) {
+                resultArray.push(dataArray[i].number);
+            }
+        } else {
+            for (let i = 0; i !== dataArray.length; i++) {
+                resultArray.push(dataArray[i].number);
+            }
         }
-    });
+    }
+
+    setMaxLength(done, result.done);
+    setMaxLength(inWork, result.inWork);
 
     return result;
 };

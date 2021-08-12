@@ -1,6 +1,6 @@
 import {useCallback, useState, useEffect} from 'react';
 import {useLocation, useHistory} from 'react-router-dom';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {getOrderDetails} from '../../../services/utils/get-order-details';
 import {getCookie} from '../../../services/utils/cookie-helper';
@@ -12,6 +12,7 @@ import styles from './confirm-button.module.css';
 export const ConfirmButton = () => {
     const location = useLocation();
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const {bun, fillings} = useSelector(store => store.constructorIngredients);
 
@@ -29,24 +30,52 @@ export const ConfirmButton = () => {
                 });
             }
 
+            dispatch({
+                type: 'modal/setStartInfo'
+            });
+
+            history.push({
+                pathname: '/start-order',
+                state: {
+                    modal: location
+                }
+            });
+
             try {
                 const item = await getOrderDetails([bun._id, ...fillings.map(item => item._id), bun._id]);
 
                 if (item instanceof Error) {
                     throw new Error();
                 }
-                
+
+                if (window.location.pathname === '/start-order') {
+                    dispatch({
+                        type: 'modal/setEndInfo',
+                        payload: {
+                            number: item.order.number,
+                            name: item.name
+                        }
+                    });
+                } else if (window.location.pathname === '/') {
+                    dispatch({
+                        type: 'modal/setEndInfo',
+                        payload: {
+                            number: item.order.number,
+                            name: item.name
+                        }
+                    });
+
+                    history.push({
+                        pathname: '/start-order',
+                        state: {
+                            modal: location
+                        }
+                    });
+                }
+
                 setAvailible({
                     text: 'Оформить заказ',
                     isBlocked: false
-                });
-    
-                history.push({
-                    pathname: '/start-order',
-                    state: {
-                        item,
-                        modal: location
-                    }
                 });
             } catch (error) {
                 console.log(error);

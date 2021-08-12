@@ -39,33 +39,34 @@ export const Burger = ({data, needStatus = false}) => {
                 <div className={styles.ingredientsWrapper}>
                     {
                         data.ingredients.map((id, index) => {
-                            if (index < MAX_VISIBLE_INGREDIENTS) {
-                                if (index === LAST_VISIBLE_INGREDIENTS) {
-                                    return (
-                                        <div key={id} className={styles.imgWrapper} style={{
-                                            zIndex: data.ingredients.length - index,
-                                            right: `${index === 0 ? 0 : RIGHT_INGREDIENT_POSITION * index}px`
-                                        }}>
-                                            <div className={styles.ingredientCount}>
-                                                <p className="text text_type_main-default">
-                                                    +{data.ingredients.length - index}
-                                                </p>
+                            if (id !== null) {
+                                if (index < MAX_VISIBLE_INGREDIENTS) {
+                                    if (index === LAST_VISIBLE_INGREDIENTS) {
+                                        return (
+                                            <div key={id} className={styles.imgWrapper} style={{
+                                                zIndex: data.ingredients.length - index,
+                                                right: `${index === 0 ? 0 : RIGHT_INGREDIENT_POSITION * index}px`
+                                            }}>
+                                                <div className={styles.ingredientCount}>
+                                                    <p className="text text_type_main-default">
+                                                        +{data.ingredients.length - index}
+                                                    </p>
+                                                </div>
+                                                <img alt="ingredient" className={styles.img} style={{
+                                                    position: 'absolute'
+                                                }} src={ingredients.find(item => item._id === id).image_mobile}/>
                                             </div>
-                                            <img alt="ingredient" className={styles.img} style={{
-                                                position: 'absolute'
+                                        )
+                                    } else {
+                                        return (
+                                            <img alt="ingredient" key={id + index} className={styles.img} style={{
+                                                zIndex: data.ingredients.length - index,
+                                                right: `${index === 0 ? 0 : RIGHT_INGREDIENT_POSITION * index}px`
                                             }} src={ingredients.find(item => item._id === id).image_mobile}/>
-                                        </div>
-                                    )
-                                } else {
-                                    return (
-                                        <img alt="ingredient" key={index} className={styles.img} style={{
-                                            zIndex: data.ingredients.length - index,
-                                            right: `${index === 0 ? 0 : RIGHT_INGREDIENT_POSITION * index}px`
-                                        }} src={ingredients.find(item => item._id === id).image_mobile}/>
-                                    );
+                                        );
+                                    }
                                 }
-                            }
-                            else {
+                            } else {
                                 return null;
                             }
                         })
@@ -76,8 +77,8 @@ export const Burger = ({data, needStatus = false}) => {
                     <p className={`text text_type_digits-default ${styles.cost}`}>{getBurgerPrice(data.ingredients, ingredients)}</p>
                     <CurrencyIcon type="primary" />
                 </div>
-                </div>
-        </div> 
+            </div>
+        </div>
     );
 }
 

@@ -5,17 +5,17 @@ describe('dnd test', () => {
         cy.visit('http://localhost:3000');
         cy.viewport(1280, 720);
 
-        cy.get('[class^=burger-ingredients_menuWrapper__]').as('ingredients');
-        cy.get('[class^=burger-constructor_itemWrapper__]').as('constructor');
+        cy.get('[data-cy^=ingredients-list]').as('ingredients-list');
+        cy.get('[data-cy^=constructor]').as('constructor');
 
-        cy.get('@ingredients').find('[class^=burger-ingredients_block__]').eq(0).as('buns');
-        cy.get('@buns').find('[class^=product-group_ingredientWrapper__]').first().as('bun');
+        cy.get('[data-cy^=buns]').as('buns');
+        cy.get('@buns').find('[data-cy^=ingredient]').first().as('bun');
+        
+        cy.get('[data-cy^=sauces]').as('sauces');
+        cy.get('@sauces').find('[data-cy^=ingredient]').first().as('sauce');
 
-        cy.get('@ingredients').find('[class^=burger-ingredients_block__]').eq(1).as('sauces');
-        cy.get('@sauces').find('[class^=product-group_ingredientWrapper__]').first().as('sauce');
-
-        cy.get('@ingredients').find('[class^=burger-ingredients_block__]').eq(2).as('fillings');
-        cy.get('@fillings').find('[class^=product-group_ingredientWrapper__]').first().as('filling');
+        cy.get('[data-cy^=fillings]').as('fillings');
+        cy.get('@fillings').find('[data-cy^=ingredient]').first().as('filling');
 
         cy.get('@bun').drag('@constructor');
         cy.get('@constructor').children().should('have.length', '2');
@@ -24,23 +24,23 @@ describe('dnd test', () => {
         cy.get('@filling').drag('@constructor');
         cy.get('@constructor').children().should('have.length', '3');
 
-        cy.get('@constructor').find('[class^=burger-constructor_mainIngredientsWrapper__]').children().as('fillingArr');
+        cy.get('@constructor').find('[data-cy^=filling-arr]').children().as('fillingArr');
         cy.get('@fillingArr').should('have.length', '2');
 
         cy.get('@fillingArr').eq(0).as('first');
         cy.get('@fillingArr').eq(1).as('second');
 
-        cy.get('@first').find('[class^=constructor-element__text]').should('contain', 'Соус Spicy-X');
-        cy.get('@second').find('[class^=constructor-element__text]').should('contain', 'Филе Люминесцентного тетраодонтимформа');
+        cy.get('@first').children().eq(0).children().eq(0).children().eq(1).should('contain', 'Соус Spicy-X');
+        cy.get('@second').children().eq(0).children().eq(0).children().eq(1).should('contain', 'Филе Люминесцентного тетраодонтимформа');
 
         cy.get('@first').drag('@second');
 
-        cy.get('@constructor').find('[class^=burger-constructor_mainIngredientsWrapper__]').children().as('newFillingArr');
+        cy.get('@constructor').find('[data-cy^=filling-arr]').children().as('newFillingArr');
 
         cy.get('@newFillingArr').eq(0).as('newFirst');
         cy.get('@newFillingArr').eq(1).as('newSecond');
 
-        cy.get('@newFirst').find('[class^=constructor-element__text]').should('contain', 'Филе Люминесцентного тетраодонтимформа');
-        cy.get('@newSecond').find('[class^=constructor-element__text]').should('contain', 'Соус Spicy-X');
+        cy.get('@newFirst').children().eq(0).children().eq(0).children().eq(1).should('contain', 'Филе Люминесцентного тетраодонтимформа');
+        cy.get('@newSecond').children().eq(0).children().eq(0).children().eq(1).should('contain', 'Соус Spicy-X');
     });
 });

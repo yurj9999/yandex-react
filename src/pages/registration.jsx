@@ -34,7 +34,9 @@ export const Registration = () => {
         });
     };
 
-    const registrationStart = () => {
+    const registrationStart = (event) => {
+        event.preventDefault();
+        
         dispatch(setUser({
             name,
             email,
@@ -54,38 +56,41 @@ export const Registration = () => {
             </div>   
             <p className={`text text_type_main-medium ${styles.title}`}>Регистрация</p>
 
-            <div className={styles.inputWrapper}>
-                <Input
-                    type={'text'}
-                    placeholder={'Имя'}
-                    value={name}
-                    onChange={event => setName(event.target.value)}
-                    />
-            </div>
-            <div className={styles.inputWrapper}>
-                <Input
-                    type={'email'}
-                    placeholder={'E-mail'}
-                    value={email}
-                    onChange={event => setEmail(event.target.value)}/>
-            </div>
-            <div className={styles.inputWrapper}>
-                <Input
-                    type={passwordConfig.type}
-                    placeholder={'Пароль'}
-                    value={passwordConfig.value}
-                    onChange={event => setPasswordConfig({
-                        ...passwordConfig,
-                        value: event.target.value
-                    })}
-                    icon={passwordConfig.icon}
-                    ref={passRef}
-                    onIconClick={onEyeClick}/>
-            </div>
+            <form onSubmit={registrationStart}>
+                <div className={styles.inputWrapper}>
+                    <Input
+                        type={'text'}
+                        placeholder={'Имя'}
+                        value={name}
+                        onChange={event => setName(event.target.value)}
+                        />
+                </div>
+                <div className={styles.inputWrapper}>
+                    <Input
+                        type={'email'}
+                        placeholder={'E-mail'}
+                        value={email}
+                        onChange={event => setEmail(event.target.value)}/>
+                </div>
+                <div className={styles.inputWrapper}>
+                    <Input
+                        type={passwordConfig.type}
+                        placeholder={'Пароль'}
+                        value={passwordConfig.value}
+                        onChange={event => setPasswordConfig({
+                            ...passwordConfig,
+                            value: event.target.value
+                        })}
+                        icon={passwordConfig.icon}
+                        ref={passRef}
+                        onIconClick={onEyeClick}/>
+                </div>
 
-            <div className={styles.button}>
-                <Button type="primary" size="large" onClick={registrationStart}>Зарегистрироваться</Button>
-            </div>
+                <div className={styles.button}>
+                    <Button type="primary" size="large">Зарегистрироваться</Button>
+                </div>
+            </form>
+            
             
             <div className={styles.footer}>
                 <p className={`text text_type_main-default ${styles.footerInfo}`}>Уже зарегистрированы?</p>

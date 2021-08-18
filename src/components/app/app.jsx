@@ -5,12 +5,10 @@ import {Route, Switch, useLocation, useHistory} from 'react-router-dom';
 import {getIngredients} from '../../services/actions/index';
 
 import AppHeader from '../app-header/app-header';
-import ModalOverlay from '../overlay-modal/modal-overlay';
-
-import IngredientDetails from '../overlay-modal/modal/ingredient-details/ingredient-details';
+import {Modal} from '../modal/modal';
+import {IngredientDetails} from '../ingredient-details/ingredient-details';
+import {OrderDetails} from '../order-details/order-details';
 import {ProtectedRoute} from '../protected-route/protected-route';
-
-import {WS_CONNECT_ORDER_TAPE, WS_DISCONNECT_ORDER_TAPE} from '../../services/actions/index';
 
 import {
   Registration,
@@ -38,35 +36,29 @@ function App() {
     location.state = {};
   }
 
-  useEffect(() => {
-    dispatch(getIngredients());
-
-    dispatch({
-      type: WS_CONNECT_ORDER_TAPE,
-      payload: {
-          url: 'wss://norma.nomoreparties.space/orders/all'
-      }
-    });
-
-    return () => {
-      dispatch({
-        type: WS_DISCONNECT_ORDER_TAPE
-      });
-    };
-  }, [dispatch]);
+  useEffect(() => dispatch(getIngredients()), [dispatch]);
 
   return (
     <>
       <AppHeader/>
       <main className={appStyle.mainWrapper}>
         <Switch location={modalBackground || location}>
-          <Route path="/" exact>
+          <Route exact path="/">
             <IngredientsConstructor/>
           </Route>
 
-          <Route path="/ingredients/:id">
+          <Route exact path="/ingredients/:id">
             <div className={appStyle.appWrapper}>
               <IngredientDetails/>
+            </div>
+          </Route>
+
+          <Route exact path="/feed">
+            <OrderTape/>
+          </Route>
+          <Route exact path="/feed/:id">
+            <div className={appStyle.appWrapper}>
+              <OrderInfo showOrders="all"/>
             </div>
           </Route>
 
@@ -83,15 +75,6 @@ function App() {
             <ResetPassword/>
           </ProtectedRoute>
 
-          <Route path="/feed" exact>
-            <OrderTape/>
-          </Route>
-          <Route path="/feed/:id" exact>
-            <div className={appStyle.appWrapper}>
-              <OrderInfo/>
-            </div>
-          </Route>
-
           <ProtectedRoute exact path="/profile" protectType="nonAuthorized">
             <UserProfile/>
           </ProtectedRoute>
@@ -100,7 +83,7 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute exact path="/profile/orders/:id" protectType="nonAuthorized">
             <div className={appStyle.appWrapper}>
-              <OrderInfo/>
+              <OrderInfo showOrders="my"/>
             </div>
           </ProtectedRoute>
 
@@ -113,21 +96,31 @@ function App() {
         modalBackground && 
         (
           <>
-            <Route path="/ingredients/:id" exact>
-              <ModalOverlay/>
-            </Route>
+            <Switch>
+              <Route exact path="/ingredients/:id">
+                <Modal>
+                  <IngredientDetails/>
+                </Modal>
+              </Route>
 
-            <ProtectedRoute exact path="/start-order" protectType="nonAuthorized">
-              <ModalOverlay/>
-            </ProtectedRoute>
+              <Route exact path="/feed/:id">
+                <Modal>
+                  <OrderInfo showOrders="all"/>
+                </Modal>
+              </Route>
 
-            <Route path="/feed/:id" exact>
-              <ModalOverlay/>
-            </Route>
+              <ProtectedRoute exact path="/start-order" protectType="nonAuthorized">
+                <Modal>
+                  <OrderDetails/>
+                </Modal>
+              </ProtectedRoute>
 
-            <ProtectedRoute exact path="/profile/orders/:id" protectType="nonAuthorized">
-              <ModalOverlay/>
-            </ProtectedRoute>
+              <ProtectedRoute exact path="/profile/orders/:id" protectType="nonAuthorized">
+                <Modal>
+                  <OrderInfo showOrders="my"/>
+                </Modal>
+              </ProtectedRoute>
+            </Switch>
           </>
         )
       }

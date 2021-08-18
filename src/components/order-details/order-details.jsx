@@ -2,7 +2,7 @@ import {useSelector} from 'react-redux';
 
 import orderStyle from './order-details.module.css';
 
-const OrderDetails = () => {
+export const OrderDetails = () => {
     const {number, name, status, details} = useSelector(store => store.modal);
 
     return (
@@ -54,5 +54,3 @@ const OrderDetails = () => {
         </div>
     );
 }
-
-export default OrderDetails;

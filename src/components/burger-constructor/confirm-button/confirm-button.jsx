@@ -23,7 +23,7 @@ export const ConfirmButton = () => {
 
     const openModal = useCallback(async () => {
         if (Object.keys(bun).length) {
-            if (getCookie('burgerAccessToken').length) {
+            if (getCookie('burgerAccessToken')?.length) {
                 setAvailible({
                     text: 'Готовим заказ',
                     isBlocked: true
@@ -81,7 +81,7 @@ export const ConfirmButton = () => {
                 console.log(error);
             }
         }
-    }, [bun, fillings, history, location]);
+    }, [bun, fillings, history, location, dispatch]);
 
     useEffect(() => () => setAvailible({
         text: 'Оформить заказ',

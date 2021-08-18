@@ -3,44 +3,18 @@ import {
     URL_REGISTRATION,
     URL_AUTORIZATION,
     URL_EXIT,
-    URL_UPDATE_USER,
-    URL_UPDATE_TOKEN
+    URL_UPDATE_USER
 } from '../constants';
 
 import {actions as ingredientsActions} from '../slices/ingredients';
 import {actions as userActions} from '../slices/user';
-
+import {refreshTokenUpdater} from '../utils/refresh-token-updater';
 import {setCookie, getCookie, deleteCookie} from '../utils/cookie-helper';
 
 export const WS_CONNECT_ORDER_TAPE = 'WS_CONNECT_ORDER_TAPE';
 export const WS_DISCONNECT_ORDER_TAPE = 'WS_DISCONNECT_ORDER_TAPE';
 export const WS_CONNECT_USER_ORDERS = 'WS_CONNECT_USER_ORDERS';
 export const WS_DISCONNECT_USER_ORDERS = 'WS_DISCONNECT_USER_ORDERS';
-
-const refreshTokenUpdater = async (dispatcher, action) => {
-    try {
-        const request = await fetch(URL_UPDATE_TOKEN, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify({token: localStorage.getItem('burgerRefreshToken')})
-        });
-
-        if (!request.ok) {
-            throw new Error('Ошибка при запросе.');
-        }
-        
-        const data = await request.json();
-
-        setCookie('burgerAccessToken', data.accessToken);
-        localStorage.setItem('burgerRefreshToken', data.refreshToken);
-
-        dispatcher(action(data));
-    } catch (error) {
-        console.log(error.message);
-    }
-}
 
 export const updateUserData = (newUserData, token) => {
     const {setUserRequest, setUserError, setUserSuccess, setUpdatedTokens} = userActions;

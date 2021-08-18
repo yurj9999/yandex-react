@@ -1,6 +1,6 @@
-import {useSelector} from 'react-redux';
+import {useEffect, useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import {useParams} from 'react-router-dom';
-
 import PropTypes from 'prop-types';
 
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
@@ -10,20 +10,65 @@ import {getBurgerIngredients} from '../services/utils/get-burger-ingredients';
 import {getBurgerPrice} from '../services/utils/get-burger-price';
 import {getStrDataCreated} from '../services/utils/get-str-data-created';
 import {getBurgerStatus} from '../services/utils/get-burger-status';
+import {
+    WS_CONNECT_ORDER_TAPE,
+    WS_CONNECT_USER_ORDERS,
+    setUserFromServer
+} from '../services/actions/index';
+import {getCookie} from '../services/utils/cookie-helper';
 
 import styles from './order-info.module.css';
 
-export const OrderInfo = ({store}) => {
+export const OrderInfo = ({showOrders}) => {
     const urlParams = useParams();
-
-    const burgerId = urlParams.id.substr(SYMBOL_COUNT_START_ID_IN_URL, urlParams.id.length - 1);
+    const dispatch = useDispatch();
+    
+    const [burger, setBurger] = useState(null);
 
     const {ingredients} = useSelector(store => store.ingredients);
+    const accessToken = useSelector(store => store.user.accessToken);
 
-    const burger = store.find(burger => burger._id === burgerId);
+    const orders = useSelector(store => showOrders === 'all' ? store.orderTape.orders : store.myOrders.orders);
+    
+    useEffect(() => {
+        if (!orders.length) {
+            switch(showOrders) {
+                case 'all':
+                    dispatch({
+                        type: WS_CONNECT_ORDER_TAPE,
+                        payload: {
+                            url: 'wss://norma.nomoreparties.space/orders/all'
+                        }
+                    });
+                    break;
+
+                case 'my':
+                    if (!accessToken) {
+                        dispatch(setUserFromServer());
+                    } else {
+                        dispatch({
+                            type: WS_CONNECT_USER_ORDERS,
+                            payload: {
+                                url: `wss://norma.nomoreparties.space/orders?token=${getCookie('burgerAccessToken').substr(7)}`
+                            }
+                        });
+                    }
+                    break;
+            }
+        } else {
+            setBurger(orders.find(burger => burger._id === urlParams.id.substr(
+                SYMBOL_COUNT_START_ID_IN_URL, urlParams.id.length - 1)));
+        }
+    }, [
+        dispatch,
+        orders,
+        accessToken,
+        showOrders,
+        urlParams.id
+    ]);
 
     return (
-        burger && Object.keys(burger) ? (
+        burger ? (
             <div className={styles.wrapper}>
                 <div className={styles.title}>
                     <p className="text text_type_digits-default">{`#${burger.number}`}</p>
@@ -60,6 +105,7 @@ export const OrderInfo = ({store}) => {
     );
 }
 
+
 OrderInfo.propTypes = {
-    store: PropTypes.array
-};
+    showOrders: PropTypes.string.isRequired
+}

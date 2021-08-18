@@ -71,7 +71,12 @@ const BurgerConstructor = () => {
                                             <div className={`mb-2 ${constructorStyle.ingredient}`}>
                                                 <ConstructorElement 
                                                     thumbnail={bun.image_mobile}
-                                                    text={bun.name}
+                                                    text={
+                                                        <div>
+                                                            <div>{bun.name}</div>
+                                                            <div>(верх)</div>
+                                                        </div>
+                                                    }
                                                     price={bun.price}
                                                     isLocked={true}
                                                     type="top"/>
@@ -99,7 +104,12 @@ const BurgerConstructor = () => {
                                             <div className={`mb-2 ${constructorStyle.ingredient}`}>
                                                 <ConstructorElement 
                                                     thumbnail={bun.image_mobile}
-                                                    text={bun.name}
+                                                    text={
+                                                        <div>
+                                                            <div>{bun.name}</div>
+                                                            <div>(низ)</div>
+                                                        </div>
+                                                    }
                                                     price={bun.price}
                                                     isLocked={true}
                                                     type="bottom"/>

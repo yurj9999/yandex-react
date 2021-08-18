@@ -14,23 +14,26 @@ export const socketMiddleware = store => {
 
         switch(action.type) {
             case WS_CONNECT_ORDER_TAPE:
-                wssAllOrders = new WebSocket(action.payload.url);
-                if (wssAllOrders) {
-                    wssAllOrders.onmessage = event => {
-                        if (event.data === 'ping') {
-                            wssAllOrders.send('pong');
-                        }
-        
-                        dispatch({
-                            type: 'order-tape/setOrders',
-                            payload: event.data
-                        });
-                    };
+                if (wssAllOrders === null) {
+                    wssAllOrders = new WebSocket(action.payload.url);
+                    if (wssAllOrders) {
+                        wssAllOrders.onmessage = event => {
+                            if (event.data === 'ping') {
+                                wssAllOrders.send('pong');
+                            }
+            
+                            dispatch({
+                                type: 'order-tape/setOrders',
+                                payload: event.data
+                            });
+                        };
+                    }
                 }
                 break;
             
             case WS_DISCONNECT_ORDER_TAPE:
                 wssAllOrders.close();
+                wssAllOrders = null;
                 
                 dispatch({
                     type: 'order-tape/clearOrders'
@@ -38,23 +41,26 @@ export const socketMiddleware = store => {
                 break;
     
             case WS_CONNECT_USER_ORDERS:
-                wssMyOrders = new WebSocket(action.payload.url);
-                if (wssMyOrders) {
-                    wssMyOrders.onmessage = event => {
-                        if (event.data === 'ping') {
-                            wssMyOrders.send('pong');
-                        }
-
-                        dispatch({
-                            type: 'my-orders/setOrders',
-                            payload: event.data
-                        });
-                    };
+                if (wssMyOrders === null) {
+                    wssMyOrders = new WebSocket(action.payload.url);
+                    if (wssMyOrders) {
+                        wssMyOrders.onmessage = event => {
+                            if (event.data === 'ping') {
+                                wssMyOrders.send('pong');
+                            }
+    
+                            dispatch({
+                                type: 'my-orders/setOrders',
+                                payload: event.data
+                            });
+                        };
+                    }
                 }
                 break;
     
             case WS_DISCONNECT_USER_ORDERS:
                 wssMyOrders.close();
+                wssMyOrders = null;
                 
                 dispatch({
                     type: 'my-orders/clearOrders'

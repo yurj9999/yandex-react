@@ -65,6 +65,8 @@ export const Burger = ({data, needStatus = false}) => {
                                             }} src={ingredients.find(item => item._id === id).image_mobile}/>
                                         );
                                     }
+                                } else {
+                                    return null;
                                 }
                             } else {
                                 return null;

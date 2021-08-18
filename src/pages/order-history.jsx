@@ -44,7 +44,7 @@ export const OrderHistory = () => {
 
                 <div className={styles.burgers}>
                     {
-                        orders.map(item => (
+                        [...orders].reverse().map(item => (
                             <Link className={styles.link} key={item._id} to={{
                                 pathname: `/profile/orders/id${item._id}`,
                                 state: {

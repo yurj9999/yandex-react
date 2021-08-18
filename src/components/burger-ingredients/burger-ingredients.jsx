@@ -68,16 +68,16 @@ const BurgerIngredients = () => {
                 <Tab value="sauces" active={tab === 'sauces'} onClick={() => onTabClick('sauces')}>Соусы</Tab>
                 <Tab value="fillings" active={tab === 'fillings'} onClick={() => onTabClick('fillings')}>Начинки</Tab>
             </div>
-            <div ref={ingredientBlock} onScroll={onScrollTab} className={ingredientsStyle.menuWrapper}>
-                <div ref={breadsGroup} className={ingredientsStyle.block}>
+            <div data-cy="ingredients-list" ref={ingredientBlock} onScroll={onScrollTab} className={ingredientsStyle.menuWrapper}>
+                <div data-cy="buns" ref={breadsGroup} className={ingredientsStyle.block}>
                     <p className="text text_type_main-medium">Булки</p>
                     <ProductGroup ingredientType="bun"/>
                 </div>
-                <div ref={saucesGroup} className={ingredientsStyle.block}>
+                <div data-cy="sauces" ref={saucesGroup} className={ingredientsStyle.block}>
                     <p className="text text_type_main-medium">Соусы</p>
                     <ProductGroup ingredientType="sauce"/>
                 </div>
-                <div ref={fillingsGroup} className={ingredientsStyle.block}>
+                <div data-cy="fillings" ref={fillingsGroup} className={ingredientsStyle.block}>
                     <p className="text text_type_main-medium">Начинки</p>
                     <ProductGroup ingredientType="main"/>
                 </div>

@@ -61,7 +61,7 @@ const BurgerConstructor = () => {
     return (
         !blockedAll && (<section className={constructorStyle.wrapper}>
             {
-                <div ref={dropRef} className={constructorStyle.itemWrapper}>
+                <div data-cy="constructor" ref={dropRef} className={constructorStyle.itemWrapper}>
                     {
                         Object.keys(bun).length || fillings.length ? (
                             <>
@@ -88,7 +88,7 @@ const BurgerConstructor = () => {
                                 {
                                     fillings.length ? (
                                         <DndProvider backend={HTML5Backend}>
-                                            <div className={constructorStyle.mainIngredientsWrapper}>
+                                            <div data-cy="filling-arr" className={constructorStyle.mainIngredientsWrapper}>
                                                 {
                                                     fillings.map((element, index) =>
                                                         <BurgerFilling key={`${element._id}${index}`} element={element} index={index}/>

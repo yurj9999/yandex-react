@@ -18,7 +18,7 @@ const ProductGroup = ({ingredientType}) => {
             {
                 ingredients.map(item => item.type === ingredientType && 
                     (
-                        <li key={item._id} className={productGroup.ingredientWrapper}>
+                        <li data-cy="ingredient" key={item._id} className={productGroup.ingredientWrapper}>
                             <Link to={{
                                 pathname: `/ingredients/${item._id}`,
                                 state: {

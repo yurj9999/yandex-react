@@ -1,57 +1,36 @@
-import {useMemo} from 'react';
-
 import PropTypes from 'prop-types';
+import {useSelector} from 'react-redux';
+
+import {getBurgerStatus} from '../../services/utils/get-burger-status';
+import {getStrDataCreated} from '../../services/utils/get-str-data-created';
+import {getBurgerPrice} from '../../services/utils/get-burger-price';
 
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
+import {
+    LAST_VISIBLE_INGREDIENTS,
+    MAX_VISIBLE_INGREDIENTS,
+    RIGHT_INGREDIENT_POSITION
+} from '../../services/constants';
+
 import styles from './burger.module.css';
 
-// временный импорт
-import img from '../../images/bun-01.png';
-
-const LAST_VISIBLE_INGREDIENTS = 5;
-const MAX_VISIBLE_INGREDIENTS = 6;
-const RIGHT_POSITION = 15;
-
-export const Burger = ({needStatus = false, statusType = 'done'}) => {
-
-    // в последующем будет приходить массив с данными об ингредиентах
-    const ingredients = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-    const statusData = useMemo(() => {
-        switch(statusType) {
-            case 'cancelled':
-                return {
-                    style: styles.cancelled,
-                    text: 'Отменен'
-                };
-
-            case 'inWork':
-                return {
-                    style: styles.inWork,
-                    text: 'Готовится'
-                };
-
-            default:
-                return {
-                    style: '',
-                    text: 'Выполнен'
-                };
-        }
-    }, [statusType]);
+export const Burger = ({data, needStatus = false}) => {
+    const {createdAt, name, number, status} = data;
+    const {ingredients} = useSelector(store => store.ingredients);
 
     return (
         <div className={styles.wrapper}>
             <div className={styles.titleWrapper}>
-                <p className="text text_type_digits-default">#034535</p>
-                <p className={`text text_type_main-default ${styles.titleTime}`}>Сегодня, 16:20 i-GMT+3</p>
+                <p className="text text_type_digits-default">{`#${number}`}</p>
+                <p className={`text text_type_main-default ${styles.titleTime}`}>{getStrDataCreated(createdAt)}</p>
             </div>
 
             <div className={styles.textWrapper}>
-                <p className={`text text_type_main-medium ${styles.captionBurger}`}>Death Star Starship Main бургер</p>
+                <p className={`text text_type_main-medium ${styles.captionBurger}`}>{name}</p>
                 {
                     needStatus
-                        ? <p className={`text text_type_main-default ${statusData.style}`}>{statusData.text}</p>
+                        ? <p className={`text text_type_main-default ${status === 'pending' && styles.cancelled} ${status === 'done' && styles.inWork}`}>{getBurgerStatus(status)}</p>
                         : null
                 }
             </div>
@@ -59,34 +38,37 @@ export const Burger = ({needStatus = false, statusType = 'done'}) => {
             <div className={styles.burgerWrapper}>
                 <div className={styles.ingredientsWrapper}>
                     {
-                        ingredients.map((ingredient, index) => {
-                            if (index < MAX_VISIBLE_INGREDIENTS) {
-                                if (index === LAST_VISIBLE_INGREDIENTS) {
-                                    return (
-                                        <div key={index} className={styles.imgWrapper} style={{
-                                            zIndex: ingredients.length - index,
-                                            right: `${index === 0 ? 0 : RIGHT_POSITION * index}px`
-                                        }}>
-                                            <div className={styles.ingredientCount}>
-                                                <p className="text text_type_main-default">
-                                                    +{ingredients.length - index - 1}
-                                                </p>
+                        data.ingredients.map((id, index) => {
+                            if (id !== null) {
+                                if (index < MAX_VISIBLE_INGREDIENTS) {
+                                    if (index === LAST_VISIBLE_INGREDIENTS) {
+                                        return (
+                                            <div key={id} className={styles.imgWrapper} style={{
+                                                zIndex: data.ingredients.length - index,
+                                                right: `${index === 0 ? 0 : RIGHT_INGREDIENT_POSITION * index}px`
+                                            }}>
+                                                <div className={styles.ingredientCount}>
+                                                    <p className="text text_type_main-default">
+                                                        +{data.ingredients.length - index}
+                                                    </p>
+                                                </div>
+                                                <img alt="ingredient" className={styles.img} style={{
+                                                    position: 'absolute'
+                                                }} src={ingredients.find(item => item._id === id).image_mobile}/>
                                             </div>
-                                            <img alt="ingredient" className={styles.img} style={{
-                                                position: 'absolute'
-                                            }} src={img}/>
-                                        </div>
-                                    )
+                                        )
+                                    } else {
+                                        return (
+                                            <img alt="ingredient" key={id + index} className={styles.img} style={{
+                                                zIndex: data.ingredients.length - index,
+                                                right: `${index === 0 ? 0 : RIGHT_INGREDIENT_POSITION * index}px`
+                                            }} src={ingredients.find(item => item._id === id).image_mobile}/>
+                                        );
+                                    }
                                 } else {
-                                    return (
-                                        <img alt="ingredient" key={index} className={styles.img} style={{
-                                            zIndex: ingredients.length - index,
-                                            right: `${index === 0 ? 0 : RIGHT_POSITION * index}px`
-                                        }} src={img}/>
-                                    );
+                                    return null;
                                 }
-                            }
-                            else {
+                            } else {
                                 return null;
                             }
                         })
@@ -94,15 +76,15 @@ export const Burger = ({needStatus = false, statusType = 'done'}) => {
                 </div>
 
                 <div className={styles.costWrapper}>
-                    <p className={`text text_type_digits-default ${styles.cost}`}>480</p>
+                    <p className={`text text_type_digits-default ${styles.cost}`}>{getBurgerPrice(data.ingredients, ingredients)}</p>
                     <CurrencyIcon type="primary" />
                 </div>
             </div>
-        </div> 
+        </div>
     );
 }
 
 Burger.propTypes = {
-    needStatus: PropTypes.bool,
-    statusType: PropTypes.string
+    data: PropTypes.object.isRequired,
+    needStatus: PropTypes.bool
 };

@@ -3,38 +3,18 @@ import {
     URL_REGISTRATION,
     URL_AUTORIZATION,
     URL_EXIT,
-    URL_UPDATE_USER,
-    URL_UPDATE_TOKEN
+    URL_UPDATE_USER
 } from '../constants';
 
 import {actions as ingredientsActions} from '../slices/ingredients';
 import {actions as userActions} from '../slices/user';
-
+import {refreshTokenUpdater} from '../utils/refresh-token-updater';
 import {setCookie, getCookie, deleteCookie} from '../utils/cookie-helper';
 
-const refreshTokenUpdater = async (dispatcher, action) => {
-    try {
-        const request = await fetch(URL_UPDATE_TOKEN, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify({token: localStorage.getItem('burgerRefreshToken')})
-        });
-
-        if (!request.ok) {
-            throw new Error('Ошибка при запросе.');
-        }
-        const data = await request.json();
-
-        setCookie('burgerAccessToken', data.accessToken);
-        localStorage.setItem('burgerRefreshToken', data.refreshToken);
-
-        dispatcher(action(data));
-    } catch (error) {
-        console.log(error.message);
-    }
-}
+export const WS_CONNECT_ORDER_TAPE = 'WS_CONNECT_ORDER_TAPE';
+export const WS_DISCONNECT_ORDER_TAPE = 'WS_DISCONNECT_ORDER_TAPE';
+export const WS_CONNECT_USER_ORDERS = 'WS_CONNECT_USER_ORDERS';
+export const WS_DISCONNECT_USER_ORDERS = 'WS_DISCONNECT_USER_ORDERS';
 
 export const updateUserData = (newUserData, token) => {
     const {setUserRequest, setUserError, setUserSuccess, setUpdatedTokens} = userActions;
@@ -53,8 +33,10 @@ export const updateUserData = (newUserData, token) => {
 
             if (!request.ok) {
                 const error = await request.json();
+
                 if (error.message === 'jwt expired') {
                     await refreshTokenUpdater(dispatch, setUpdatedTokens);
+                    throw new Error(error.message);
                 } else {
                     throw new Error('Ошибка');
                 }
@@ -66,8 +48,12 @@ export const updateUserData = (newUserData, token) => {
                 accessToken: token,
                 refreshToken: localStorage.getItem('burgerRefreshToken')
             }));
-        } catch (error) {
-            dispatch(setUserError(error.message));
+        } catch(error) {
+            if (error.message === 'jwt expired') {
+                await updateUserData(newUserData, token)(dispatch);
+            } else {
+                dispatch(setUserError(error.message));
+            }
         }
     }
 }
@@ -89,9 +75,11 @@ export const setUserFromServer = () => {
 
             if (!request.ok) {
                 const error = await request.json();
+
                 if (error.message === 'jwt expired') {
                     deleteCookie('burgerAccessToken');
                     await refreshTokenUpdater(dispatch, setUpdatedTokens);
+                    throw new Error(error.message);
                 } else {
                     throw new Error('Ошибка');
                 }
@@ -104,9 +92,13 @@ export const setUserFromServer = () => {
                 accessToken: getCookie('burgerAccessToken'),
                 refreshToken: localStorage.getItem('burgerRefreshToken')
             }));
-        } catch (error) {
-            dispatch(setUserError(error.message));
-            return error;
+        } catch(error) {
+            if (error.message === 'jwt expired') {
+                await setUserFromServer()(dispatch);
+            } else {
+                dispatch(setUserError(error.message));
+                return error;
+            }
         }
     }
 }

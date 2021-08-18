@@ -22,7 +22,11 @@ export const UserProfile = () => {
         password: ''
     });
 
-    const onSave = () => dispatch(updateUserData({...userData}));
+    const onSave = (event) => {
+        event.preventDefault();
+
+        dispatch(updateUserData({...userData}));
+    }
 
     const onCancel = () => setUserData({
         name: storeUserData.user.name,
@@ -48,7 +52,8 @@ export const UserProfile = () => {
                 <div className={styles.linksWrapper}>
                     <ProfileLinks/>
                 </div>
-                <div >
+                
+                <form onSubmit={onSave}>
                     <div className={styles.inputsWrapper}>
                         <div className={styles.inputWrapper}>
                             <Input
@@ -93,11 +98,11 @@ export const UserProfile = () => {
                         </div>
 
                         <div className={styles.buttonsWrapper}>
-                            <Button type="primary" size="large" onClick={onSave}>Сохранить</Button>
+                            <Button type="primary" size="large">Сохранить</Button>
                             <Button type="primary" size="large" onClick={onCancel}>Отменить</Button>
                         </div>
                     </div>
-                </div>        
+                </form>   
             </div>
         </div> 
     );

@@ -15,7 +15,9 @@ export const RecoveryPassword = () => {
 
     const [email, setEmail] = useState('');
 
-    const onRecoveryClick = () => {
+    const onRecoveryClick = (event) => {
+        event.preventDefault();
+        
         if (email) {
             recoveryPass(email)
                 .then(result => {
@@ -34,17 +36,19 @@ export const RecoveryPassword = () => {
             </div>   
             <p className={`text text_type_main-medium ${styles.title}`}>Восстановление пароля</p>
 
-            <div className={styles.inputWrapper}>
-                <Input
-                    type={'email'}
-                    placeholder={'E-mail'}
-                    value={email}
-                    onChange={event => setEmail(event.target.value)}/>
-            </div>
+            <form onSubmit={onRecoveryClick}>
+                <div className={styles.inputWrapper}>
+                    <Input
+                        type={'email'}
+                        placeholder={'E-mail'}
+                        value={email}
+                        onChange={event => setEmail(event.target.value)}/>
+                </div>
 
-            <div className={styles.button}>
-                <Button onClick={onRecoveryClick} type="primary" size="large">Восстановить</Button>
-            </div>
+                <div className={styles.button}>
+                    <Button type="primary" size="large">Восстановить</Button>
+                </div>
+            </form>
             
             <div className={styles.footer}>
                 <p className={`text text_type_main-default ${styles.footerInfo}`}>Вспомнили пароль?</p>

@@ -31,7 +31,9 @@ export const ResetPassword = () => {
         });
     };
 
-    const onSave = () => {
+    const onSave = (event) => {
+        event.preventDefault();
+        
         if (passwordConfig.value && token) {
             resetPass({
                 password: passwordConfig.value,
@@ -58,31 +60,33 @@ export const ResetPassword = () => {
                 </div>   
                 <p className={`text text_type_main-medium ${styles.title}`}>Восстановление пароля</p>
 
-                <div className={styles.inputWrapper}>
-                    <Input
-                        type={passwordConfig.type}
-                        placeholder={'Введите новый пароль'}
-                        value={passwordConfig.value}
-                        onChange={event => setPasswordConfig({
-                            ...passwordConfig,
-                            value: event.target.value
-                        })}
-                        icon={passwordConfig.icon}
-                        ref={passRef}
-                        onIconClick={onEyeClick}/>
-                </div>
+                <form onSubmit={onSave}>
+                    <div className={styles.inputWrapper}>
+                        <Input
+                            type={passwordConfig.type}
+                            placeholder={'Введите новый пароль'}
+                            value={passwordConfig.value}
+                            onChange={event => setPasswordConfig({
+                                ...passwordConfig,
+                                value: event.target.value
+                            })}
+                            icon={passwordConfig.icon}
+                            ref={passRef}
+                            onIconClick={onEyeClick}/>
+                    </div>
 
-                <div className={styles.inputWrapper}>
-                    <Input
-                        type={'text'}
-                        placeholder={'Введите код из письма'}
-                        value={token}
-                        onChange={event => setToken(event.target.value)}/>
-                </div>
+                    <div className={styles.inputWrapper}>
+                        <Input
+                            type={'text'}
+                            placeholder={'Введите код из письма'}
+                            value={token}
+                            onChange={event => setToken(event.target.value)}/>
+                    </div>
 
-                <div className={styles.button}>
-                    <Button type="primary" size="large" onClick={onSave}>Сохранить</Button>
-                </div>
+                    <div className={styles.button}>
+                        <Button type="primary" size="large">Сохранить</Button>
+                    </div>
+                </form>
                 
                 <div className={styles.footer}>
                     <p className={`text text_type_main-default ${styles.footerInfo}`}>Вспомнили пароль?</p>

@@ -1,9 +1,7 @@
-import React, {useState, useEffect, createRef} from 'react';
-import {useDispatch} from 'react-redux';
+import React, {useState, useRef} from 'react';
 
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 
-import {getIngredients} from '../../services/actions';
 import ProductGroup from './product-group/product-group';
 
 import ingredientsStyle from './burger-ingredients.module.css';
@@ -12,18 +10,18 @@ const LOW_PARENT_TOP = 0;
 const HIGH_PARENT_TOP = 100;
 
 const BurgerIngredients = () => {
-    const dispatch = useDispatch();
     const [tab, setTab] = useState('breads');
 
-    const breadsGroup = createRef(null);
-    const saucesGroup = createRef(null);
-    const fillingsGroup = createRef(null);
-    const ingredientBlock = createRef(null);
+    const breadsGroup = useRef(null);
+    const saucesGroup = useRef(null);
+    const fillingsGroup = useRef(null);
+    const ingredientBlock = useRef(null);
 
     const onTabClick = (currentTab) => {
         const scrollParameter = {
             behavior: 'smooth'
         };
+
         setTab(currentTab);
 
         switch(currentTab) {
@@ -49,39 +47,41 @@ const BurgerIngredients = () => {
         const saucesPos = saucesTop - parentTop;
         const fillingsPos = fillingsTop - parentTop;
 
-        if (breadPos < HIGH_PARENT_TOP && breadPos >= LOW_PARENT_TOP) setTab('breads');
-        if (saucesPos < HIGH_PARENT_TOP && saucesTop >= LOW_PARENT_TOP) setTab('sauces');
-        if (fillingsPos < HIGH_PARENT_TOP && fillingsPos >= LOW_PARENT_TOP) setTab('fillings');
+        if (breadPos < HIGH_PARENT_TOP && breadPos >= LOW_PARENT_TOP) {
+            setTab('breads');
+        }
+
+        if (saucesPos < HIGH_PARENT_TOP && saucesTop >= LOW_PARENT_TOP) {
+            setTab('sauces');
+        }
+
+        if (fillingsPos < HIGH_PARENT_TOP && fillingsPos >= LOW_PARENT_TOP) {
+            setTab('fillings');
+        }
     }
-    
-    useEffect(() => dispatch(getIngredients()), [dispatch]);
 
     return (
         <section className={ingredientsStyle.wrapper}>
-            {
-                <>
-                    <p className={`text text_type_main-large ${ingredientsStyle.title}`}>Соберите бургер</p>
-                    <div className={ingredientsStyle.tabs}>
-                        <Tab value="breads" active={tab === 'breads'} onClick={() => onTabClick('breads')}>Булки</Tab>
-                        <Tab value="sauces" active={tab === 'sauces'} onClick={() => onTabClick('sauces')}>Соусы</Tab>
-                        <Tab value="fillings" active={tab === 'fillings'} onClick={() => onTabClick('fillings')}>Начинки</Tab>
-                    </div>
-                    <div ref={ingredientBlock} onScroll={onScrollTab} className={ingredientsStyle.menuWrapper}>
-                        <div ref={breadsGroup} className={ingredientsStyle.block}>
-                            <p className="text text_type_main-medium">Булки</p>
-                            <ProductGroup ingredientType="bun"/>
-                        </div>
-                        <div ref={saucesGroup} className={ingredientsStyle.block}>
-                            <p className="text text_type_main-medium">Соусы</p>
-                            <ProductGroup ingredientType="sauce"/>
-                        </div>
-                        <div ref={fillingsGroup} className={ingredientsStyle.block}>
-                            <p className="text text_type_main-medium">Начинки</p>
-                            <ProductGroup ingredientType="main"/>
-                        </div>
-                    </div>
-                </>
-            }
+            <p className={`text text_type_main-large ${ingredientsStyle.title}`}>Соберите бургер</p>
+            <div data-testid="tabs" className={ingredientsStyle.tabs}>
+                <Tab value="breads" active={tab === 'breads'} onClick={() => onTabClick('breads')}>Булки</Tab>
+                <Tab value="sauces" active={tab === 'sauces'} onClick={() => onTabClick('sauces')}>Соусы</Tab>
+                <Tab value="fillings" active={tab === 'fillings'} onClick={() => onTabClick('fillings')}>Начинки</Tab>
+            </div>
+            <div ref={ingredientBlock} onScroll={onScrollTab} className={ingredientsStyle.menuWrapper}>
+                <div ref={breadsGroup} className={ingredientsStyle.block}>
+                    <p className="text text_type_main-medium">Булки</p>
+                    <ProductGroup ingredientType="bun"/>
+                </div>
+                <div ref={saucesGroup} className={ingredientsStyle.block}>
+                    <p className="text text_type_main-medium">Соусы</p>
+                    <ProductGroup ingredientType="sauce"/>
+                </div>
+                <div ref={fillingsGroup} className={ingredientsStyle.block}>
+                    <p className="text text_type_main-medium">Начинки</p>
+                    <ProductGroup ingredientType="main"/>
+                </div>
+            </div>
         </section>
     );
 }

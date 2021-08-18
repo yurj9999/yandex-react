@@ -1,18 +1,13 @@
-import {useLocation} from 'react-router-dom';
+import {useSelector} from 'react-redux';
 
 import orderStyle from './order-details.module.css';
 
-const OrderDetails = () => {
-    const location = useLocation();
-    const {name, order} = location.state.item;
-
-    // захардкож данные
-    const status = 'Ваш заказ начали готовить';
-    const details = 'Дождитесь готовности на орбитальной станции';
+export const OrderDetails = () => {
+    const {number, name, status, details} = useSelector(store => store.modal);
 
     return (
         <div className={orderStyle.wrapper}>
-            <p className={`text text_type_digits-large mb-4 ${orderStyle.number}`}>{order.number}</p>
+            <p className={`text text_type_digits-large mb-4 ${orderStyle.number}`}>{number}</p>
             <p className={`text text_type_main-medium ${orderStyle.title}`}>{name}</p>
             <div className={orderStyle.image}>
                 <div className={orderStyle.vektorSecond}>
@@ -59,5 +54,3 @@ const OrderDetails = () => {
         </div>
     );
 }
-
-export default OrderDetails;

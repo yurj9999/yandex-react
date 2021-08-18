@@ -13,11 +13,12 @@
 .mainBlock {
     display: flex;
     justify-content: space-between;
+    height: calc(100vh / 1.35);
 }
 
 .burgers {
     width: 584px;
-    height: calc(100vh / 1.25);
+    margin-bottom: 20px;
     overflow: auto;
 }
 

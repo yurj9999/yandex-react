@@ -28,7 +28,7 @@ const Product = ({data}) => {
 
     return (
         <>
-            <div ref={dragRef} className={productStyle.ingredient}>
+            <div data-qa="product-component" ref={dragRef} className={productStyle.ingredient}>
                 <img alt="ingredient" className="mb-1" src={data.image}/>
                 <div className={productStyle.costWrapper}>
                     <p className="text text_type_digits-default mr-1 mb-1">{data.price}</p>
@@ -44,7 +44,13 @@ const Product = ({data}) => {
 }
 
 Product.propTypes = {
-    data: PropTypes.object.isRequired
+    data: PropTypes.shape({
+        image: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        type: PropTypes.string.isRequired,
+        _id: PropTypes.string.isRequired
+    }).isRequired
 };
 
 export default Product;

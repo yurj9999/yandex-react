@@ -66,7 +66,7 @@ const BurgerFilling = ({index, element}) => {
 
     return (
         <div ref={ref} className={`mb-2 ${fillingStyle.fillingIngredient} ${isTarget && fillingStyle.target}`}>
-            <ConstructorElement 
+            <ConstructorElement
                 handleClose={() => del(index)}
                 thumbnail={element.image_mobile}
                 text={element.name}

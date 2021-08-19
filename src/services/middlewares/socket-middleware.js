@@ -24,7 +24,7 @@ export const socketMiddleware = store => {
             
                             dispatch({
                                 type: 'order-tape/setOrders',
-                                payload: event.data
+                                payload: JSON.parse(event.data)
                             });
                         };
                     }
@@ -51,7 +51,7 @@ export const socketMiddleware = store => {
     
                             dispatch({
                                 type: 'my-orders/setOrders',
-                                payload: event.data
+                                payload: JSON.parse(event.data)
                             });
                         };
                     }

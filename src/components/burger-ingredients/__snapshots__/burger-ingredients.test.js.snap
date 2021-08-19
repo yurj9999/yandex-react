@@ -46,10 +46,12 @@ exports[`Burger-ingredients tests Shouldn't be different between last snapshot a
   </div>
   <div
     className="menuWrapper"
+    data-cy="ingredients-list"
     onScroll={[Function]}
   >
     <div
       className="block"
+      data-cy="buns"
     >
       <p
         className="text text_type_main-medium"
@@ -61,6 +63,7 @@ exports[`Burger-ingredients tests Shouldn't be different between last snapshot a
       >
         <li
           className="ingredientWrapper"
+          data-cy="ingredient"
         >
           <a
             className="btn"
@@ -118,6 +121,7 @@ exports[`Burger-ingredients tests Shouldn't be different between last snapshot a
         </li>
         <li
           className="ingredientWrapper"
+          data-cy="ingredient"
         >
           <a
             className="btn"
@@ -177,6 +181,7 @@ exports[`Burger-ingredients tests Shouldn't be different between last snapshot a
     </div>
     <div
       className="block"
+      data-cy="sauces"
     >
       <p
         className="text text_type_main-medium"
@@ -188,6 +193,7 @@ exports[`Burger-ingredients tests Shouldn't be different between last snapshot a
       >
         <li
           className="ingredientWrapper"
+          data-cy="ingredient"
         >
           <a
             className="btn"
@@ -245,6 +251,7 @@ exports[`Burger-ingredients tests Shouldn't be different between last snapshot a
         </li>
         <li
           className="ingredientWrapper"
+          data-cy="ingredient"
         >
           <a
             className="btn"
@@ -302,6 +309,7 @@ exports[`Burger-ingredients tests Shouldn't be different between last snapshot a
         </li>
         <li
           className="ingredientWrapper"
+          data-cy="ingredient"
         >
           <a
             className="btn"
@@ -359,6 +367,7 @@ exports[`Burger-ingredients tests Shouldn't be different between last snapshot a
         </li>
         <li
           className="ingredientWrapper"
+          data-cy="ingredient"
         >
           <a
             className="btn"
@@ -418,6 +427,7 @@ exports[`Burger-ingredients tests Shouldn't be different between last snapshot a
     </div>
     <div
       className="block"
+      data-cy="fillings"
     >
       <p
         className="text text_type_main-medium"
@@ -429,6 +439,7 @@ exports[`Burger-ingredients tests Shouldn't be different between last snapshot a
       >
         <li
           className="ingredientWrapper"
+          data-cy="ingredient"
         >
           <a
             className="btn"
@@ -486,6 +497,7 @@ exports[`Burger-ingredients tests Shouldn't be different between last snapshot a
         </li>
         <li
           className="ingredientWrapper"
+          data-cy="ingredient"
         >
           <a
             className="btn"
@@ -543,6 +555,7 @@ exports[`Burger-ingredients tests Shouldn't be different between last snapshot a
         </li>
         <li
           className="ingredientWrapper"
+          data-cy="ingredient"
         >
           <a
             className="btn"
@@ -600,6 +613,7 @@ exports[`Burger-ingredients tests Shouldn't be different between last snapshot a
         </li>
         <li
           className="ingredientWrapper"
+          data-cy="ingredient"
         >
           <a
             className="btn"
@@ -657,6 +671,7 @@ exports[`Burger-ingredients tests Shouldn't be different between last snapshot a
         </li>
         <li
           className="ingredientWrapper"
+          data-cy="ingredient"
         >
           <a
             className="btn"
@@ -714,6 +729,7 @@ exports[`Burger-ingredients tests Shouldn't be different between last snapshot a
         </li>
         <li
           className="ingredientWrapper"
+          data-cy="ingredient"
         >
           <a
             className="btn"
@@ -771,6 +787,7 @@ exports[`Burger-ingredients tests Shouldn't be different between last snapshot a
         </li>
         <li
           className="ingredientWrapper"
+          data-cy="ingredient"
         >
           <a
             className="btn"
@@ -828,6 +845,7 @@ exports[`Burger-ingredients tests Shouldn't be different between last snapshot a
         </li>
         <li
           className="ingredientWrapper"
+          data-cy="ingredient"
         >
           <a
             className="btn"
@@ -885,6 +903,7 @@ exports[`Burger-ingredients tests Shouldn't be different between last snapshot a
         </li>
         <li
           className="ingredientWrapper"
+          data-cy="ingredient"
         >
           <a
             className="btn"

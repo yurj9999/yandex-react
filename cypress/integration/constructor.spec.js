@@ -2,7 +2,8 @@ import '@4tw/cypress-drag-drop';
 
 describe('dnd test', () => {
     it('should be dnd in constructor page', () => {
-        cy.visit('http://localhost:3000');
+        cy.visit('http://localhost:3000', { timeout: 30000 });
+
         cy.viewport(1280, 720);
 
         cy.get('[data-cy^=ingredients-list]').as('ingredients-list');

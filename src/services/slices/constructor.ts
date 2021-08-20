@@ -1,6 +1,10 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-const constructorInitialState = {
+import {IConstructorState} from '../../interfaces';
+
+import {} from '../actions/index';
+
+const constructorInitialState: IConstructorState = {
     bun: {},
     fillings: []
 };
@@ -9,7 +13,7 @@ const slice = createSlice({
     name: 'constructor',
     initialState: constructorInitialState,
     reducers: {
-        setBuns(state, actions) {
+        setBuns(state, actions: ) {
             state.bun = actions.payload;
         },
         setFillings(state, actions) {

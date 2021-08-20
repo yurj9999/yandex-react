@@ -1,8 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-import {IConstructorState} from '../../interfaces';
-
-import {} from '../actions/index';
+import {IConstructorState, IIngredient} from '../../interfaces';
+import {ISliceAction} from '../actions/index';
 
 const constructorInitialState: IConstructorState = {
     bun: {},
@@ -13,16 +12,16 @@ const slice = createSlice({
     name: 'constructor',
     initialState: constructorInitialState,
     reducers: {
-        setBuns(state, actions: ) {
+        setBuns(state, actions: ISliceAction<IIngredient>) {
             state.bun = actions.payload;
         },
-        setFillings(state, actions) {
+        setFillings(state, actions: ISliceAction<IIngredient>) {
             state.fillings.push(actions.payload);
         },
-        updateFillings(state, actions) {
+        updateFillings(state, actions: ISliceAction<IIngredient[]>) {
             state.fillings = actions.payload;
         },
-        deleteIngredient(state, actions) {
+        deleteIngredient(state, actions: ISliceAction<IIngredient[]>) {
             state.fillings = actions.payload;
         }
     }

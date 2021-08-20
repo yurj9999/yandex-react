@@ -28,10 +28,8 @@ export const WS_DISCONNECT_ORDER_TAPE: 'WS_DISCONNECT_ORDER_TAPE' = 'WS_DISCONNE
 export const WS_CONNECT_USER_ORDERS: 'WS_CONNECT_USER_ORDERS' = 'WS_CONNECT_USER_ORDERS';
 export const WS_DISCONNECT_USER_ORDERS: 'WS_DISCONNECT_USER_ORDERS' = 'WS_DISCONNECT_USER_ORDERS';
 
-const CONSTRUCTOR_SET_BUNS: 'constructor/setBuns' = 'constructor/setBuns';
-const CONSTRUCTOR_SET_FILLINGS: 'constructor/setFillings' = 'constructor/setFillings';
-const CONSTRUCTOR_UPDATE_FILLINGS: 'constructor/updateFillings' = 'constructor/updateFillings';
-const CONSTRUCTOR_DELETE_INGREDIENT: 'constructor/deleteIngredient' = 'constructor/deleteIngredient';
+
+
 
 
 
@@ -59,38 +57,24 @@ interface IWsDisconnectUserOrders {
     readonly type: typeof WS_DISCONNECT_USER_ORDERS;
 }
 
-
-
-
-interface IConstructorSetBuns {
-    readonly type: typeof CONSTRUCTOR_SET_BUNS;
-    readonly payload: IIngredient;
-}
-
-interface IConstructorSetFillings {
-    readonly type: typeof CONSTRUCTOR_SET_FILLINGS;
-    readonly payload: IIngredient;
-}
-
-interface IConstructorUpdateFillings {
-    readonly type: typeof CONSTRUCTOR_UPDATE_FILLINGS;
-    readonly payload: IIngredient;
-}
-
-interface IConstructorDeleteIngredient {
-    readonly type: typeof CONSTRUCTOR_DELETE_INGREDIENT;
-    readonly payload: IIngredient;
-}
-
-
-
-
-
-
-
-
-
 export type TWsActions = IWsConnectOrderTape | IWsDisconnectOrderTape | IWsConnectUserOrders | IWsDisconnectUserOrders;
+
+
+
+
+export interface ISliceAction<U> {
+    readonly payload: U;
+}
+
+
+
+
+
+
+
+
+
+
 
 export type TAppThunk<ReturnType = void> = ThunkAction<ReturnType, TRootState, unknown, Action<string>>
 

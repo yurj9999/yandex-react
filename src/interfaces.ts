@@ -59,3 +59,9 @@ export interface IConstructorState {
     bun: IIngredient | {};
     fillings: IIngredient[];
 }
+
+export interface IIngredientsState {
+    blockedAll: boolean;
+    error: string;
+    ingredients: IIngredient[];
+}

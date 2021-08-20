@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-import {IIngredientsState} from '../../interfaces';
+import {IIngredientsState, IIngredient} from '../../interfaces';
 import {ISliceAction} from '../actions/index';
 
 const ingredientsInitialState: IIngredientsState = {
@@ -16,11 +16,11 @@ const slice = createSlice({
         setAllIngredientsRequest(state) {
             state.blockedAll = true;
         },
-        setAllIngredientsError(state, actions) {
+        setAllIngredientsError(state, actions: ISliceAction<string>) {
             state.ingredients = [];
             state.error = actions.payload;
         },
-        setAllIngredientsSuccess(state, actions) {
+        setAllIngredientsSuccess(state, actions: ISliceAction<IIngredient[]>) {
             state.blockedAll = false;
             state.ingredients = actions.payload;
         }

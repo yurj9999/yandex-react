@@ -50,7 +50,7 @@ export const updateUserData = (newUserData, token) => {
             }));
         } catch(error) {
             if (error.message === 'jwt expired') {
-                await updateUserData(newUserData, token)/*(dispatch)*/;
+                await updateUserData(newUserData, token)(dispatch);
             } else {
                 dispatch(setUserError(error.message));
             }

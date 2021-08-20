@@ -1,17 +1,30 @@
+import {Middleware, MiddlewareAPI, Dispatch, Action} from 'redux';
+
 import {
     WS_CONNECT_ORDER_TAPE,
     WS_DISCONNECT_ORDER_TAPE,
     WS_CONNECT_USER_ORDERS,
-    WS_DISCONNECT_USER_ORDERS,
-    TStore
+    WS_DISCONNECT_USER_ORDERS
 } from '../actions/index';
 
-export const socketMiddleware = (store) => {
+
+
+
+// описать экшены для middleware с интерфейсам
+
+
+export const socketMiddleware: Middleware<{}, {
+    orders: any[],
+    total: number,
+    totalToday: number
+} | {
+    orders: any[]
+}> = (api) => {
     let wssAllOrders = null;
     let wssMyOrders = null;
 
-    return next => action => {
-        const {dispatch} = store;
+    return (next) => (action: any) => {
+        const {dispatch} = api;
 
         switch(action.type) {
             case WS_CONNECT_ORDER_TAPE:

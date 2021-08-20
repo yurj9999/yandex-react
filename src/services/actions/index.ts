@@ -11,28 +11,62 @@ import {actions as userActions} from '../slices/user';
 import {refreshTokenUpdater} from '../utils/refresh-token-updater';
 import {setCookie, getCookie, deleteCookie} from '../utils/cookie-helper';
 
-export const WS_CONNECT_ORDER_TAPE = 'WS_CONNECT_ORDER_TAPE';
-export const WS_DISCONNECT_ORDER_TAPE = 'WS_DISCONNECT_ORDER_TAPE';
-export const WS_CONNECT_USER_ORDERS = 'WS_CONNECT_USER_ORDERS';
-export const WS_DISCONNECT_USER_ORDERS = 'WS_DISCONNECT_USER_ORDERS';
+import {TDispatch, TStore} from '../../index';
 
-export const updateUserData = (newUserData, token) => {
+import {ThunkAction} from 'redux-thunk';
+import {AnyAction} from 'redux';
+
+import type {IUserData, IUserLogin} from '../../interfaces';
+
+export const WS_CONNECT_ORDER_TAPE: 'WS_CONNECT_ORDER_TAPE' = 'WS_CONNECT_ORDER_TAPE';
+export const WS_DISCONNECT_ORDER_TAPE: 'WS_DISCONNECT_ORDER_TAPE' = 'WS_DISCONNECT_ORDER_TAPE';
+export const WS_CONNECT_USER_ORDERS: 'WS_CONNECT_USER_ORDERS' = 'WS_CONNECT_USER_ORDERS';
+export const WS_DISCONNECT_USER_ORDERS: 'WS_DISCONNECT_USER_ORDERS' = 'WS_DISCONNECT_USER_ORDERS';
+
+
+
+
+
+
+
+export type TAppThunk<ReturnType = void> = ThunkAction<ReturnType, TStore, unknown, AnyAction>;
+
+export const getIngredients = (): TAppThunk => {
+    const {setAllIngredientsError, setAllIngredientsRequest, setAllIngredientsSuccess} = ingredientsActions;
+
+    return async (dispatch: TDispatch) => {
+        dispatch(setAllIngredientsRequest());
+        try {
+            const request = await fetch(URL_DATA);
+            if (!request.ok) {
+                throw new Error('Ошибка при запросе.');
+            }
+            const {data} = await request.json();
+            dispatch(setAllIngredientsSuccess(data));
+        } catch (error) {
+            dispatch(setAllIngredientsError(error.message))
+        }
+    };
+}
+
+export const updateUserData = (newUserData: IUserData, token: string): TAppThunk => {
     const {setUserRequest, setUserError, setUserSuccess, setUpdatedTokens} = userActions;
 
-    return async dispatch => {
+    const headers = new Headers();
+    headers.set('Content-Type', 'application/json;charset=utf-8');
+    headers.set('authorization', getCookie('burgerAccessToken') as string);
+
+    return async (dispatch: TDispatch) => {
         try {
             dispatch(setUserRequest());
             const request = await fetch(URL_UPDATE_USER, {
                 method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8',
-                    authorization: getCookie('burgerAccessToken')
-                },
+                headers,
                 body: JSON.stringify(newUserData)
             });
 
             if (!request.ok) {
-                const error = await request.json();
+                const error: Error = await request.json();
 
                 if (error.message === 'jwt expired') {
                     await refreshTokenUpdater(dispatch, setUpdatedTokens);
@@ -50,7 +84,7 @@ export const updateUserData = (newUserData, token) => {
             }));
         } catch(error) {
             if (error.message === 'jwt expired') {
-                await updateUserData(newUserData, token)/*(dispatch)*/;
+                await updateUserData(newUserData, token);
             } else {
                 dispatch(setUserError(error.message));
             }
@@ -58,19 +92,20 @@ export const updateUserData = (newUserData, token) => {
     }
 }
 
-export const setUserFromServer = () => {
+export const setUserFromServer = (): TAppThunk => {
     const {setUserSuccess, setUserError, setUserRequest, setUpdatedTokens} = userActions;
 
-    return async dispatch => {
+    const headers = new Headers();
+    headers.set('Content-Type', 'application/json;charset=utf-8');
+    headers.set('authorization', getCookie('burgerAccessToken') as string);
+
+    return async (dispatch: TDispatch) => {
         try {
             dispatch(setUserRequest());
 
             const request = await fetch(URL_UPDATE_USER, {
                 method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8',
-                    authorization: getCookie('burgerAccessToken')
-                }
+                headers
             });
 
             if (!request.ok) {
@@ -94,7 +129,7 @@ export const setUserFromServer = () => {
             }));
         } catch(error) {
             if (error.message === 'jwt expired') {
-                await setUserFromServer()(dispatch);
+                await setUserFromServer();
             } else {
                 dispatch(setUserError(error.message));
                 return error;
@@ -103,17 +138,18 @@ export const setUserFromServer = () => {
     }
 }
 
-export const exitUser = (refreshToken) => {
+export const exitUser = (refreshToken: string): TAppThunk => {
     const {setUserError, setUserRequest} = userActions;
 
-    return async dispatch => {
+    const headers = new Headers();
+    headers.set('Content-Type', 'application/json');
+
+    return async (dispatch: TDispatch) => {
         dispatch(setUserRequest());
         try {
             const request = await fetch(URL_EXIT, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers,
                 referrerPolicy: 'no-referrer',
                 body: JSON.stringify(refreshToken)
             });
@@ -131,17 +167,18 @@ export const exitUser = (refreshToken) => {
     }
 }
 
-export const setUser = (userData, typeRequest) => {
+export const setUser = (userData: IUserLogin, typeRequest: string): TAppThunk => {
     const {setUserRequest, setUserSuccess, setUserError} = userActions;
 
-    return async dispatch => {
+    const headers = new Headers();
+    headers.set('Content-Type', 'application/json');
+
+    return async (dispatch: TDispatch) => {
         dispatch(setUserRequest());
         try {
             const request = await fetch(typeRequest === 'registration' ? URL_REGISTRATION : URL_AUTORIZATION, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers,
                 referrerPolicy: 'no-referrer',
                 body: JSON.stringify(userData)
             });
@@ -160,22 +197,4 @@ export const setUser = (userData, typeRequest) => {
             return error;
         }
     }
-}
-
-export const getIngredients = () => {
-    const {setAllIngredientsError, setAllIngredientsRequest, setAllIngredientsSuccess} = ingredientsActions;
-
-    return async dispatch => {
-        dispatch(setAllIngredientsRequest());
-        try {
-            const request = await fetch(URL_DATA);
-            if (!request.ok) {
-                throw new Error('Ошибка при запросе.');
-            }
-            const {data} = await request.json();
-            dispatch(setAllIngredientsSuccess(data));
-        } catch (error) {
-            dispatch(setAllIngredientsError(error.message))
-        }
-    };
 }

@@ -17,10 +17,17 @@ export interface ILocationState {
     modal?: Location;
 }
 
-export interface IUserData {
+export interface IUserLogin {
     name: string;
     email: string;
+}
+
+export interface IUserData extends IUserLogin {
     password: string;
 }
 
+export interface IMyOrdersInitialState {
+    orders: ;
+}
 
+export type TInitialStateMiddleware = 

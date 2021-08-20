@@ -4,7 +4,8 @@ import {
     useSelector as selectorHook
 } from 'react-redux';
 
-import {TDispatch, TState} from '../actions/index';
+import {TDispatch} from '../../index';
+import {TRootState} from '../reducers/index';
   
 export const useDispatch = () => dispatchHook<TDispatch>();
-export const useSelector: TypedUseSelectorHook<TState> = selectorHook;
+export const useSelector: TypedUseSelectorHook<TRootState> = selectorHook;

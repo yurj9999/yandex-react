@@ -2,8 +2,7 @@ import {
     WS_CONNECT_ORDER_TAPE,
     WS_DISCONNECT_ORDER_TAPE,
     WS_CONNECT_USER_ORDERS,
-    WS_DISCONNECT_USER_ORDERS,
-    TStore
+    WS_DISCONNECT_USER_ORDERS
 } from '../actions/index';
 
 export const socketMiddleware = (store) => {

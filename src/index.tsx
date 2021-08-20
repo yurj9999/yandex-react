@@ -13,22 +13,12 @@ import './index.css';
 
 import reportWebVitals from './reportWebVitals';
 
-
-
-
-
-
 export const store = configureStore({
   reducer,
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(socketMiddleware as any)
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(socketMiddleware)
 });
 
-
-export type TStore = typeof store.getState;
 export type TDispatch = typeof store.dispatch;
-
-
-
 
 ReactDOM.render(
   <React.StrictMode>

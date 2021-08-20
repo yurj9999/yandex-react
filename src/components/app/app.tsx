@@ -94,7 +94,9 @@ const App: FC<{}> = (): ReactElement => {
     location.state = {};
   }
 
-  useEffect(() => dispatch(getIngredients()), [dispatch]);
+  useEffect(() => {
+    dispatch(getIngredients())
+  }, [dispatch]);
 
   return (
     <>

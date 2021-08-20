@@ -1,30 +1,21 @@
-import {Middleware, MiddlewareAPI, Dispatch, Action} from 'redux';
+import {Middleware} from 'redux';
 
 import {
     WS_CONNECT_ORDER_TAPE,
     WS_DISCONNECT_ORDER_TAPE,
     WS_CONNECT_USER_ORDERS,
-    WS_DISCONNECT_USER_ORDERS
+    WS_DISCONNECT_USER_ORDERS,
+    TWsActions
 } from '../actions/index';
 
+import {TRootState} from '../reducers/index';
 
+export const socketMiddleware: Middleware<{}, TRootState> = storeApi => {
+    let wssAllOrders: WebSocket | null = null;
+    let wssMyOrders: WebSocket | null = null;
 
-
-// описать экшены для middleware с интерфейсам
-
-
-export const socketMiddleware: Middleware<{}, {
-    orders: any[],
-    total: number,
-    totalToday: number
-} | {
-    orders: any[]
-}> = (api) => {
-    let wssAllOrders = null;
-    let wssMyOrders = null;
-
-    return (next) => (action: any) => {
-        const {dispatch} = api;
+    return next => (action: TWsActions) => {
+        const {dispatch} = storeApi;
 
         switch(action.type) {
             case WS_CONNECT_ORDER_TAPE:
@@ -33,7 +24,7 @@ export const socketMiddleware: Middleware<{}, {
                     if (wssAllOrders) {
                         wssAllOrders.onmessage = event => {
                             if (event.data === 'ping') {
-                                wssAllOrders.send('pong');
+                                wssAllOrders?.send('pong');
                             }
             
                             dispatch({
@@ -46,7 +37,7 @@ export const socketMiddleware: Middleware<{}, {
                 break;
             
             case WS_DISCONNECT_ORDER_TAPE:
-                wssAllOrders.close();
+                wssAllOrders?.close();
                 wssAllOrders = null;
                 
                 dispatch({
@@ -60,7 +51,7 @@ export const socketMiddleware: Middleware<{}, {
                     if (wssMyOrders) {
                         wssMyOrders.onmessage = event => {
                             if (event.data === 'ping') {
-                                wssMyOrders.send('pong');
+                                wssMyOrders?.send('pong');
                             }
     
                             dispatch({
@@ -73,7 +64,7 @@ export const socketMiddleware: Middleware<{}, {
                 break;
     
             case WS_DISCONNECT_USER_ORDERS:
-                wssMyOrders.close();
+                wssMyOrders?.close();
                 wssMyOrders = null;
                 
                 dispatch({

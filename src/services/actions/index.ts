@@ -11,10 +11,11 @@ import {actions as userActions} from '../slices/user';
 import {refreshTokenUpdater} from '../utils/refresh-token-updater';
 import {setCookie, getCookie, deleteCookie} from '../utils/cookie-helper';
 
-import {TDispatch, TStore} from '../../index';
+import {TDispatch} from '../../index';
+import {TRootState} from '../reducers/index';
 
 import {ThunkAction} from 'redux-thunk';
-import {AnyAction} from 'redux';
+import {Action} from 'redux';
 
 import type {IUserData, IUserLogin} from '../../interfaces';
 
@@ -23,13 +24,31 @@ export const WS_DISCONNECT_ORDER_TAPE: 'WS_DISCONNECT_ORDER_TAPE' = 'WS_DISCONNE
 export const WS_CONNECT_USER_ORDERS: 'WS_CONNECT_USER_ORDERS' = 'WS_CONNECT_USER_ORDERS';
 export const WS_DISCONNECT_USER_ORDERS: 'WS_DISCONNECT_USER_ORDERS' = 'WS_DISCONNECT_USER_ORDERS';
 
+interface IPayload {
+    url: string;
+}
 
+interface IWsConnectOrderTape {
+    readonly type: typeof WS_CONNECT_ORDER_TAPE;
+    readonly payload: IPayload;
+}
 
+interface IWsDisconnectOrderTape {
+    readonly type: typeof WS_DISCONNECT_ORDER_TAPE;
+}
 
+interface IWsConnectUserOrders {
+    readonly type: typeof WS_CONNECT_USER_ORDERS;
+    readonly payload: IPayload;
+}
 
+interface IWsDisconnectUserOrders {
+    readonly type: typeof WS_DISCONNECT_USER_ORDERS;
+}
 
+export type TWsActions = IWsConnectOrderTape | IWsDisconnectOrderTape | IWsConnectUserOrders | IWsDisconnectUserOrders;
 
-export type TAppThunk<ReturnType = void> = ThunkAction<ReturnType, TStore, unknown, AnyAction>;
+export type TAppThunk<ReturnType = void> = ThunkAction<ReturnType, TRootState, unknown, Action<string>>
 
 export const getIngredients = (): TAppThunk => {
     const {setAllIngredientsError, setAllIngredientsRequest, setAllIngredientsSuccess} = ingredientsActions;

@@ -2,11 +2,7 @@ import React, {useState, useRef, FC, ReactElement} from 'react';
 
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 
-
-
 import ProductGroup from './product-group/product-group';
-
-
 
 import {LOW_PARENT_TOP, HIGH_PARENT_TOP} from '../../services/constants';
 

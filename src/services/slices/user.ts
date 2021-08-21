@@ -6,6 +6,7 @@ import {
     TUserSuccess,
     TUserError
 } from '../../interfaces';
+
 import {ISliceAction} from '../actions/index';
 
 const userInitialState: IUserState = {

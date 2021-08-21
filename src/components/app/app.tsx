@@ -2,7 +2,7 @@ import {useEffect, FC, ReactElement} from 'react';
 //import {useDispatch} from 'react-redux';
 
 
-import {useDispatch} from '../../services/hooks/modified-react-hooks';
+import {useDispatch} from '../../services/utils/modified-react-hooks';
 
 
 import {Route, Switch, useLocation, useHistory} from 'react-router-dom';
@@ -66,7 +66,7 @@ import {ILocationState} from '../../interfaces';
 
 // типиз всех селекторов - const {ingredients} = useSelector(state => state.ingredients);
 
-
+// баг про одновременный запуск обновления токена и получения заказа
 
 
 const App: FC<{}> = (): ReactElement => {
@@ -79,7 +79,6 @@ const App: FC<{}> = (): ReactElement => {
 
 
 
-  //const dispatch = useDispatch<any>();
 
 
   const dispatch = useDispatch();

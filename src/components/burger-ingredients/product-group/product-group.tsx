@@ -1,14 +1,17 @@
-import React from 'react';
-import {useSelector} from 'react-redux';
-import {Link, useLocation} from 'react-router-dom';
+import React, {FC, ReactElement} from 'react';
 
-import PropTypes from 'prop-types';
+import {useSelector} from '../../../services/utils/modified-react-hooks';
+import {Link, useLocation} from 'react-router-dom';
 
 import Product from '../product/product';
 
 import productGroup from './product-group.module.css';
 
-const ProductGroup = ({ingredientType}) => {
+interface IProductGroup {
+    ingredientType: 'bun' | 'sauce' | 'main';
+}
+
+const ProductGroup: FC<IProductGroup> = ({ingredientType}): ReactElement => {
     const {ingredients} = useSelector(state => state.ingredients);
 
     const location = useLocation();
@@ -34,9 +37,5 @@ const ProductGroup = ({ingredientType}) => {
         </ul>
     );
 }
-
-ProductGroup.propTypes = {
-    ingredientType: PropTypes.string.isRequired
-};
 
 export default React.memo(ProductGroup);

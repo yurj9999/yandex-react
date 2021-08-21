@@ -17,23 +17,12 @@ import {TRootState} from '../reducers/index';
 import {ThunkAction} from 'redux-thunk';
 import {Action} from 'redux';
 
-import type {
-    IUserData,
-    IUserLogin,
-    IIngredient
-} from '../../interfaces';
+import type {IUserData, IUserLogin} from '../../interfaces';
 
 export const WS_CONNECT_ORDER_TAPE: 'WS_CONNECT_ORDER_TAPE' = 'WS_CONNECT_ORDER_TAPE';
 export const WS_DISCONNECT_ORDER_TAPE: 'WS_DISCONNECT_ORDER_TAPE' = 'WS_DISCONNECT_ORDER_TAPE';
 export const WS_CONNECT_USER_ORDERS: 'WS_CONNECT_USER_ORDERS' = 'WS_CONNECT_USER_ORDERS';
 export const WS_DISCONNECT_USER_ORDERS: 'WS_DISCONNECT_USER_ORDERS' = 'WS_DISCONNECT_USER_ORDERS';
-
-
-
-
-
-
-
 
 interface IPayload {
     url: string;
@@ -59,22 +48,9 @@ interface IWsDisconnectUserOrders {
 
 export type TWsActions = IWsConnectOrderTape | IWsDisconnectOrderTape | IWsConnectUserOrders | IWsDisconnectUserOrders;
 
-
-
-
 export interface ISliceAction<U> {
     readonly payload: U;
 }
-
-
-
-
-
-
-
-
-
-
 
 export type TAppThunk<ReturnType = void> = ThunkAction<ReturnType, TRootState, unknown, Action<string>>
 

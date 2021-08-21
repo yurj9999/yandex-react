@@ -1,15 +1,23 @@
-import {useCallback, useState, useEffect} from 'react';
+import {useCallback, useState, useEffect, FC, ReactElement} from 'react';
 import {useLocation, useHistory} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector} from '../../../services/utils/modified-react-hooks';
 
 import {getOrderDetails} from '../../../services/utils/get-order-details';
 import {getCookie} from '../../../services/utils/cookie-helper';
 
 import {Button} from '@ya.praktikum/react-developer-burger-ui-components';
 
+import {IOrderItem} from '../../../interfaces';
+
 import styles from './confirm-button.module.css';
 
-export const ConfirmButton = () => {
+interface IItem {
+    name: string;
+    order: IOrderItem;
+    success: boolean;
+}
+
+export const ConfirmButton: FC<{}> = (): ReactElement => {
     const location = useLocation();
     const history = useHistory();
     const dispatch = useDispatch();
@@ -42,7 +50,11 @@ export const ConfirmButton = () => {
             });
 
             try {
-                const item = await getOrderDetails([bun._id, ...fillings.map(item => item._id), bun._id]);
+                const item: IItem = await getOrderDetails([
+                    '_id' in bun && bun._id,
+                    ...fillings.map(item => item._id),
+                    '_id' in bun && bun._id
+                ]);
 
                 if (item instanceof Error) {
                     throw new Error();

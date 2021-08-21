@@ -17,7 +17,11 @@ import {TRootState} from '../reducers/index';
 import {ThunkAction} from 'redux-thunk';
 import {Action} from 'redux';
 
-import type {IUserData, IUserLogin} from '../../interfaces';
+import type {
+    IUserData,
+    IUserLogin,
+    IExit    
+} from '../../interfaces';
 
 export const WS_CONNECT_ORDER_TAPE: 'WS_CONNECT_ORDER_TAPE' = 'WS_CONNECT_ORDER_TAPE';
 export const WS_DISCONNECT_ORDER_TAPE: 'WS_DISCONNECT_ORDER_TAPE' = 'WS_DISCONNECT_ORDER_TAPE';
@@ -72,7 +76,7 @@ export const getIngredients = (): TAppThunk => {
     };
 }
 
-export const updateUserData = (newUserData: IUserData, token: string): TAppThunk => {
+export const updateUserData = (newUserData: IUserData, token?: string): TAppThunk => {
     const {setUserRequest, setUserError, setUserSuccess, setUpdatedTokens} = userActions;
 
     const headers = new Headers();
@@ -161,7 +165,7 @@ export const setUserFromServer = (): TAppThunk => {
     }
 }
 
-export const exitUser = (refreshToken: string): TAppThunk => {
+export const exitUser = (refreshToken: IExit): TAppThunk => {
     const {setUserError, setUserRequest} = userActions;
 
     const headers = new Headers();
@@ -190,7 +194,7 @@ export const exitUser = (refreshToken: string): TAppThunk => {
     }
 }
 
-export const setUser = (userData: IUserLogin, typeRequest: string): TAppThunk => {
+export const setUser = (userData: IUserLogin | IUserData, typeRequest: string): TAppThunk => {
     const {setUserRequest, setUserSuccess, setUserError} = userActions;
 
     const headers = new Headers();

@@ -1,25 +1,11 @@
 import {useEffect, FC, ReactElement} from 'react';
-//import {useDispatch} from 'react-redux';
-
-
 import {useDispatch} from '../../services/utils/modified-react-hooks';
-
-
 import {Route, Switch, useLocation, useHistory} from 'react-router-dom';
 
 import {getIngredients} from '../../services/actions/index';
 
 import AppHeader from '../app-header/app-header';
-
-
-
 import {Modal} from '../modal/modal';
-
-
-
-
-
-
 import {IngredientDetails} from '../ingredient-details/ingredient-details';
 import {OrderDetails} from '../order-details/order-details';
 import {ProtectedRoute} from '../protected-route/protected-route';
@@ -37,17 +23,13 @@ import {
   IngredientsConstructor
 } from '../../pages';
 
+import {Location} from 'history';
+import {ILocationState} from '../../interfaces';
+
 import appStyle from './app.module.css';
 
 
 
-import {Location} from 'history';
-import {ILocationState} from '../../interfaces';
-
-
-
-
-// !!!!!!!!!!! отчекрыжиться от мастера (там смерженная ветка sprint-4\step-2) в sprint-4\step-3, ее слить с add-ts !!!!!!!
 
 
 
@@ -56,35 +38,14 @@ import {ILocationState} from '../../interfaces';
 
 // удал /backup !!!
 
-// типизация везде для location
-// типизация везде для history
-// типизация any для экшенов в dispatch
 
-// index.tsx - какой тип возвр configureStore
-
-// проверить все тесты
-
-// типиз всех селекторов - const {ingredients} = useSelector(state => state.ingredients);
 
 // баг про одновременный запуск обновления токена и получения заказа
 
 
 const App: FC<{}> = (): ReactElement => {
-
-
-
-
-
   const location = useLocation<ILocationState>();
-
-
-
-
-
   const dispatch = useDispatch();
-  
-  
-  
   const history = useHistory();
 
   const modalBackground: Location | undefined = location.state && location.state.modal;

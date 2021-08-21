@@ -5,7 +5,7 @@ export interface ILocationState {
 }
 
 export interface IUserLogin {
-    name: string;
+    name?: string;
     email: string;
 }
 
@@ -83,3 +83,13 @@ export type TUpdatedToken = Pick<IUserState, 'accessToken'>;
 export type TUserSuccess = Pick<IUserState, 'success' | 'user' | 'accessToken' | 'refreshToken'>;
 
 export type TUserError = Pick<IUserState, 'success' | 'error'>;
+
+export interface IPasswordState {
+    type: 'email' | 'password' | 'text' | undefined;
+    value: string;
+    icon: 'ShowIcon' | 'HideIcon';
+}
+
+export interface IExit {
+    token: string;
+}

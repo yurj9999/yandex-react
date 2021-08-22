@@ -93,3 +93,14 @@ export interface IPasswordState {
 export interface IExit {
     token: string;
 }
+
+export interface IItem {
+    name: string;
+    order: IOrderItem;
+    success: boolean;
+}
+
+export interface IStatusNumbers {
+    done: number[];
+    inWork: number[];
+}

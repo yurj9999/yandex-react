@@ -28,21 +28,6 @@ import {ILocationState} from '../../interfaces';
 
 import appStyle from './app.module.css';
 
-
-
-
-
-
-
-
-
-// удал /backup !!!
-
-
-
-// баг про одновременный запуск обновления токена и получения заказа
-
-
 const App: FC<{}> = (): ReactElement => {
   const location = useLocation<ILocationState>();
   const dispatch = useDispatch();

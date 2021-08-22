@@ -1,11 +1,8 @@
 import {FC, ReactElement} from 'react';
 
-import styles from './order-total.module.css';
+import {IStatusNumbers} from '../../interfaces';
 
-interface IStatusNumbers {
-    done: number[];
-    inWork: number[];
-}
+import styles from './order-total.module.css';
 
 interface IOrderTotal {
     total: number;

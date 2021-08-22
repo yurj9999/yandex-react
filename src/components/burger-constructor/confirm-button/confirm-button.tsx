@@ -7,15 +7,9 @@ import {getCookie} from '../../../services/utils/cookie-helper';
 
 import {Button} from '@ya.praktikum/react-developer-burger-ui-components';
 
-import {IOrderItem} from '../../../interfaces';
+import {IOrderItem, IItem, IIngredient} from '../../../interfaces';
 
 import styles from './confirm-button.module.css';
-
-interface IItem {
-    name: string;
-    order: IOrderItem;
-    success: boolean;
-}
 
 export const ConfirmButton: FC<{}> = (): ReactElement => {
     const location = useLocation();
@@ -50,10 +44,10 @@ export const ConfirmButton: FC<{}> = (): ReactElement => {
             });
 
             try {
-                const item: IItem = await getOrderDetails([
-                    '_id' in bun && bun._id,
+                const item: IItem | undefined = await getOrderDetails([
+                    (bun as IIngredient)._id as string,
                     ...fillings.map(item => item._id),
-                    '_id' in bun && bun._id
+                    (bun as IIngredient)._id as string
                 ]);
 
                 if (item instanceof Error) {
@@ -64,16 +58,16 @@ export const ConfirmButton: FC<{}> = (): ReactElement => {
                     dispatch({
                         type: 'modal/setEndInfo',
                         payload: {
-                            number: item.order.number,
-                            name: item.name
+                            number: item?.order.number,
+                            name: item?.name
                         }
                     });
                 } else if (window.location.pathname === '/') {
                     dispatch({
                         type: 'modal/setEndInfo',
                         payload: {
-                            number: item.order.number,
-                            name: item.name
+                            number: item?.order.number,
+                            name: item?.name
                         }
                     });
 

@@ -15,7 +15,7 @@ import {TDispatch} from '../../index';
 import {TRootState} from '../reducers/index';
 
 import {ThunkAction} from 'redux-thunk';
-import {Action} from 'redux';
+import {Action, ActionCreator} from 'redux';
 
 import type {
     IUserData,
@@ -56,9 +56,9 @@ export interface ISliceAction<U> {
     readonly payload: U;
 }
 
-export type TAppThunk<ReturnType = void> = ThunkAction<ReturnType, TRootState, unknown, Action<string>>
+export type TAppThunk<ReturnType = void> = ActionCreator<ThunkAction<ReturnType, TRootState, unknown, Action<string>>>; 
 
-export const getIngredients = (): TAppThunk => {
+export const getIngredients: TAppThunk = () => {
     const {setAllIngredientsError, setAllIngredientsRequest, setAllIngredientsSuccess} = ingredientsActions;
 
     return async (dispatch: TDispatch) => {
@@ -76,7 +76,7 @@ export const getIngredients = (): TAppThunk => {
     };
 }
 
-export const updateUserData = (newUserData: IUserData, token?: string): TAppThunk => {
+export const updateUserData: TAppThunk = (newUserData: IUserData, token?: string) => {
     const {setUserRequest, setUserError, setUserSuccess, setUpdatedTokens} = userActions;
 
     const headers = new Headers();
@@ -119,7 +119,7 @@ export const updateUserData = (newUserData: IUserData, token?: string): TAppThun
     }
 }
 
-export const setUserFromServer = (): TAppThunk => {
+export const setUserFromServer: TAppThunk = () => {
     const {setUserSuccess, setUserError, setUserRequest, setUpdatedTokens} = userActions;
 
     const headers = new Headers();
@@ -165,7 +165,7 @@ export const setUserFromServer = (): TAppThunk => {
     }
 }
 
-export const exitUser = (refreshToken: IExit): TAppThunk => {
+export const exitUser: TAppThunk = (refreshToken: IExit) => {
     const {setUserError, setUserRequest} = userActions;
 
     const headers = new Headers();
@@ -194,7 +194,7 @@ export const exitUser = (refreshToken: IExit): TAppThunk => {
     }
 }
 
-export const setUser = (userData: IUserLogin | IUserData, typeRequest: string): TAppThunk => {
+export const setUser: TAppThunk = (userData: IUserLogin | IUserData, typeRequest: string) => {
     const {setUserRequest, setUserSuccess, setUserError} = userActions;
 
     const headers = new Headers();

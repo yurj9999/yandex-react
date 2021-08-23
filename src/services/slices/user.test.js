@@ -36,13 +36,12 @@ describe('user reducer tests', () => {
     test('should handle user/setUserError', () => expect(reducer(initialState, {
         type: 'user/setUserError',
         payload: {
-            success: false
+            success: false,
+            error: 'error'
         }
     })).toEqual({
         success: false,
-        error: {
-            success: false
-        },
+        error: 'error',
         user: {
             email: '',
             name: ''
@@ -51,6 +50,18 @@ describe('user reducer tests', () => {
         refreshToken: '',
         isBlocked: false,
         isExit: false
+
+
+            /*state.success = action.payload.success;
+            state.error = action.payload.error;
+            state.user.email = '';
+            state.user.name = '';
+            state.accessToken = '';
+            state.refreshToken = '';
+            state.isBlocked = false;
+            state.isExit = false;*/
+
+
     }));
 
     test('should handle user/setUserSuccess', () => expect(reducer(initialState, {
